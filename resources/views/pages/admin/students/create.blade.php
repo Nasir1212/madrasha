@@ -147,9 +147,28 @@
         <label class="form-label">Class</label>
         <select name="class" class="form-select">
           <option value="">Select Class</option>
-          @foreach(['Play','KG','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten'] as $class)
-          <option value="{{ $class }}" {{ old('class') == $class ? 'selected' : '' }}>{{ $class }}</option>
-          @endforeach
+
+        @php
+    $classes = [
+        0 => 'Play',
+        1 => 'One',
+        2 => 'Two',
+        3 => 'Three',
+        4 => 'Four',
+        5 => 'Five',
+        6 => 'Six',
+        7 => 'Seven',
+        8 => 'Eight',
+        9 => 'Nine',
+        10 => 'Ten',
+    ];
+@endphp
+
+@foreach($classes as $value => $label)
+    <option value="{{ $value }}" {{ old('class') == $value ? 'selected' : '' }}>
+        {{ $label }}
+    </option>
+@endforeach
         </select>
       </div>
 
@@ -160,7 +179,7 @@
 
       <div class="col-md-4">
         <label class="form-label">Session</label>
-        <input type="text" name="session" class="form-control" placeholder="2024-2025" value="{{ old('session') }}">
+        <input type="text" name="session" class="form-control" placeholder="{{ date('Y') }}" value="{{ old('session') ==null?date('Y'):old('session')}}">
       </div>
     </div>
 

@@ -136,9 +136,31 @@
         <label class="form-label">Class</label>
         <select name="class" class="form-select">
           <option value="">Select Class</option>
-          @foreach(['Play','KG','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten'] as $class)
-            <option value="{{ $class }}" {{ old('class', $student->currentAcademic->class ?? '') == $class ? 'selected' : '' }}>{{ $class }}</option>
-          @endforeach
+    @php
+    $classes = [
+        0 => 'Play',
+        1 => 'One',
+        2 => 'Two',
+        3 => 'Three',
+        4 => 'Four',
+        5 => 'Five',
+        6 => 'Six',
+        7 => 'Seven',
+        8 => 'Eight',
+        9 => 'Nine',
+        10 => 'Ten',
+    ];
+
+    // Selected class during editing
+    $selectedClass = old('class', $student->currentAcademic->class ?? '');
+@endphp
+
+@foreach($classes as $value => $label)
+    <option value="{{ $value }}" {{ $selectedClass == $value ? 'selected' : '' }}>
+        {{ $label }}
+    </option>
+@endforeach
+
         </select>
       </div>
       <div class="col-md-4">

@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Madrasa ID Cards</title>
-
+  <link href="https://fonts.maateen.me/solaiman-lipi/font.css" rel="stylesheet">
 <style>
   @media print {
     * {
@@ -23,6 +23,7 @@
         padding: 0;
         background: white;
         font-family: Arial, sans-serif;
+        font-family: 'SolaimanLipi', sans-serif;
     }
 
     /* 4 সেট প্রতি সারি */
@@ -54,15 +55,17 @@
         box-sizing: border-box;
         overflow: hidden;
         position: relative;
+        
     }
 
     .id-card {
         background-image: url('{{ asset("1pstudent_id_card copy.jpg") }}');
-        margin-bottom: 4mm;
+        margin-bottom: 2px;
     }
 
     .back-part {
         background-image: url('{{ asset("2pstudent_id_card copy.jpg") }}');
+        transform:rotate(180deg);
     }
 
     table {
@@ -86,6 +89,10 @@
         .page {
             page-break-after: always;
         }
+    }
+
+    .page{
+        margin-bottom: 5rem
     }
 </style>
 </head>

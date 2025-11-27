@@ -176,13 +176,4 @@ class StudentController extends Controller
         //
     }
 
-
-
-    public function printCards()
-{
-    $students = Student::with('currentAcademic')->get();  // All students
-
-    return view('pages.admin.students.print-cards', compact('students'));
-}
-
 }

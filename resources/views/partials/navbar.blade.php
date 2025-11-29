@@ -6,6 +6,6 @@
 
     <div class="d-flex align-items-center gap-2 no-print">
       <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-bell"></i></button>
-      <a class="btn btn-primary btn-sm" href="{{route('admin.students.create')}}">Add Student</a>
+      <a class="btn btn-primary btn-sm" href="{{route('home')}}"><i class="bi bi-globe"></i></a>
     </div>
   </div>

@@ -81,14 +81,14 @@
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="background-color: #0F3F55">
                     <div class=""  style="background-color: #E3E1CF">
                         <!--<img src="" alt="DSKM_LOGO">-->
-                        <img src="https://dskm.ac.bd/assets/images/Banner for web1.png" alt="DSKM_LOGO">
+                        <img src="{{ asset('assets/img/banner.jpeg') }}" alt="DSKM_LOGO">
                     </div>
                 </div>
             </div>
         </div>
 
         <!--<div class="header-middle p-0 bg-lightest xs-text-center navigation-cont" style="background-image: url(images/bg/bg.png)">-->
-        <div class="header-middle p-0 bg-lightest xs-text-center navigation-cont" style="background-color: transparent;">
+        <div class="header-middle p-0 bg-lightest xs-text-center navigation-cont" style="background-color: white;">
             <div class="container pt-0 pb-0">
                 <div class="row">
                     <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 col-xl-1">

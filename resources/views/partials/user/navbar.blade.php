@@ -4,7 +4,7 @@
                 <div class="container navigation-cont"  style="background-color: #202C45 !important;">
                     <nav id="menuzord" class="menuzord bg-theme-colored pull-left flip menuzord-responsive" style="background-color: #202C45 !important;">
                         <ul class="menuzord-menu">
-                            <li class="active"><a href="https://dskm.ac.bd/">হোম</a></li>
+                            <li class="active"><a href="{{ route('home') }}">হোম</a></li>
                             <li><a href="#">পরিচিতি</a>
                                 <ul class="dropdown">
                                     <li><a href="https://dskm.ac.bd/about-us">এক নাজরে মাদরাসা</a></li>
@@ -47,28 +47,8 @@
                                     <li><a href="#">প্রসপেক্টাস</a> </li>-->
                                 </ul>
                             </li>
-                            <li><a href="#">আবাসন</a>
-                                <ul class="dropdown">
-                                    <li><a href="https://dskm.ac.bd/hostel-introduction">ছাত্রাবাস পরিচিতি</a></li>
-                                    <li><a href="https://dskm.ac.bd/residential-halls-directors">আবাসিক হল ও পরিচালকবৃন্দ</a></li>
-                                    <li><a href="https://dskm.ac.bd/housing-regulations">আবাসন প্রাপ্তির নিয়মাবলী</a></li>
-                                    <li><a href="https://dskm.ac.bd/housing-charges">আবাসন চার্জ</a></li>
-                                    <li><a href="https://dskm.ac.bd/residential-policies">আবাসিক নীতিমালা</a> </li>
-                                    <li><a href="https://dskm.ac.bd/daily-residential-schedules">দৈনিক আবাসিক কার্যসূচি </a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">প্রকাশনা </a>
-                                <ul class="dropdown">
-                                    <li><a href="https://dskm.ac.bd/monthly-new-bikash">মাসিক নতুন বিকাশ</a></li>
-                                    <li><a href="https://dskm.ac.bd/event-schedule">ইভেন্ট সিডিউল</a></li>
-                                    <li><a href="https://dskm.ac.bd/study-tour">শিক্ষাসফর স্মারক</a></li>
-                                    <li><a href="https://dskm.ac.bd/yearly-activity">বার্ষিক কার্যক্রম</a></li>
-                                    <li><a href="https://dskm.ac.bd/academic-calendar">একাডেমিক ক্যালেন্ডার</a></li>
-                                    <li><a href="#">ত্রৈ মাসিক সাওতুন নাজাত</a></li>
-                                    <li><a href="#">দেয়ালিকা</a></li>
-                                    <li><a href="#">অন্যান্য </a></li>
-                                </ul>
-                            </li>
+                       
+                           
                             <li><a href="#">লাইব্রেরি</a>
                                 <ul class="dropdown">
                                     <li><a href="https://dskm.ac.bd/library">মাকতাবা পরিচিতি</a></li>
@@ -79,7 +59,7 @@
                             </li>
                             <li><a href="#">শাখা প্রতিষ্ঠান</a>
                                 <ul class="dropdown">
-                                    <li><a href="https://dntakhsisimadrasah.com/" target="_blank">তাখসীসি শাখা</a></li>
+                                    <li><a href="" target="_blank">তাখসীসি শাখা</a></li>
                                     <li><a href="https://dskm.ac.bd/women-teacher">মহিলা শাখা</a></li>
                                     <li><a href="#">নেছারিয়া হেফজখানা</a></li>
                                     <li><a href="#">ছালেহিয়া এতিমখানা</a></li>

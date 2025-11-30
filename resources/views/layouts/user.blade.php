@@ -82,61 +82,27 @@
     <!-- For Calender Picker -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css')}}" />
 
-    <script type="text/javascript" src="https://dskm.ac.bd/assets/js/calendar.js"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/calendar.js')}}"></script>
     <!-- For Calender Picker -->
 
     <!-- external javascripts -->
-    <script src="https://dskm.ac.bd/assets/js/jquery-2.2.4.min.js"></script>
-    <script src="https://dskm.ac.bd/assets/js/jquery-ui.min.js"></script>
-    <script src="https://dskm.ac.bd/assets/js/bootstrap.min.js"></script>
+    <script src="{{ asset('assets/js/jquery-2.2.4.min.js')}}"></script>
+    <script src="{{ asset('assets/js/jquery-ui.min.js')}}"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js')}}"></script>
     <!-- JS | jquery plugin collection for this theme -->
-    <script src="https://dskm.ac.bd/assets/js/jquery-plugin-collection.js"></script>
+    <script src="{{ asset('assets/js/jquery-plugin-collection.js')}}"></script>
 
     <!-- Revolution Slider 5.x SCRIPTS -->
-    <script src="https://dskm.ac.bd/assets/js/revolution-slider/js/jquery.themepunch.tools.min.js"></script>
-    <script src="https://dskm.ac.bd/assets/js/revolution-slider/js/jquery.themepunch.revolution.min.js"></script>
+    <script src="{{ asset('assets/js/jquery.themepunch.tools.min.js')}}"></script>
+    <script src="{{ asset('assets/js/jquery.themepunch.revolution.min.js')}}"></script>
 
     <!--=== New CSS For Photo Gallery ===-->
-    <link rel="stylesheet" href="https://dskm.ac.bd/assets/css/gallery/material-design-iconic-font.min.css">
-    <link rel="stylesheet" href="https://dskm.ac.bd/assets/css/gallery/plugin.css">
-    <link rel="stylesheet" href="https://dskm.ac.bd/assets/css/gallery/responsive.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/material-design-iconic-font.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/plugin.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/g_responsive.css')}}">
 
-    <link href="https://fonts.maateen.me/solaiman-lipi/font.css" rel="stylesheet">
+    <link href="{{ asset('assets/css/font.css')}}" rel="stylesheet">
     
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <!--<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>-->
-    <!--<script>-->
-    <!--window.dataLayer = window.dataLayer || [];-->
-
-    <!--function gtag() {-->
-    <!--    dataLayer.push(arguments);-->
-    <!--}-->
-    <!--gtag('js', new Date());-->
-
-    <!--gtag('config', 'GA_MEASUREMENT_ID');-->
-    <!--</script>-->
-
-
-
-
-    <!--<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>-->
-    <!--<amp-analytics type="gtag" data-credentials="include">-->
-    <!--    <script type="application/json">-->
-    <!--    {-->
-    <!--        "vars": {-->
-    <!--            "gtag_id": "<GA_MEASUREMENT_ID>",-->
-    <!--            "config": {-->
-    <!--                "<GA_MEASUREMENT_ID>": {-->
-    <!--                    "groups": "default"-->
-    <!--                }-->
-    <!--            }-->
-    <!--        }-->
-    <!--    }-->
-    <!--    </script>-->
-    <!--</amp-analytics>-->
-
-
-
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 
@@ -146,7 +112,9 @@
         width: auto !important;
         /*overflow-x: hidden !important*/
     }
-
+    .text-white{
+        color: white;
+    }
     @font-face {
         font-family: 'SolaimanLipi';
         src: url('SolaimanLipi.eot');

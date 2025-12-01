@@ -75,10 +75,10 @@
         </div>
     </div>
 
-    <div class="header-middle p-0 bg-lightest xs-text-center" style="background-color: #0F3F55 !important;">
+    <div class="header-middle p-0 bg-lightest xs-text-center" style="background-color: #ffd2d3 !important;">
         <div class="container pt-0 pb-0">
             <div class="row"  style="background-color: #0F3F55">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="background-color: #0F3F55">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="background-color: #ffd2d3 !important">
                     <div class=""  style="background-color: #E3E1CF">
                         <!--<img src="" alt="DSKM_LOGO">-->
                         <img src="{{ asset('assets/img/banner.jpeg') }}" alt="DSKM_LOGO">

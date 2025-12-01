@@ -28,22 +28,22 @@
     <!-- Page Title -->
     <title style="font-family: SolaimanLipi;">ফকির পাড়া বদর আউলিয়া সুন্নিয়া দাখিল মাদ্রাসা</title>
     <!-- Favicon and Touch Icons -->
-    <link rel="apple-touch-icon" sizes="57x57" href="https://dskm.ac.bd/assets/images/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="https://dskm.ac.bd/assets/images/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="https://dskm.ac.bd/assets/images/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="https://dskm.ac.bd/assets/images/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="https://dskm.ac.bd/assets/images/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="https://dskm.ac.bd/assets/images/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="https://dskm.ac.bd/assets/images/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="https://dskm.ac.bd/assets/images/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://dskm.ac.bd/assets/images/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="https://dskm.ac.bd/assets/images/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://dskm.ac.bd/assets/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="https://dskm.ac.bd/assets/images/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://dskm.ac.bd/assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/madrash_logo.png') }}">
     <link rel="manifest" href="/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="msapplication-TileImage" content="{{ asset('assets/img/madrash_logo.png') }}">
     <meta name="theme-color" content="#ffffff">
 
     <!-- Stylesheet -->
@@ -103,7 +103,7 @@
 
     <link href="{{ asset('assets/css/font.css')}}" rel="stylesheet">
     
-
+<link href="https://fonts.maateen.me/solaiman-lipi/font.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 
     <style>
@@ -128,7 +128,7 @@
     .bg-theme-color-2,
     .line-bottom::after,
     .line-bottom-center::after {
-        background: #CFC66E !important;
+        background: #ffd2d3 !important;
     }
 
     .bg-theme-colored {

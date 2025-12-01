@@ -60,7 +60,7 @@
             <h5 class="widget-title" style="margin-top: 5px; margin-bottom: 5px; font-weight: bold; font-size: 21px;">
                 <span>সুপার</span>
             </h5>
-            <h6 style="margin-top: 5px; margin-bottom: 5px; font-weight: bold; font-size: 19px;">
+            <h6 style="margin-top: 5px; margin-bottom: 5px; font-weight: bold; font-size: 17px;">
             ছৈয়দ মোহাম্মদ জয়নুল আবেদীন জেহাদী
             </h6>
             <p style="font-size: 17px;"> কামিল (হাদীস) </p>
@@ -78,7 +78,7 @@
                 <span>সহ-সুপার</span>
             </h5>
             <h6 style="margin-top: 5px; margin-bottom: 5px; font-weight: bold; font-size: 19px;">
-            কাজী মুহাম্মদ হাছান
+              জনাব কাজী মুহাম্মদ হাছান
             </h6>
             <p style="font-size: 17px;"> কামিল (হাদীস) </p>
         </div>

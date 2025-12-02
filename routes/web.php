@@ -12,6 +12,7 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/print-form', [HomeController::class, 'print_form'])->name('home');
+Route::get('/admission-form', [HomeController::class, 'admission_form'])->name('admission_form');
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard');
     Route::get('students/print-cards', [dashboardController::class, 'printCards'])->name('students.print.cards');

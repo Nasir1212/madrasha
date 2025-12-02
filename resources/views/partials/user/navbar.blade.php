@@ -23,7 +23,7 @@
 
                             <li><a href="#" style="font-family: SolaimanLipi !important">একাডেমিক</a>
                                 <ul class="dropdown">
-                                    <li><a href="https://dskm.ac.bd/listof-class-teachers">শ্রেণী শিক্ষক এর তালিকা </a></li>
+                                    <li><a href="#">শ্রেণী শিক্ষক এর তালিকা </a></li>
                                     <li><a href="https://dskm.ac.bd/education-levels">শিক্ষা স্তর</a></li>
                                     <li><a href="https://dskm.ac.bd/curriculum">পাঠ্যক্রম</a></li>
                                     <li><a href="https://dskm.ac.bd/co-curriculum">সহ-পাঠ্যক্রম</a></li>
@@ -38,7 +38,7 @@
                             </li>
                             <li><a href="#">ভর্তি</a>
                                 <ul class="dropdown">
-                                    <li><a href="https://dskm.ac.bd/addmission-time">ভর্তির সময়</a></li>
+                                    <li><a href="{{ route('admission_form') }}">ভর্তির আবেদন  </a></li>
                                     <li><a href="https://dskm.ac.bd/addmission-test">ভর্তি পরিক্ষা</a></li>
                                     <li><a href="https://dskm.ac.bd/admission-procedure">ভর্তি প্রক্রিয়া</a></li>
                                     <li><a href="https://dskm.ac.bd/jamat-wise-fee-list">জামাআত ওয়ারী বিভিন্ন ফি</a></li>

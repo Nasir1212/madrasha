@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Admission Form</title>
-
+<link href="https://fonts.maateen.me/solaiman-lipi/font.css" rel="stylesheet">
 <style>
     @font-face {
         font-family: 'SolaimanLipi';
@@ -216,8 +216,8 @@ async function makePDF() {
     pdf.save("admission-form-legal.pdf");
 }
 window.onload = function() {
-     makePDF();  // স্বয়ংক্রিয়ভাবে পিডিএফ তৈরি করতে চাইলে এই লাইনটি আনকমেন্ট করুন
-   window.close();
+   //  makePDF();  // স্বয়ংক্রিয়ভাবে পিডিএফ তৈরি করতে চাইলে এই লাইনটি আনকমেন্ট করুন
+  // window.close();
 };
 </script>
 

@@ -13,4 +13,8 @@ class HomeController extends Controller
     public function print_form(){
         return view('pages.user.print_form');
     }
+
+    public function admission_form(){
+        return view('pages.user.admission_form');
+    }
 }

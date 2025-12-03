@@ -102,9 +102,8 @@
     justify-content: space-between">
     <img  src="{{asset('assets/img/madrash_logo.png')}}" style="width: 100px; height: 100px;" class="">
     <div>
-    <h2 style="text-align:center; margin-bottom:5px;">
-        ফকির পাড়া বদর আউলিয়া সুন্নিয়া দাখিল মাদরাসা
-    </h2>
+    <h2 style="text-align:center; margin-bottom:0px;">المَدْرَسَةُ فَقِيْر فَارَا بَدَارْ اَوْلِيَا سُنِّيْةُ الدَخِيْل</h2>
+    <h2 style="text-align: center; margin-bottom: 5px;margin-top: 0px;;"> ফকির পাড়া বদর আউলিয়া সুন্নিয়া দাখিল মাদরাসা </h2>
 
     <p style="text-align:center; margin:0;">
         উত্তর খরনা, ফকির পাড়া, পটিয়া, চট্টগ্রাম | মোবাইল: ০১৮১৭-৯৩৫৩৯৭

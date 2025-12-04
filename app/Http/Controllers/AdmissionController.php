@@ -21,9 +21,15 @@ class AdmissionController extends Controller
             'student_photo' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'father_bn' => 'required|string',
             'father_en' => 'required|string',
-
+            'father_nid' => 'nullable|string',
+            'father_birth_reg' => 'nullable|string',
+            'father_birth_date' => 'nullable|date',
+            
             'mother_bn' => 'required|string',
             'mother_en' => 'required|string',
+            'mother_nid' => 'nullable|string',
+            'mother_birth_reg' => 'nullable|string',
+            'mother_nid' => 'nullable|date',
 
             'guardian_name'  => 'nullable|string',
             'guardian_phone' => 'nullable|string',

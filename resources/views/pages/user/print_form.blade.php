@@ -17,47 +17,44 @@
     }
 
     .form-wrapper {
-        width: 900px;
+        width: 830px;
         margin: auto;
         background: #fff;
         padding: 25px 40px;
         border: 2px solid #000;
         position: relative;
         overflow: hidden;
+        min-height: 1400px;
     }
 
     .watermark-bg {
         position: absolute;
         top: 50%;
         left: 50%;
-        opacity: 0.03;
+        opacity: 0.05;
         transform: translate(-50%, -50%);
         width: 600px;
         z-index: 0;
     }
 
-   .qr-box {
-        position: absolute;
-        bottom: 11px;
-        right: 16px;
-        width: 85px;
-        opacity: 0.5;
-        z-index: 0;
-    }
-
-    .qr-box1 {
-        position: absolute;
-        top: 285px;
-        right: 16px;
-        width: 85px;
-        opacity: 0.5;
-        z-index: 0;
-    }
-
+.qr-box {
+    position: absolute;
+    bottom: 38px;
+    right: 40px;
+    width: 52px;
+    z-index: 0;
+}
+.qr-box1 {
+    position: absolute;
+    top: 176px;
+    right: 40px;
+    width: 85px;
+    z-index: 0;
+}
     .photo-box {
         float: right;
-        width: 120px;
-        height: 140px;
+        width: 100px;
+        height: 120px;
         border: 1px solid #000;
         text-align: center;
         z-index: 5;
@@ -66,19 +63,19 @@
     }
 
     .photo-box img{
-        width: 120px;
-        height: 140px;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
     }
 
     .line {
-        border-bottom: 1px dotted #000;
+        border-bottom: 2px dotted #000;
         display: inline-block;
-        width: 450px;
+   
     }
 
     .small {
-        border-bottom: 1px dotted #000;
+        border-bottom: 2px dotted #000;
         display: inline-block;
         width: 180px;
     }
@@ -94,8 +91,8 @@
 </head>
 
 <body>
-
-<div class="form-wrapper" id="formArea">
+<div>
+<div class="form-wrapper" id="formArea" >
 
     <img src="{{asset('assets/img/madrash_logo.png')}}" class="watermark-bg">
 
@@ -106,7 +103,7 @@
         <img src="{{asset('assets/img/madrash_logo.png')}}" style="width: 100px; height: 100px;">
         
         <div>
-            <h2 style="text-align:center; margin-bottom:0px;">المَدْرَسَةُ فَقِيْر فَارَا بَدَارْ اَوْلِيَا سُنِّيْةُ الدَخِيْل</h2>
+            <h2 style="text-align:center; margin-bottom:0px;">المَدْرَسَةُ فَقِيْر فَارَا بَدَرْ اَوْلِيَا سُنِّيْةُ الدَخِل</h2>
             <h2 style="text-align: center; margin-bottom: 5px;margin-top: 0px;">ফকির পাড়া বদর আউলিয়া সুন্নিয়া দাখিল মাদরাসা</h2>
 
             <p style="text-align:center; margin:0;">
@@ -133,22 +130,27 @@
     <p>
         ফরম নং: <span class="small"><b>{{ $admission->form_no }}</b></span>  
         &nbsp; &nbsp; 
-        তারিখ: <span class="small">{{ date('d/m/Y') }}</span>
+       আবেদনের তারিখ: <b> <span class="small">{{ date('d/m/Y') }} </b></span>
     </p>
 
     <div class="section-title">ছাত্র/ছাত্রীর তথ্য</div>
+    <br/>  
 
-    ১) ছাত্র/ছাত্রীর নাম:  
-    <span class="line"><b>{{ $admission->name_bn_first }} {{ $admission->name_bn_last }} ({{ $admission->name_en_first }} {{ $admission->name_en_last }})</b></span>
+    ১।  ছাত্র/ছাত্রীর নাম:  
+    <span class="line" style="width: 44.7rem;"><b>{{ $admission->name_bn_first }} {{ $admission->name_bn_last }} ({{ $admission->name_en_first }} {{ $admission->name_en_last }})</b></span>
     <br><br>
 
-    ২) পিতার নাম: <span class="line">{{ $admission->father_bn }} ({{ $admission->father_en }})</span><br><br>
-    ৩) মাতার নাম: <span class="line">{{ $admission->mother_bn }} ({{ $admission->mother_en }})</span><br><br>
+    
+    ২। জন্ম নিবন্ধন নং: <span class="line" style="width: 44.7rem;"> <b> {{ $admission->birth_reg_no }} </b> </span>
+    <br><br>
+    
+    ৩। জন্ম তারিখ: <span class="small" style="width: 14.69rem;"> <b> {{ $admission->birth_date }} </b></span>
+    ৪। লিঙ্গ : <span class="small" style="width: 11rem"> <b> @if($admission->gender == 'male') পুরুষ @else নারী @endif </b> </span>
+   ৫। জাতীয়তা : <span class="small" style="width: 11rem"> <b> {{ $admission->nationality }} </b> </span>
 
-    ৪) জন্ম তারিখ: <span class="small">{{ $admission->birth_date }}</span>  
-       &nbsp;&nbsp; জন্ম নিবন্ধন নং: <span class="small">{{ $admission->birth_reg_no }}</span><br><br>
+       <br><br>
 
-    ৫) বর্তমান ঠিকানা: <span class="line" style="width:80% !important; ">
+    ৬।  স্থায়ী ঠিকানা: <span class="line" style="width:45.79rem ">
  গ্রাম/ওয়ার্ড :  <b>{{ $admission->perm_village }}</b>
 পোস্ট অফিস : <b>{{ $admission->perm_post }}</b>
 ইউনিয়ন : <b>{{ $admission->perm_union }}</b>
@@ -158,7 +160,7 @@
 </span>
 
 <br><br>
-    ৬) স্থায়ী ঠিকানা: <span class="line"  style="width:80% !important; " >
+    ৭। বর্তমান ঠিকানা: <span class="line"  style="width:44.79rem " >
         
       গ্রাম/ওয়ার্ড :  <b>{{ $admission->curr_village }}</b>
 পোস্ট অফিস : <b>{{ $admission->curr_post }}</b>
@@ -166,46 +168,105 @@
 উপজেলা : <b>{{ $admission->curr_upazila }}</b>
 জেলা : <b>{{ $admission->curr_district }}</b>
         
-    </span><br><br>
+    </span><br>
 
-    <div class="section-title">যোগাযোগের ঠিকানা</div>
+    <div class="section-title"> পিতা-মাতার ও অভিভাবক  তথ্য </div>
+    <br/>
+    ১। পিতার নাম: <span class="small" style="width: 24.61rem"> <b> {{ $admission->father_bn }} ({{ $admission->father_en }}) </b>
+    </span> NID নং: <span class="small" style="width: 18rem"> <b> {{ $admission->father_nid }} </b> </span> 
+       <br><br>
 
-    অভিভাবকের নাম: <span class="line">{{ $admission->guardian_name }}</span><br><br>
-    পেশা: <span class="small">{{ $admission->guardian_job }}</span>  
-    মোবাইল: <span class="small">{{ $admission->guardian_phone }}</span><br><br>
+   জন্মনিবন্ধন নং: <span class="small" style="width: 24.61rem"> <b> {{ $admission->father_birth_reg }} </b> </span>   
+   জন্ম তারিখ : <span class="small" style="width: 16.74rem"> <b> {{ $admission->father_birth_date }} </b> </span>
+  
+    <br><br>
+    ২। মাতার নাম: <span class="small" style="width: 24.61rem"> <b>  {{ $admission->mother_bn }} ({{ $admission->mother_en }}) </b> </span>
+    </span> NID নং: <span class="small" style="width: 18rem"> <b>  {{ $admission->mother_nid }} </b> </span> 
+    <br><br>
+    জন্মনিবন্ধন নং: <span class="small" style="width: 24.61rem"> <b>  {{ $admission->mother_birth_reg }} </b> </span> 
+   
+    জন্ম তারিখ : <span class="small" style="width: 16.74rem"> <b>  {{ $admission->mother_birth_date }}  </b> </span>
+    <br>
+    <br>
+
+
+    ৩। অভিভাবকের নাম: <span class="small" style="width: 22.3rem"> <b>  {{ $admission->guardian_name }} </b></span>
+  
+    মোবাইল: <span class="small" style="width:17.74rem"> <b> {{ $admission->guardian_phone }} </b> </span><br>
 
     <div class="section-title"> ভর্তি সংক্রান্ত তথ্য </div>
+    <br/>
 
-    পূর্বতন বিদ্যালয়/মাদরাসার নাম: <span class="line">{{ $admission->previous_school }}</span><br><br>    
-    শ্রেণি: <span class="small">{{ $admission->previous_class }}</span>  
-    রোল নং: <span class="small">{{ $admission->previous_roll }}</span><br><br>
-    প্রাপ্ত ফলাফল: <span class="small">{{ $admission->previous_result }}</span><br><br>
+    পূর্বের বিদ্যালয়/মাদ্রাসার নাম : <span class="line" style="width:40.90rem"> <b> {{ $admission->previous_institute }} </b> </span><br><br>    
+    @php
+    $classNames = [
+        0 => 'শিশু শ্রেণী',
+        1 => 'প্রথম শ্রেণী',
+        2 => 'দ্বিতীয় শ্রেণী',
+        3 => 'তৃতীয় শ্রেণী',
+        4 => 'চতুর্থ শ্রেণী',
+        5 => 'পঞ্চম শ্রেণী',
+        6 => 'ষষ্ঠ শ্রেণী',
+        7 => 'সপ্তম শ্রেণী',
+        8 => 'অষ্টম শ্রেণী',
+        9 => 'নবম শ্রেণী',
+        10 => 'দশম শ্রেণী',
+    ];
+@endphp
 
-    <div class="section-title">শর্তাবলি</div>
 
-    <p>
-        আমি এই মর্মে অঙ্গীকার করছি যে, আমি মাদরাসার সকল নিয়মকানুন মেনে চলবো...
+    যে শ্রেণীতে ভর্তি হতে চাই : <span class="small" style="width: 17rem"> <b>  {{ $classNames[$admission->admit_class] ?? 'N/A' }} </b>  </span>  
+    পূর্বে যে শ্রেণীতে ছিল : <span class="small"  style="width: 16.80rem"> <b>  {{ $classNames[$admission->previous_class] }} </b> </span>  
+    <br/> <br/>
+    ছাড়পত্রের নাম্বার : <span class="small" style="width: 20.3rem"> <b>  {{ $admission->leave_certificate_no }} </b>  </span>
+    ছাড়পত্রের তারিখ : <span class="small" style="width: 17.90rem"> <b>  {{ $admission->leave_certificate_date }} </b> </span><br>
+
+    <div class="section-title"> অঙ্গীকার নামা  </div>
+    <h4 style="margin: 0; margin-top:5px">
+      ছাত্র/ছাত্রীর অঙ্গীকারনামা
+    </h4>
+
+    <p style="text-align: justify;margin:0px;margin-bottom:5px;">
+
+    * আমি <b>  {{ $admission->name_bn_first }} {{ $admission->name_bn_last }} </b> পিতা <b> {{ $admission->father_bn }} </b> এই মর্মে প্রত্যয়ন করছি যে, অত্র মাদ্রাসার সকল নিয়মাবলী মেনে চলবো। অত্র মাদ্রাসায় অধ্যয়নকালীন সময় যে কোন রাজনৈতিক দল বা উপদলের সাথে প্রকাশ্যে বা অপ্রকাশ্যভাবে জড়িত থাকবো না । চালচলন, পোষাক পরিচ্ছন্ন ও চুল-দাড়ি সুন্নত মোতাবেক রাখবো । কোন অবস্থাতেই মাদ্রসার ভাবমুর্তি নষ্ট হয় এমন কোন কাজে লিপ্ত থাকবো না । উপরোক্ত শর্তের মধ্যে যে কোন একটি ব্যাতিক্রম হলে মাদ্রাসার কর্তৃপক্ষের যে কোন শাস্তি আমি বিনা দ্বিধায় মেনে নিতে বাধ্য থাকিবো।
     </p>
+<span style="float: right">
+  ছাত্র/ছাত্রীর স্বাক্ষর: <span class="small"></span><br><br>
+</span>
+  <br>
 
-    ছাত্র/ছাত্রীর স্বাক্ষর: <span class="small"></span><br><br>
+<h4 style="margin: 0; margin-top:5px"> অভিভাবকের অঙ্গীকারনামা</h4>
 
-    <p>
-        আমি অঙ্গীকার করছি যে, আমার ছেলে/মেয়ে মাদরাসার নির্দেশনা অনুযায়ী চলবে...
+    <p style="text-align: justify;margin:0px;margin-bottom:5px;">
+    * আমি <b>  {{ $admission->guardian_name }} </b> অঙ্গীকার করিতেছি যে, আমার ছেলে/মেয়ে মাদ্রাসার যাবতীয় নিয়ম কানুন মেনে চলবে। অত্র মাদ্রাসার ছাড়পত্র ছাড়া অন্য কোন প্রতিষ্ঠানে ভর্তি করাবো না।
     </p>
+   
+<span style="float: right">
+  অভিভাবকের স্বাক্ষর: <span class="small"></span><br><br>
+</span>
 
-    অভিভাবকের নাম: <span class="line"></span><br><br>
-    অভিভাবকের স্বাক্ষর: <span class="small"></span><br><br>
+
+<div class="section-title"> সংযুক্তি </div>
+
+<span style="margin: 0;">১। ছাত্র/ছাত্রীর ২ কপি ছবি ও জন্মনিবন্ধনের ফটোকপি </span>
+<span style="margin: 0;"> ২। পিতা-মাতার এন. আই. ডি ও জন্মনিবন্ধনের ফটোকপি </span>
+<span style="margin: 0;">  ৩। ছাড়পত্রের কপি (প্রযোজ্য ক্ষেত্রে )  </span>
 
     <div class="section-title">অফিস কর্তৃক পূরণীয়</div>
+<br/>
 
-    শ্রেণি: <span class="small"></span>  
-    টাকার রশিদ নং: <span class="small"></span><br><br>
-    ভর্তি করা হলো / হলো না: <span class="line"></span><br><br>
+    অত্র ছাত্র/ছাত্রীকে  <span class="small" style="width: 9rem"></span>  
+    শ্রেণীতে <span class="small"  style="width: 10rem" ></span> 
+    টাকায়  <span class="small"  style="width: 10rem" ></span>
+    রশিদ নাম্বারে  ভার্তি করা হল ।  <br> <br>
+    শ্রেনীতে তার রোল নং  <span class="small" style="width: 5rem"></span>  ।
+   
+    <br>
 
     কর্তৃপক্ষের স্বাক্ষর: <span class="small"></span>
 
 </div>
-
+</div>
 <!-- JS PDF + Canvas --> <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -230,16 +291,60 @@ qrElements.forEach(function(qrElement) {
 
 
 
-     async function makePDF() {
-         const { jsPDF } = window.jspdf; 
-         let form = document.querySelector('#formArea');
-          let canvas = await html2canvas(form, { scale: 2 }); let img = canvas.toDataURL('image/png');
-          // Legal size (216mm × 356mm) 
-          let pdf = new jsPDF('p', 'mm', [216, 356]);
-           let width = pdf.internal.pageSize.getWidth();
-            let height = (canvas.height * width) / canvas.width; pdf.addImage(img, 'PNG', 0, 0, width, height); pdf.save("admission-form-legal.pdf"); 
+async function makePDF() {
+        const { jsPDF } = window.jspdf;
         
-        } 
+        // ১. ফর্ম এলিমেন্ট ধরা
+        const element = document.getElementById('formArea');
+        
+        // ২. ক্লোন তৈরি করা (মোবাইল ভিউ সমস্যা সমাধানের জন্য)
+        const clone = element.cloneNode(true);
+        
+        // ৩. ক্লোনটির স্টাইল সেট করা (ফিক্সড ৯০০ পিক্সেল)
+        clone.style.width = '830px';
+        clone.style.position = 'absolute';
+        clone.style.left = '-9999px';
+        clone.style.top = '0';
+        
+        document.body.appendChild(clone);
+
+        try {
+            // ৪. ক্যানভাস তৈরি
+            const canvas = await html2canvas(clone, {
+                scale: 2, // হাই কোয়ালিটি
+                useCORS: true, 
+                width: 900, 
+                windowWidth: 1024,
+                x: 0,
+                y: 0
+            });
+
+            const imgData = canvas.toDataURL('image/png');
+            
+            // ৫. লিগ্যাল সাইজ পেপার সেটআপ (Legal = 'legal' অথবা [216, 356])
+            const pdf = new jsPDF('p', 'mm', 'legal'); 
+
+            const pdfWidth = pdf.internal.pageSize.getWidth(); // ২১৮ মি.মি. (লিগ্যাল)
+            const pdfHeight = pdf.internal.pageSize.getHeight(); // ৩৫৬ মি.মি. (লিগ্যাল)
+            
+            // ইমেজের হাইট এবং উইডথ এর অনুপাত বের করা
+            const imgProps = pdf.getImageProperties(imgData);
+            const contentHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+            // পিডিএফে ছবি যোগ করা
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, contentHeight);
+
+            // ৬. সেভ করা
+            pdf.save("Admission_Form_Legal_{{ $admission->form_no }}.pdf");
+
+        } catch (error) {
+            console.error("PDF Error:", error);
+            alert("পিডিএফ জেনারেট করতে সমস্যা হয়েছে।");
+        } finally {
+            // ক্লোন রিমুভ করা
+            document.body.removeChild(clone);
+        }
+    }
             window.onload = function() { 
                  makePDF(); 
                 // স্বয়ংক্রিয়ভাবে পিডিএফ তৈরি করতে চাইলে এই লাইনটি আনকমেন্ট করুন // 

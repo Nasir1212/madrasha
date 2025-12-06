@@ -50,6 +50,16 @@ label {
 
 <div class="card-layout">
 
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <!-- ১. ছাত্র/ছাত্রীর তথ্য -->
 <div class="card">
 <div class="card-body">

@@ -34,6 +34,23 @@
 
         <div class="widget">
             <div class="rs-image">
+                <img src="{{ asset('assets/img/ex_chairmain.png') }}"
+                    alt="principal image">
+                <!--<img src="images/team/images.png" alt="principal image">-->
+                <!--<h5 class="widget-title title-dots small" style="margin-top: 10px;"><span></span></h5>-->
+
+            </div>
+            <h5 class="widget-title" style="margin-top: 5px; margin-bottom: 5px; font-weight: bold; font-size: 18px;">
+                <span>সাবেক সভাপতি ও প্রতিষ্টাতা সদস্য </span>
+            </h5>
+            <h6 style="margin-top: 5px; margin-bottom: 5px; font-weight: bold; font-size: 19px;">
+            জনাব আলহাজ্ব মোঃ মীর কাসেম
+            </h6>
+            <p style="font-size: 17px;">  </p>
+        </div>
+
+          <div class="widget">
+            <div class="rs-image">
                 <img src="{{ asset('assets/img/soba.png') }}"
                     alt="principal image">
                 <!--<img src="images/team/images.png" alt="principal image">-->
@@ -49,6 +66,7 @@
             <p style="font-size: 17px;">  </p>
         </div>
 
+
         <div class="widget">
             <div class="rs-image">
                 <img src="{{ asset('assets/img/super.jpg') }}"
@@ -58,7 +76,7 @@
 
             </div>
             <h5 class="widget-title" style="margin-top: 5px; margin-bottom: 5px; font-weight: bold; font-size: 21px;">
-                <span>সুপার</span>
+                <span> অধ্যক্ষ </span>
             </h5>
             <h6 style="margin-top: 5px; margin-bottom: 5px; font-weight: bold; font-size: 17px;">
             ছৈয়দ মোহাম্মদ জয়নুল আবেদীন জেহাদী
@@ -75,14 +93,32 @@
 
             </div>
             <h5 class="widget-title" style="margin-top: 5px; margin-bottom: 5px; font-weight: bold; font-size: 21px;">
-                <span>সহ-সুপার</span>
+                <span>উপাধ্যক্ষ</span>
             </h5>
             <h6 style="margin-top: 5px; margin-bottom: 5px; font-weight: bold; font-size: 19px;">
-              জনাব কাজী মুহাম্মদ হাছান
+              জনাব কাজী মোহাম্মদ হাছান
             </h6>
             <p style="font-size: 17px;"> কামিল (হাদীস) </p>
         </div>
+         
         
+          <div class="widget">
+            <div class="rs-image">
+                <img src="{{ asset('assets/img/g_person.jpg') }}"
+                    alt="principal image">
+                <!--<img src="images/team/images.png" alt="principal image">-->
+                <!--<h5 class="widget-title title-dots small" style="margin-top: 10px;"><span></span></h5>-->
+
+            </div>
+            <h5 class="widget-title" style="margin-top: 5px; margin-bottom: 5px; font-weight: bold; font-size: 21px;">
+                <span> অভিভাবক সদস্য </span>
+            </h5>
+            <h6 style="margin-top: 5px; margin-bottom: 5px; font-weight: bold; font-size: 19px;">
+              জনাব আব্দুল মালেক
+            </h6>
+            {{-- <p style="font-size: 17px;"> কামিল (হাদীস) </p> --}}
+        </div>
+
             <h5 class="widget-title title-dots small" style="background-color: #59CE28;">
                 <span style="font-weight: bold; color: #59CE28;">নোটিশ বোর্ড</span>
             </h5>
@@ -101,7 +137,8 @@
                                     <span>আলিম</span>
                                 </a>
                             </li>
-                            <li>
+
+                            {{-- <li>
                                 <a href="#fazil" data-toggle="tab" title="fazil">
                                 <span>ফাযিল</span> 
                                 </a>
@@ -110,7 +147,8 @@
                                 <a href="#kamil" data-toggle="tab" title="kamil">
                                 <span>কামিল</span> 
                                 </a>
-                            </li>
+                            </li> --}}
+
                         </ul>
                     </div>
 

@@ -29,7 +29,7 @@ class AdmissionController extends Controller
             'mother_en' => 'required|string',
             'mother_nid' => 'nullable|string',
             'mother_birth_reg' => 'nullable|string',
-            'mother_nid' => 'nullable|date',
+            'mother_birth_date' => 'nullable|date',
 
             'guardian_name'  => 'nullable|string',
             'guardian_phone' => 'nullable|string',

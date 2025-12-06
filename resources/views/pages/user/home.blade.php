@@ -17,20 +17,20 @@
                         <div class="carousel-inner">
                                                         <div class="item">
 
-                                <a href="#"><img src="https://dskm.ac.bd/backend_assets/slider_image/banner11.jpg"></a>
+                                <a href="#"><img src="{{ asset('assets/img/sl1.jpg') }}"></a>
                                
                             </div>
                                                     <div class="item active">
 
-                                <a href="#"><img src="https://dskm.ac.bd/backend_assets/slider_image/banner2.jpg"></a>
+                                <a href="#"><img src="{{ asset('assets/img/sl2.jpg') }}"></a>
                                
                             </div>
                                                     <div class="item">
 
-                                <a href="#"><img src="https://dskm.ac.bd/backend_assets/slider_image/Main_Gate1.jpg"></a>
+                                <a href="#"><img src="{{ asset('assets/img/sl3.jpg') }}"></a>
                                
                             </div>
-                                                    <div class="item">
+                                                    {{-- <div class="item">
 
                                 <a href="#"><img src="https://dskm.ac.bd/backend_assets/slider_image/banner4.jpg"></a>
                                
@@ -54,7 +54,7 @@
 
                                 <a href="#"><img src="https://dskm.ac.bd/backend_assets/slider_image/Untitled-1.jpg"></a>
                                
-                            </div>
+                            </div> --}}
                         
 
                         <a class="left carousel-control" href="#carousel-example" data-slide="prev">
@@ -79,8 +79,8 @@
                         <p class="mb-20" style="text-align: justify !important; font-family: SolaimanLipi !important;">
                            <div class="madrasa-about" style="line-height: 1.8;">
 
-    <h2>ফকির পাড়া বদর আউলিয়া সুন্নিয়া দাখিল মাদারাসা</h2>
-    <p><strong>অবস্থান:</strong> ফকির পাড়া, উত্তর খরনা, পটিয়া, চট্টগ্রাম</p>
+    <h2>ফকির পাড়া বদর আউলিয়া সুন্নিয়া আলিম মাদারাসা</h2>
+    <p><strong>অবস্থান:</strong>  উত্তর খরনা, চক্রশালা, পটিয়া, চট্টগ্রাম</p>
     <p><strong>EIIN:</strong> 104764</p>
 
     <h3>পরিচিতি</h3>

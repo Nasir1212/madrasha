@@ -190,7 +190,9 @@
     <br>
 
 
-    ৩। অভিভাবকের নাম: <span class="small" style="width: 22.3rem"> <b>  {{ $admission->guardian_name }} </b></span>
+    ৩।
+     অভিভাবকের নাম: <span class="small" style="width: 9rem"> <b>  {{ $admission->guardian_name }} </b></span>
+     পেশা: <span class="small" style="width: 10.6rem"> <b>  {{ $admission->guardian_occupation }} </b></span>
   
     মোবাইল: <span class="small" style="width:17.74rem"> <b> {{ $admission->guardian_phone }} </b> </span><br>
 
@@ -346,7 +348,7 @@ async function makePDF() {
         }
     }
             window.onload = function() { 
-                 makePDF(); 
+                // makePDF(); 
                 // স্বয়ংক্রিয়ভাবে পিডিএফ তৈরি করতে চাইলে এই লাইনটি আনকমেন্ট করুন // 
                 window.close(); 
             

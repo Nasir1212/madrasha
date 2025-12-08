@@ -164,6 +164,11 @@ label {
     <input type="text" name="guardian_name" class="form-control" value="{{ old('guardian_name') }}">
 </div>
 <div class="col-md-6">
+    <label>অভিভাবকের পেশা </label>
+    <input type="text" name="guardian_occupation" class="form-control" value="{{ old('guardian_occupation') }}">
+</div>
+
+<div class="col-md-6">
     <label>অভিভাবকের মোবাইল নম্বর</label>
     <input type="text" name="guardian_phone" class="form-control" value="{{ old('guardian_phone') }}">
 </div>
@@ -202,21 +207,61 @@ label {
 <div class="col-md-6">
 <label>কোন শ্রেণীতে ভর্তি হতে চান</label>
 <select name="admit_class" class="form-select">
-<option value="">-- নির্বাচন করুন --</option>
-@for($i=0;$i<=9;$i++)
-<option value="{{ $i }}" {{ old('admit_class')==$i?'selected':'' }}>{{ $i==0?'শিশু':$i.'ম' }}</option>
+<option value=""  selected> নির্বাচন করুন </option>
+
+@php
+    $classes = [
+        0 => 'শিশু',
+        1 => 'প্রথম',
+        2 => 'দ্বিতীয়',
+        3 => 'তৃতীয়',
+        4 => 'চতুর্থ',
+        5 => 'পঞ্চম',
+        6 => 'ষষ্ঠ',
+        7 => 'সপ্তম',
+        8 => 'অষ্টম',
+        9 => 'নবম',
+    ];
+@endphp
+
+@for($i = 0; $i <= 9; $i++)
+    <option value="{{ $i }}"  {{ old('admit_class') === $i ? 'selected' : '' }}    >
+         {{ $classes[$i] }}
+    </option>
 @endfor
+
 </select>
 </div>
 <div class="col-md-6">
 <label>পূর্বে যে শ্রেণীতে ছিল</label>
 <select name="previous_class" class="form-select">
-<option value="">-- নির্বাচন করুন --</option>
-@for($i=0;$i<=9;$i++)
-<option value="{{ $i }}" {{ old('previous_class')==$i?'selected':'' }}>{{ $i==0?'শিশু':$i.'ম' }}</option>
+<option value=" " selected='true' > নির্বাচন করুন </option>
+
+@php
+    $classes = [
+        0 => 'শিশু',
+        1 => 'প্রথম',
+        2 => 'দ্বিতীয়',
+        3 => 'তৃতীয়',
+        4 => 'চতুর্থ',
+        5 => 'পঞ্চম',
+        6 => 'ষষ্ঠ',
+        7 => 'সপ্তম',
+        8 => 'অষ্টম',
+        9 => 'নবম',
+    ];
+@endphp
+
+@for($i = 0; $i <= 9; $i++)
+    <option value="{{ $i }}" {{ old('previous_class') === $i ? 'selected' : '' }}>
+        {{ $classes[$i] }}
+    </option>
 @endfor
+
+
 </select>
 </div>
+
 <div class="col-md-6">
 <label>পূর্বের বিদ্যালয়/মাদ্রাসার নাম</label>
 <input type="text" name="previous_institute" class="form-control" value="{{ old('previous_institute') }}">

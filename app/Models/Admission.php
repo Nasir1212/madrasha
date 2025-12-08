@@ -31,6 +31,7 @@ class Admission extends Model
         'mother_birth_date',
 
         'guardian_name',
+        'guardian_occupation',
         'guardian_phone',
 
         'perm_village',

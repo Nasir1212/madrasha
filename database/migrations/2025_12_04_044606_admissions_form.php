@@ -41,6 +41,7 @@ return new class extends Migration
 
             // Guardian Info
             $table->string('guardian_name')->nullable();
+            $table->string('guardian_occupation')->nullable();
             $table->string('guardian_phone')->nullable();
 
             // Permanent Address

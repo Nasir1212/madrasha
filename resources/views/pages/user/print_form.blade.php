@@ -21,7 +21,8 @@
         margin: auto;
         background: #fff;
         padding: 25px 40px;
-        border: 2px solid #000;
+        /* border: 2px solid #000; */
+        border: none;
         position: relative;
         overflow: hidden;
         min-height: 1400px;
@@ -103,11 +104,12 @@
         <img src="{{asset('assets/img/madrash_logo.png')}}" style="width: 100px; height: 100px;">
         
         <div>
-            <h2 style="text-align:center; margin-bottom:0px;"> فَقِيْر فَارَا بَدَرْ اَوْلِيَاء سُنِّيْةُ الدَخل مَدْرَسَةُ </h2>
+            <h2 style="text-align:center; margin-bottom:0px;"> فَقِيْر فَارَا بَدَرْ اَوْلِيَاء سُنِّيْةُ  عَالِمْ مَدْرَسَةُ </h2>
             <h2 style="text-align: center; margin-bottom: 5px;margin-top: 0px;">ফকির পাড়া বদর আউলিয়া সুন্নিয়া আলিম মাদরাসা</h2>
+            <h2 style="text-align: center; margin-bottom: 5px;margin-top: 0px;font-size: 16.6px;"> FAKIR PARA BADAR AOULIA SUNNIA ALIM MADRASHA </h2>
 
             <p style="text-align:center; margin:0;">
-                উত্তর খরনা, ফকির পাড়া, পটিয়া, চট্টগ্রাম | মোবাইল: ০১৮১৭৭৬৮০৩২
+                উত্তর খরনা, চক্রশালা, পটিয়া, চট্টগ্রাম | মোবাইল: ০১৮১৭৭৬৮০৩২
             </p>
             <p style="text-align:center; margin:0;">
                 প্রতিষ্ঠা : ২০০১ ইংরেজি | Code: 20736 | EIIN: 104764
@@ -128,9 +130,9 @@
     </h3>
 
     <p>
-        ফরম নং: <span class="small"><b>{{ $admission->form_no }}</b></span>  
+        ফরম নং: <span class="small"><b>{{ $admission->form_no ??null }}</b></span>  
         &nbsp; &nbsp; 
-       আবেদনের তারিখ: <b> <span class="small">{{ date('d/m/Y') }} </b></span>
+       আবেদনের তারিখ: <b> <span class="small"> {{ $admission->created_at->format('d/m/Y') }} </b></span>
     </p>
 
     <div class="section-title">ছাত্র/ছাত্রীর তথ্য</div>
@@ -218,7 +220,7 @@
 
 
     যে শ্রেণীতে ভর্তি হতে চাই : <span class="small" style="width: 17rem"> <b>  {{ $classNames[$admission->admit_class] ?? 'N/A' }} </b>  </span>  
-    পূর্বে যে শ্রেণীতে ছিল : <span class="small"  style="width: 16.80rem"> <b>  {{ $classNames[$admission->previous_class] }} </b> </span>  
+    পূর্বে যে শ্রেণীতে ছিল : <span class="small"  style="width: 16.80rem"> <b>  {{ $classNames[$admission->previous_class]??'N/A' }} </b> </span>  
     <br/> <br/>
     ছাড়পত্রের নাম্বার : <span class="small" style="width: 20.3rem"> <b>  {{ $admission->leave_certificate_no }} </b>  </span>
     ছাড়পত্রের তারিখ : <span class="small" style="width: 17.90rem"> <b>  {{ $admission->leave_certificate_date }} </b> </span><br>
@@ -230,7 +232,7 @@
 
     <p style="text-align: justify;margin:0px;margin-bottom:5px;">
 
-    * আমি <b>  {{ $admission->name_bn_first }} {{ $admission->name_bn_last }} </b> পিতা <b> {{ $admission->father_bn }} </b> এই মর্মে প্রত্যয়ন করছি যে, অত্র মাদ্রাসার সকল নিয়মাবলী মেনে চলবো। অত্র মাদ্রাসায় অধ্যয়নকালীন সময় যে কোন রাজনৈতিক দল বা উপদলের সাথে প্রকাশ্যে বা অপ্রকাশ্যভাবে জড়িত থাকবো না । চালচলন, পোষাক পরিচ্ছন্ন ও চুল-দাড়ি সুন্নত মোতাবেক রাখবো । কোন অবস্থাতেই মাদ্রসার ভাবমুর্তি নষ্ট হয় এমন কোন কাজে লিপ্ত থাকবো না । উপরোক্ত শর্তের মধ্যে যে কোন একটি ব্যাতিক্রম হলে মাদ্রাসার কর্তৃপক্ষের যে কোন শাস্তি আমি বিনা দ্বিধায় মেনে নিতে বাধ্য থাকিবো।
+    * আমি এই মর্মে প্রত্যয়ন করছি যে, অত্র মাদ্রাসার সকল নিয়মাবলী মেনে চলবো। অত্র মাদ্রাসায় অধ্যয়নকালীন সময় যে কোন রাজনৈতিক দল বা উপদলের সাথে প্রকাশ্যে বা অপ্রকাশ্যভাবে জড়িত থাকবো না । চালচলন, পোষাক পরিচ্ছন্ন ও চুল-দাড়ি সুন্নত মোতাবেক রাখবো । কোন অবস্থাতেই মাদ্রসার ভাবমুর্তি নষ্ট হয় এমন কোন কাজে লিপ্ত থাকবো না । উপরোক্ত শর্তের মধ্যে যে কোন একটি ব্যাতিক্রম হলে মাদ্রাসার কর্তৃপক্ষের যে কোন শাস্তি আমি বিনা দ্বিধায় মেনে নিতে বাধ্য থাকিবো।
     </p>
 <span style="float: right">
   ছাত্র/ছাত্রীর স্বাক্ষর: <span class="small"></span><br><br>
@@ -240,7 +242,7 @@
 <h4 style="margin: 0; margin-top:5px"> অভিভাবকের অঙ্গীকারনামা</h4>
 
     <p style="text-align: justify;margin:0px;margin-bottom:5px;">
-    * আমি <b>  {{ $admission->guardian_name }} </b> অঙ্গীকার করিতেছি যে, আমার ছেলে/মেয়ে মাদ্রাসার যাবতীয় নিয়ম কানুন মেনে চলবে। অত্র মাদ্রাসার ছাড়পত্র ছাড়া অন্য কোন প্রতিষ্ঠানে ভর্তি করাবো না।
+    * আমি অভিভাবক  হিসাবে অঙ্গীকার করিতেছি যে, আমার ছেলে/মেয়ে মাদ্রাসার যাবতীয় নিয়ম কানুন মেনে চলবে। অত্র মাদ্রাসার ছাড়পত্র ছাড়া অন্য কোন প্রতিষ্ঠানে ভর্তি করাবো না।
     </p>
    
 <span style="float: right">
@@ -348,7 +350,7 @@ async function makePDF() {
         }
     }
             window.onload = function() { 
-                // makePDF(); 
+                 makePDF(); 
                 // স্বয়ংক্রিয়ভাবে পিডিএফ তৈরি করতে চাইলে এই লাইনটি আনকমেন্ট করুন // 
                 window.close(); 
             

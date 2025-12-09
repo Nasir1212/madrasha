@@ -64,6 +64,7 @@ return new class extends Migration
             $table->string('previous_institute')->nullable();
             $table->string('leave_certificate_no')->nullable();
             $table->date('leave_certificate_date')->nullable();
+            $table->integer('status')->default(0);
 
             $table->timestamps();
         });

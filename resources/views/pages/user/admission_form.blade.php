@@ -163,10 +163,35 @@ label {
     <label>অভিভাবকের নাম</label>
     <input type="text" name="guardian_name" class="form-control" value="{{ old('guardian_name') }}">
 </div>
-<div class="col-md-6">
+
+{{-- <div class="col-md-6">
     <label>অভিভাবকের পেশা </label>
     <input type="text" name="guardian_occupation" class="form-control" value="{{ old('guardian_occupation') }}">
+</div> --}}
+
+<div class="col-md-6">
+    <label>অভিভাবকের পেশা</label>
+    <select name="guardian_occupation" class="form-control">
+        <option value="">নির্বাচন করুন</option>
+
+        <option value="কৃষক" {{ old('guardian_occupation') == 'কৃষক' ? 'selected' : '' }}>কৃষক</option>
+        <option value="দিনমজুর" {{ old('guardian_occupation') == 'দিনমজুর' ? 'selected' : '' }}>দিনমজুর</option>
+        <option value="ব্যবসায়ী" {{ old('guardian_occupation') == 'ব্যবসায়ী' ? 'selected' : '' }}>ব্যবসায়ী</option>
+        <option value="প্রবাসী" {{ old('guardian_occupation') == 'প্রবাসী' ? 'selected' : '' }}>প্রবাসী</option>
+        <option value="শিক্ষক/শিক্ষিকা" {{ old('guardian_occupation') == 'শিক্ষক/শিক্ষিকা' ? 'selected' : '' }}>শিক্ষক/শিক্ষিকা</option>
+        <option value="ছাত্র/ছাত্রী" {{ old('guardian_occupation') == 'ছাত্র/ছাত্রী' ? 'selected' : '' }}>ছাত্র/ছাত্রী</option>
+        <option value="বেসরকারি চাকরি" {{ old('guardian_occupation') == 'বেসরকারি চাকরি' ? 'selected' : '' }}>বেসরকারি চাকরি</option>
+        <option value="সরকারি চাকরি" {{ old('guardian_occupation') == 'সরকারি চাকরি' ? 'selected' : '' }}>সরকারি চাকরি</option>
+        <option value="গৃহিণী" {{ old('guardian_occupation') == 'গৃহিণী' ? 'selected' : '' }}>গৃহিণী</option>
+        <option value="ড্রাইভার" {{ old('guardian_occupation') == 'ড্রাইভার' ? 'selected' : '' }}>ড্রাইভার</option>
+        <option value="হাঁস-মুরগি/গবাদি খামারী" {{ old('guardian_occupation') == 'হাঁস-মুরগি/গবাদি খামারী' ? 'selected' : '' }}>হাঁস-মুরগি/গবাদি খামারী</option>
+        <option value="মিস্ত্রি" {{ old('guardian_occupation') == 'মিস্ত্রি' ? 'selected' : '' }}>মিস্ত্রি</option>
+        <option value="ইমাম/খতিব/মুয়াজ্জিন" {{ old('guardian_occupation') == 'ইমাম/খতিব/মুয়াজ্জিন' ? 'selected' : '' }}>ইমাম/খতিব/মুয়াজ্জিন</option>
+        <option value="অন্যান্য" {{ old('guardian_occupation') == 'অন্যান্য' ? 'selected' : '' }}>অন্যান্য</option>
+
+    </select>
 </div>
+
 
 <div class="col-md-6">
     <label>অভিভাবকের মোবাইল নম্বর</label>
@@ -284,7 +309,7 @@ label {
 <div class="section-title">৫। অঙ্গীকার</div>
 <label>ছাত্র/ছাত্রীর অঙ্গীকার</label>
 <div class="form-control mb-3" readonly>
-* আমি এই মর্মে প্রত্যয়ন করছি যে, অত্র মাদ্রাসার সকল নিয়মাবলী মেনে চলবো। ...
+এই মর্মে প্রত্যয়ন করছি যে, অত্র মাদ্রাসার সকল নিয়মাবলী মেনে চলবো। অত্র মাদ্রাসায় অধ্যয়নকালীন সময় যে কোন রাজনৈতিক দল বা উপদলের সাথে প্রকাশ্যে বা অপ্রকাশ্যভাবে জড়িত থাকবো না । চালচলন, পোষাক পরিচ্ছন্ন ও চুল-দাড়ি সুন্নত মোতাবেক রাখবো । কোন অবস্থাতেই মাদ্রসার ভাবমুর্তি নষ্ট হয় এমন কোন কাজে লিপ্ত থাকবো না । উপরোক্ত শর্তের মধ্যে যে কোন একটি ব্যাতিক্রম হলে মাদ্রাসার কর্তৃপক্ষের যে কোন শাস্তি আমি বিনা দ্বিধায় মেনে নিতে বাধ্য থাকিবো।
 </div>
 <label>অভিভাবকের অঙ্গীকার</label>
 <div class="form-control" readonly>

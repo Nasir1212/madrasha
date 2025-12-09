@@ -165,8 +165,12 @@
                         <!--<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 title" style="color: red; padding: 4px 0 0px 2px;">-->
                         <div class="example1">
                             <p style="margin-top: 1px;">
-                            <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();" style="margin-top: 3px;">
-                                                                <a href="https://dskm.ac.bd/assets/fileupload/1762403649.pdf" target="_blank">ভর্তি নির্দেশিকা ২০২৬ </a><span> || </span>
+                           <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();" style="margin-top: 3px;">
+
+                            <a href="#" target="_blank"> ২০২৬ সালের শিক্ষাবর্ষে শিশু থেকে নবম শ্রেনী পর্যন্ত ভর্তি চলমান  </a><span> || </span>
+                            <a href="#" target="_blank"> ২০২৬ সাল থেকে আলিম শ্রেনিতে ভর্তি  চলমান থাকবে  </a><span> || </span>
+                                                     
+                              {{-- <a href="https://dskm.ac.bd/assets/fileupload/1762403649.pdf" target="_blank">ভর্তি নির্দেশিকা ২০২৬ </a><span> || </span>
         
                                                              <a href="https://dskm.ac.bd/assets/fileupload/1755323061.pdf" target="_blank">ফাযিল (পাস) ১ম, ২য় ও ৩য় বর্ষ  পরীক্ষা ২০২৪ এর ফরম ফিলাপের বিজ্ঞপ্তি।</a><span> || </span>
         
@@ -408,8 +412,9 @@
                               <a href="https://dskm.ac.bd/assets/fileupload/1694326360.jpg" target="_blank">২০২৩-২০২৪ শিক্ষাবর্ষ আলিম ১ম বর্ষ শিক্ষার্থীদের ফাউন্ডেশন কোর্স</a><span> || </span>
                                                          
                               <a href="https://dskm.ac.bd/assets/fileupload/1693976396.jpg" target="_blank">আলিম ২০২৩-২০২৪ ঈসায়ী শিক্ষাবর্ষে ভর্তি বিজ্ঞপ্তি</a><span> || </span>
+                              ---}}
                                                         </marquee>
-                       </p>h6>
+                       </p>
                         </div>
                     <!--<p><marquee></marquee></p>-->
                     </div>

@@ -126,7 +126,7 @@
                 <div class="board-inner">
                         <ul class="nav nav-tabs" id="myTab">
                             <div class="liner"></div>
-                            <li class="active">
+                            {{-- <li class="active">
                                 <a href="#dakhil" data-toggle="tab" title="dakhil">
                                     <span>দাখিল</span>
                                 </a>
@@ -136,7 +136,7 @@
                                 <a href="#alim" data-toggle="tab" title="alim">
                                     <span>আলিম</span>
                                 </a>
-                            </li>
+                            </li> --}}
 
                             {{-- <li>
                                 <a href="#fazil" data-toggle="tab" title="fazil">
@@ -170,7 +170,7 @@
                                           <div class="event-content pull-left flip">
                                             <h4 class="entry-title text-white text-uppercase pt-5 m-0 mt-5">
                                                 
-                                                                                             <a href="https://dskm.ac.bd/assets/fileupload/1762403649.pdf" target="_blank">ভর্তি নির্দেশিকা ২০২৬ </a>
+                                                                                             <a href="#assets/fileupload/1762403649.pdf" target="_blank">ভর্তি নির্দেশিকা ২০২৬ </a>
                     
                                                
                                            </h4>
@@ -193,7 +193,7 @@
                                             <h4 class="entry-title text-white text-uppercase pt-5 m-0 mt-5">
                                                 
                                                                   
-                                               <a href="https://dskm.ac.bd/assets/fileupload/1748868129.png" target="_blank">হাফেজ নিয়োগ বিজ্ঞপ্তি</a>
+                                               <a href="#assets/fileupload/1748868129.png" target="_blank">হাফেজ নিয়োগ বিজ্ঞপ্তি</a>
                     
                                                
                                            </h4>
@@ -215,7 +215,7 @@
                                           <div class="event-content pull-left flip">
                                             <h4 class="entry-title text-white text-uppercase pt-5 m-0 mt-5">
                                                 
-                                                                                             <a href="https://dskm.ac.bd/assets/fileupload/1735464939.pdf" target="_blank">ভর্তি পরীক্ষার ফলাফল ২০২৫: তাসে (৯ম বিজ্ঞান) অপেক্ষমান</a>
+                                                                                             <a href="#assets/fileupload/1735464939.pdf" target="_blank">ভর্তি পরীক্ষার ফলাফল ২০২৫: তাসে (৯ম বিজ্ঞান) অপেক্ষমান</a>
                     
                                                
                                            </h4>
@@ -237,7 +237,7 @@
                                           <div class="event-content pull-left flip">
                                             <h4 class="entry-title text-white text-uppercase pt-5 m-0 mt-5">
                                                 
-                                                                                             <a href="https://dskm.ac.bd/assets/fileupload/1735464961.pdf" target="_blank">ভর্তি পরীক্ষার ফলাফল ২০২৫: তাসে (৯ম বিজ্ঞান) মেধাতালিকা</a>
+                                                                                             <a href="#assets/fileupload/1735464961.pdf" target="_blank">ভর্তি পরীক্ষার ফলাফল ২০২৫: তাসে (৯ম বিজ্ঞান) মেধাতালিকা</a>
                     
                                                
                                            </h4>
@@ -259,7 +259,7 @@
                                           <div class="event-content pull-left flip">
                                             <h4 class="entry-title text-white text-uppercase pt-5 m-0 mt-5">
                                                 
-                                                                                             <a href="https://dskm.ac.bd/assets/fileupload/1735462778.pdf" target="_blank">ভর্তি পরীক্ষার ফলাফল ২০২৫: তাসে (৯ম সাধারন) অপেক্ষমান</a>
+                                                                                             <a href="#assets/fileupload/1735462778.pdf" target="_blank">ভর্তি পরীক্ষার ফলাফল ২০২৫: তাসে (৯ম সাধারন) অপেক্ষমান</a>
                     
                                                
                                            </h4>
@@ -312,7 +312,7 @@
                                         <h4 class="entry-title text-white text-uppercase pt-5 m-0 mt-5">
                                             
                                                                   
-                                               <a href="https://dskm.ac.bd/assets/fileupload/1722505724.png" target="_blank">** জরুরী** আলিম ১ম বর্ষে শিক্ষার্থী ভর্তির সময় ০৫-০৮-২৪ পর্যন্ত বৃদ্ধি প্রসঙ্গে(সংশোধিত)</a>
+                                               <a href="#assets/fileupload/1722505724.png" target="_blank">** জরুরী** আলিম ১ম বর্ষে শিক্ষার্থী ভর্তির সময় ০৫-০৮-২৪ পর্যন্ত বৃদ্ধি প্রসঙ্গে(সংশোধিত)</a>
                     
                                                                                        
                                         </h4>
@@ -334,7 +334,7 @@
                                       <div class="event-content pull-left flip">
                                         <h4 class="entry-title text-white text-uppercase pt-5 m-0 mt-5">
                                             
-                                                                                             <a href="https://dskm.ac.bd/assets/fileupload/1716174311.pdf" target="_blank">আলিম ২০২৪-২০২৫ শিক্ষাবর্ষে ভর্তি বিজ্ঞপ্তি।</a>
+                                                                                             <a href="#assets/fileupload/1716174311.pdf" target="_blank">আলিম ২০২৪-২০২৫ শিক্ষাবর্ষে ভর্তি বিজ্ঞপ্তি।</a>
                     
                                                                                        
                                         </h4>
@@ -356,7 +356,7 @@
                                       <div class="event-content pull-left flip">
                                         <h4 class="entry-title text-white text-uppercase pt-5 m-0 mt-5">
                                             
-                                                                                             <a href="https://dskm.ac.bd/assets/fileupload/1713708648.pdf" target="_blank">আলিম পরীক্ষ-২০২৪ এর ফরম ফিলাপের বিজ্ঞপ্তি(সংশোধিত)</a>
+                                                                                             <a href="#assets/fileupload/1713708648.pdf" target="_blank">আলিম পরীক্ষ-২০২৪ এর ফরম ফিলাপের বিজ্ঞপ্তি(সংশোধিত)</a>
                     
                                                                                        
                                         </h4>
@@ -378,7 +378,7 @@
                                       <div class="event-content pull-left flip">
                                         <h4 class="entry-title text-white text-uppercase pt-5 m-0 mt-5">
                                             
-                                                                                             <a href="https://dskm.ac.bd/assets/fileupload/1711256713.pdf" target="_blank">আলিম ২০২২-২০২৩ শিক্ষাবর্ষের ২য় বর্ষের ফরম ফিলাপের বিজ্ঞপ্তি</a>
+                                                                                             <a href="#assets/fileupload/1711256713.pdf" target="_blank">আলিম ২০২২-২০২৩ শিক্ষাবর্ষের ২য় বর্ষের ফরম ফিলাপের বিজ্ঞপ্তি</a>
                     
                                                                                        
                                         </h4>
@@ -406,7 +406,7 @@
                                       <div class="event-content pull-left flip">
                                         <h4 class="entry-title text-white text-uppercase pt-5 m-0 mt-5">
                                             
-                                                                                              <a href="https://dskm.ac.bd/assets/fileupload/1755323061.pdf" target="_blank">ফাযিল (পাস) ১ম, ২য় ও ৩য় বর্ষ  পরীক্ষা ২০২৪ এর ফরম ফিলাপের বিজ্ঞপ্তি।</a>
+                                                                                              {{-- <a href="#assets/fileupload/1755323061.pdf" target="_blank">ফাযিল (পাস) ১ম, ২য় ও ৩য় বর্ষ  পরীক্ষা ২০২৪ এর ফরম ফিলাপের বিজ্ঞপ্তি।</a> --}}
                     
                                                                                            
                                         </h4>
@@ -428,7 +428,7 @@
                                       <div class="event-content pull-left flip">
                                         <h4 class="entry-title text-white text-uppercase pt-5 m-0 mt-5">
                                             
-                                                                                              <a href="https://dskm.ac.bd/assets/fileupload/1753088262.pdf" target="_blank">ফাযিল (অনার্স) ২০২৪-২০২৫ শিক্ষাবর্ষের ১ম বর্ষে ভর্তি বিজ্ঞপ্তি।</a>
+                                                                                              {{-- <a href="#assets/fileupload/1753088262.pdf" target="_blank">ফাযিল (অনার্স) ২০২৪-২০২৫ শিক্ষাবর্ষের ১ম বর্ষে ভর্তি বিজ্ঞপ্তি।</a> --}}
                     
                                                                                            
                                         </h4>
@@ -450,7 +450,7 @@
                                       <div class="event-content pull-left flip">
                                         <h4 class="entry-title text-white text-uppercase pt-5 m-0 mt-5">
                                             
-                                                                                              <a href="https://dskm.ac.bd/assets/fileupload/1748078393.pdf" target="_blank">ফাযিল (পাস) ২য় ও ৩য় বর্ষের সেশন ফি পরিশোধের বিজ্ঞপ্তি</a>
+                                                                                              {{-- <a href="#assets/fileupload/1748078393.pdf" target="_blank">ফাযিল (পাস) ২য় ও ৩য় বর্ষের সেশন ফি পরিশোধের বিজ্ঞপ্তি</a> --}}
                     
                                                                                            
                                         </h4>
@@ -472,7 +472,7 @@
                                       <div class="event-content pull-left flip">
                                         <h4 class="entry-title text-white text-uppercase pt-5 m-0 mt-5">
                                             
-                                                                                              <a href="https://dskm.ac.bd/assets/fileupload/1744270977.pdf" target="_blank">ফাযিল (পাস) ২০২৩-২০২৪ শিক্ষাবর্ষের নির্বাচনী পরীক্ষা ২০২৫ এর সময়সূচী|</a>
+                                                                                              {{-- <a href="#assets/fileupload/1744270977.pdf" target="_blank">ফাযিল (পাস) ২০২৩-২০২৪ শিক্ষাবর্ষের নির্বাচনী পরীক্ষা ২০২৫ এর সময়সূচী|</a> --}}
                     
                                                                                            
                                         </h4>
@@ -494,7 +494,7 @@
                                       <div class="event-content pull-left flip">
                                         <h4 class="entry-title text-white text-uppercase pt-5 m-0 mt-5">
                                             
-                                                                                              <a href="https://dskm.ac.bd/assets/fileupload/1744171049.pdf" target="_blank">২০২৪-২০২৫ শিক্ষাবর্ষের ফাযিল ১ম বর্ষের শ্রেণি কার্যক্রম শুরু হচ্ছে।</a>
+                                                                                              {{-- <a href="#assets/fileupload/1744171049.pdf" target="_blank">২০২৪-২০২৫ শিক্ষাবর্ষের ফাযিল ১ম বর্ষের শ্রেণি কার্যক্রম শুরু হচ্ছে।</a> --}}
                     
                                                                                            
                                         </h4>
@@ -522,7 +522,7 @@
                                       <div class="event-content pull-left flip">
                                         <h4 class="entry-title text-white text-uppercase pt-5 m-0 mt-5">
                                             
-                                                                                             <a href="https://dskm.ac.bd/assets/fileupload/1748078466.pdf" target="_blank">কামিল ২০২৩-২০২৪ শিক্ষাবর্ষের ভর্তি বিজ্ঞপ্তি</a>
+                                                                                             <a href="#assets/fileupload/1748078466.pdf" target="_blank">কামিল ২০২৩-২০২৪ শিক্ষাবর্ষের ভর্তি বিজ্ঞপ্তি</a>
                     
                                                                                        
                                         </h4>
@@ -544,7 +544,7 @@
                                       <div class="event-content pull-left flip">
                                         <h4 class="entry-title text-white text-uppercase pt-5 m-0 mt-5">
                                             
-                                                                                             <a href="https://dskm.ac.bd/assets/fileupload/1748078259.pdf" target="_blank">কামিল (মাস্টার্স) ২০২২-২০২৩ শিক্ষাবর্ষ, পরীক্ষা ২০২৩ এর ফরম ফিলাপের বিজ্ঞপ্তি</a>
+                                                                                             <a href="#assets/fileupload/1748078259.pdf" target="_blank">কামিল (মাস্টার্স) ২০২২-২০২৩ শিক্ষাবর্ষ, পরীক্ষা ২০২৩ এর ফরম ফিলাপের বিজ্ঞপ্তি</a>
                     
                                                                                        
                                         </h4>
@@ -589,7 +589,7 @@
                                       <div class="event-content pull-left flip">
                                         <h4 class="entry-title text-white text-uppercase pt-5 m-0 mt-5">
                                             
-                                                                                             <a href="https://dskm.ac.bd/assets/fileupload/1736139372.pdf" target="_blank">কামিল (মাস্টার্স) ২০২২-২০২৩ শিক্ষাবর্ষের ভর্তির বিজ্ঞপ্তি।</a>
+                                                                                             <a href="#assets/fileupload/1736139372.pdf" target="_blank">কামিল (মাস্টার্স) ২০২২-২০২৩ শিক্ষাবর্ষের ভর্তির বিজ্ঞপ্তি।</a>
                     
                                                                                        
                                         </h4>
@@ -611,7 +611,7 @@
                                       <div class="event-content pull-left flip">
                                         <h4 class="entry-title text-white text-uppercase pt-5 m-0 mt-5">
                                             
-                                                                                             <a href="https://dskm.ac.bd/assets/fileupload/1715782941.pdf" target="_blank">কামিল (মাস্টার্স) ২০২১-২০২২ শিক্ষাবর্ষ, পরীক্ষা ২০২২ এর ফরম ফিলাপের বিজ্ঞপ্তি</a>
+                                                                                             <a href="#assets/fileupload/1715782941.pdf" target="_blank">কামিল (মাস্টার্স) ২০২১-২০২২ শিক্ষাবর্ষ, পরীক্ষা ২০২২ এর ফরম ফিলাপের বিজ্ঞপ্তি</a>
                     
                                                                                        
                                         </h4>
@@ -625,7 +625,7 @@
                         <div class="clearfix"></div>
                         
                          <div class="panel-heading box-title white-bg widget-title title-dots" style="padding: 5px 0px 5px 15px;border-top: 2px solid #d5e5ff;background-color: #1ab33d !important;margin-bottom: 15px;">
-                           <div style="font-family:SolaimanLipi !important;text-transform:;font-size: 12px;font-weight: 600;"><a href="https://dskm.ac.bd/view-allnotice" style="color: #ffffff;padding-left: 45px;">সমস্ত নোটিশ দেখুন  
+                           <div style="font-family:SolaimanLipi !important;text-transform:;font-size: 12px;font-weight: 600;"><a href="#view-allnotice" style="color: #ffffff;padding-left: 45px;">সমস্ত নোটিশ দেখুন  
                            <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
                          </div>
                         </div>
@@ -850,42 +850,42 @@
                 <div class="widget dark text-black">
                     <ul class="list angle-double-right list-border">
                                                  <li class="text-black"><a
-                                  href="https://dskm.ac.bd/assets/fileupload/1762667379.pdf"
+                                  href="#assets/fileupload/1762667379.pdf"
                                   target="blank">
                                   <span><i class="fa fa-paperclip"></i></span> ভর্তি নির্দেশিকা-২০২৬                              </a></li>
 
                                                     <li class="text-black"><a
-                                  href="https://dskm.ac.bd/assets/fileupload/1701235454.pdf"
+                                  href="#assets/fileupload/1701235454.pdf"
                                   target="blank">
                                   <span><i class="fa fa-paperclip"></i></span> ভর্তি ফরম আতফাল থেকে তাসে                              </a></li>
 
                                                     <li class="text-black"><a
-                                  href="https://dskm.ac.bd/assets/fileupload/1701236438.pdf"
+                                  href="#assets/fileupload/1701236438.pdf"
                                   target="blank">
                                   <span><i class="fa fa-paperclip"></i></span> ভর্তি ফরম আলিম                              </a></li>
 
                                                     <li class="text-black"><a
-                                  href="https://dskm.ac.bd/assets/fileupload/1715572256.pdf"
+                                  href="#assets/fileupload/1715572256.pdf"
                                   target="blank">
                                   <span><i class="fa fa-paperclip"></i></span> ভর্তি ফরম ফাজিল (পাস)                              </a></li>
 
                                                     <li class="text-black"><a
-                                  href="https://dskm.ac.bd/assets/fileupload/1715572879.pdf"
+                                  href="#assets/fileupload/1715572879.pdf"
                                   target="blank">
                                   <span><i class="fa fa-paperclip"></i></span> ভর্তি ফরম ফাজিল (অনার্স)                              </a></li>
 
                                                     <li class="text-black"><a
-                                  href="https://dskm.ac.bd/assets/fileupload/1701236476.pdf"
+                                  href="#assets/fileupload/1701236476.pdf"
                                   target="blank">
                                   <span><i class="fa fa-paperclip"></i></span> ভর্তি ফরম কামিল                              </a></li>
 
                                                     <li class="text-black"><a
-                                  href="https://dskm.ac.bd/assets/fileupload/1701236489.pdf"
+                                  href="#assets/fileupload/1701236489.pdf"
                                   target="blank">
                                   <span><i class="fa fa-paperclip"></i></span> ভর্তি ফরম কামিল (মাস্টার্স)                              </a></li>
 
                                                     <li class="text-black"><a
-                                  href="https://dskm.ac.bd/assets/fileupload/1615947781.pdf"
+                                  href="#assets/fileupload/1615947781.pdf"
                                   target="blank">
                                   <span><i class="fa fa-paperclip"></i></span> বৃত্তির তথ্য ফরম                              </a></li>
 
@@ -893,7 +893,7 @@
                     
                     <div class="clearfix"></div>
                       <div class="panel-heading box-title white-bg widget-title title-dots" style="padding: 5px 0px 5px 15px;border-top: 2px solid #d5e5ff;background-color: #1ab33d !important;margin-bottom: 15px;">
-                       <div style="font-family:SolaimanLipi !important;text-transform:;font-size: 12px;font-weight: 600;"><a href="https://dskm.ac.bd/view-allform" style="color: #ffffff;padding-left: 45px;"> সমস্ত ডাউনলোড ফর্ম দেখুন   
+                       <div style="font-family:SolaimanLipi !important;text-transform:;font-size: 12px;font-weight: 600;"><a href="#view-allform" style="color: #ffffff;padding-left: 45px;"> সমস্ত ডাউনলোড ফর্ম দেখুন   
                        <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
                       </div>
                      </div>

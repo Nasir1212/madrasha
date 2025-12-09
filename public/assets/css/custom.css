@@ -180,7 +180,28 @@ section > .container, section > .container-fluid {
     background-color: #202C45;
     color: #fff;
 }
+.header-top{
+    display: none;
+}
+.example1.notice h5{
+    font-size: 12px !important;
+    margin-top: 14px;
+}
+    .title {
+        font-size: 22px !important;
+    }
 
+    .madrasa-about h2{
+        
+    font-size: 14px;
+    text-align: start;
+    }
+    
+    .madrasa-about p{
+        
+   font-size: 17px;
+  
+    }
 
 }
 

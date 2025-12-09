@@ -85,10 +85,12 @@ label {
     <label>জন্ম তারিখ</label>
     <input type="date" name="birth_date" class="form-control" value="{{ old('birth_date') }}">
 </div>
+
 <div class="col-md-6">
     <label>জন্ম নিবন্ধন নম্বর</label>
     <input type="text" name="birth_reg_no" class="form-control" value="{{ old('birth_reg_no') }}" placeholder="১৭ ডিজিটের জন্ম নিবন্ধন">
 </div>
+
 <div class="col-md-6">
     <label>লিঙ্গ</label>
     <select name="gender" class="form-select">
@@ -100,6 +102,29 @@ label {
 <div class="col-md-6">
     <label>জাতীয়তা</label>
     <input type="text" name="nationality" class="form-control" value="{{ old('nationality') }}" placeholder="বাংলাদেশী">
+</div>
+<div class="col-md-6">
+    <label>ব্লাড গ্রুপ</label>
+    <select name="blood_group" class="form-control">
+        <option value="">নির্বাচন করুন</option>
+        @foreach(['A+','A-','B+','B-','O+','O-','AB+','AB-'] as $bg)
+            <option value="{{ $bg }}" {{ old('blood_group') == $bg ? 'selected' : '' }}>
+                {{ $bg }}
+            </option>
+        @endforeach
+    </select>
+</div>
+
+<div class="col-md-6">
+    <label>ধর্ম</label>
+    <select name="religion" class="form-control">
+        <option value="">নির্বাচন করুন</option>
+        @foreach(['ইসলাম'=>'Islam','হিন্দু'=>'Hindu','খ্রিস্টান'=>'Christian','বৌদ্ধ'=>'Buddhist','অন্যান্য'=>'Other'] as $label => $value)
+            <option value="{{ $value }}" {{ old('religion') == $value ? 'selected' : '' }}>
+                {{ $label }}
+            </option>
+        @endforeach
+    </select>
 </div>
 <div class="col-md-6">
     <label>ছাত্র/ছাত্রীর ছবি</label>
@@ -164,10 +189,7 @@ label {
     <input type="text" name="guardian_name" class="form-control" value="{{ old('guardian_name') }}">
 </div>
 
-{{-- <div class="col-md-6">
-    <label>অভিভাবকের পেশা </label>
-    <input type="text" name="guardian_occupation" class="form-control" value="{{ old('guardian_occupation') }}">
-</div> --}}
+
 
 <div class="col-md-6">
     <label>অভিভাবকের পেশা</label>

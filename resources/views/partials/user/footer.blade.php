@@ -9,7 +9,7 @@
                         <img class="mt-5 mb-20" alt="" src="{{ asset('assets/img/madrash_logo.png') }}">
                         <!--<img class="mt-5 mb-20" alt="" src="" alt="institute logo" style="height: 110px;width: 110px;">-->
 
-                        <p>ফকির পাড়া, উত্তর খরনা, পটিয়া চট্টগ্রাম। </p>
+                        <p>ফকির পাড়া, চক্রশালা, পটিয়া চট্টগ্রাম। </p>
                         <ul class="list-inline mt-5 footer-mt-5">
                             <li class="m-0 pl-10 pr-10"> <i class="fa fa-phone text-theme-color-2 mr-5"></i> 
                                 <a class="text-white" href="#">০১৮২২৩১২৭৩৮ (সভাপতি) ০১৮১৭৭৬৮০৩২ (সুপার)</a> 
@@ -26,7 +26,7 @@
                             </li><br> 
                             
                             <li class="m-0 pl-10 pr-10"> <i class="fa fa-envelope-o text-theme-color-2 mr-5"></i> <a
-                                    class="text-white" href="#"><span class="__cf_email__" data-cfemail="5b3f3a292e35353a213a2f626b1b3c363a323775383436">fakirparaBASDM@gmail.com</span></a> </li>
+                                    class="text-white" href="#"><span class="__cf_email__" data-cfemail="5b3f3a292e35353a213a2f626b1b3c363a323775383436"> auth@fbasm.edu.bd</span></a> </li>
                                     <br>
                           
                         </ul>
@@ -73,14 +73,14 @@
                 <div class="row footer-last">
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="">
                         <div class="widget no-border">
-                            <p class="font-12 text-black-f2 footer-text"> Copyright @ {{ date("Y") }}, Fakir Para Badr Aulia Sunnia Dakhil Madrasa. All Rights Reserved</p>
+                            <p class="font-12 text-black-f2 footer-text"> Copyright @ {{ date("Y") }}, Fakir Para Badr Aoulia Sunnia Alim Madrasha. All Rights Reserved</p>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"
                         style="">
                         <div class="widget no-border">
                             <p class="font-12 text-black-f2 footer-text"
-                                >Developed By : <a href="https://www.facebook.com/golami.mo.nachira.catagami/" target="_blank" style="color: #b50431;"> Nasir Uddin</a>(ICT This Madrasha)</p>
+                                >Developed By : <a href="https://www.facebook.com/golami.mo.nachira.catagami/" target="_blank" style="color: #b50431;"> Nasir Uddin </a>(ICT This Madrasha)</p>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 text-right">

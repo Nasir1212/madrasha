@@ -27,3 +27,14 @@ Route::get('/storage-link', function () {
     return "Storage link created successfully!";
 });
 
+
+Route::get('/clear-all', function() {
+    $exitCode = Artisan::call('cache:clear');
+    $exitCode = Artisan::call('view:clear');
+    $exitCode = Artisan::call('route:clear');
+    $exitCode = Artisan::call('config:clear');
+    $exitCode = Artisan::call('optimize:clear');
+    $exitCode = Artisan::call('optimize');
+    echo "clear";
+    // return what you want
+});

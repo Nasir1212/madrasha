@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('birth_reg_no')->nullable();
             $table->string('gender')->nullable();
             $table->string('nationality')->nullable();
+            $table->string('religion')->nullable();
+            $table->string('blood_group')->nullable();
             $table->string('student_photo')->nullable();
 
             // 2. Father Info

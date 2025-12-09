@@ -20,7 +20,7 @@
         width: 830px;
         margin: auto;
         background: #fff;
-        padding: 25px 40px;
+        padding: 15px 40px;
         /* border: 2px solid #000; */
         border: none;
         position: relative;
@@ -40,7 +40,7 @@
 
 .qr-box {
     position: absolute;
-    bottom: 38px;
+    bottom: 24px;
     right: 40px;
     width: 52px;
     z-index: 0;
@@ -118,7 +118,7 @@
 
         <div class="photo-box">
             @if($admission->student_photo)
-                <img src="{{ asset($admission->student_photo) }}">
+                <img src="{{ env('IMG_URL').$admission->student_photo }}">
             @else
                 ছবি
             @endif
@@ -146,9 +146,25 @@
     ২। জন্ম নিবন্ধন নং: <span class="line" style="width: 44.7rem;"> <b> {{ $admission->birth_reg_no }} </b> </span>
     <br><br>
     
-    ৩। জন্ম তারিখ: <span class="small" style="width: 14.69rem;"> <b> {{ $admission->birth_date }} </b></span>
-    ৪। লিঙ্গ : <span class="small" style="width: 11rem"> <b> @if($admission->gender == 'male') পুরুষ @else নারী @endif </b> </span>
-   ৫। জাতীয়তা : <span class="small" style="width: 11rem"> <b> {{ $admission->nationality }} </b> </span>
+    ৩। জন্ম তারিখ: <span class="small" style="width: 7.69rem;"> <b> {{ $admission->birth_date }} </b></span>
+    ৩। রক্তের গ্রুপ: <span class="small" style="width: 2.69rem;"> <b> {{ $admission->blood_group }} </b></span>
+ @php
+$religions = [
+    'Islam' => 'ইসলাম',
+    'Hindu' => 'হিন্দু',
+    'Christian' => 'খ্রিস্টান',
+    'Buddhist' => 'বৌদ্ধ',
+    'Other' => 'অন্যান্য'
+];
+@endphp
+
+৩। ধর্ম: 
+<span class="small" style="width: 4.69rem;">
+    <b>{{ $religions[$admission->religion] ?? '' }}</b>
+</span>
+    ৪। লিঙ্গ : <span class="small" style="width: 3rem"> <b> @if($admission->gender == 'male') পুরুষ @else নারী @endif </b> </span>
+
+   ৫। জাতীয়তা : <span class="small" style="width: 9.3rem"> <b> {{ $admission->nationality }} </b> </span>
 
        <br><br>
 

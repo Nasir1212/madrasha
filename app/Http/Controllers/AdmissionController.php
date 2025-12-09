@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Admission;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image; 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str; 
 
 class AdmissionController extends Controller
 {
@@ -18,6 +21,8 @@ class AdmissionController extends Controller
             'birth_reg_no'  => 'nullable|string',
             'gender'        => 'nullable|string',
             'nationality'   => 'nullable|string',
+            'religion'      => 'nullable|string',
+            'blood_group'   => 'nullable|string',
             'student_photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'father_bn' => 'nullable|string',
             'father_en' => 'nullable|string',
@@ -61,12 +66,23 @@ class AdmissionController extends Controller
             $validated['form_no'] = $formNo;
 
         // Photo upload
-        if ($request->hasFile('student_photo')) {
-            $photo = $request->file('student_photo');
-            $name  = time() . '_' . uniqid() . '.' . $photo->getClientOriginalExtension();
-            $photo->move(public_path('uploads/students/'), $name);
+       
 
-            $validated['student_photo'] = 'uploads/students/' . $name;
+if ($request->hasFile('student_photo')) {
+
+            $image_obj = $request->file('student_photo');
+
+            // Generate unique filename
+            $filename = Str::random(40) . '.' . $image_obj->getClientOriginalExtension();
+
+            // Path inside img server
+            $relative_path = 'uploads/students/' . $filename;
+
+            // Save directly to storage disk
+            Storage::disk('img_disk')->putFileAs('uploads/students', $image_obj, $filename);
+
+            // Save full URL in database
+            $validated['student_photo'] =  $relative_path;
         }
 
         // Save record

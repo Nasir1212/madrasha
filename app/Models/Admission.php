@@ -16,6 +16,8 @@ class Admission extends Model
         'birth_reg_no',
         'gender',
         'nationality',
+        'religion',
+        'blood_group',
         'student_photo',
 
         'father_bn',

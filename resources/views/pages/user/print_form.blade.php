@@ -2,8 +2,25 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<title>Admission Form</title>
+<title> ভর্তি ফরম। ফকির পাড়া বদর আউলিয়া সুন্নিয়া আলিম মাদরাসা</title>
 <link href="https://fonts.maateen.me/solaiman-lipi/font.css" rel="stylesheet">
+ <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{{ asset('assets/img/madrash_logo.png') }}">
+    <meta name="theme-color" content="#ffffff">
 <style>
     @font-face {
         font-family: 'SolaimanLipi';
@@ -118,7 +135,7 @@
 
         <div class="photo-box">
             @if($admission->student_photo)
-                <img src="{{ env('IMG_URL').$admission->student_photo }}">
+                <img id="photo_img" src="{{ env('IMG_URL').$admission->student_photo }}">
             @else
                 ছবি
             @endif
@@ -269,7 +286,7 @@ $religions = [
 <div class="section-title"> সংযুক্তি </div>
 
 <span style="margin: 0;">১। ছাত্র/ছাত্রীর ২ কপি ছবি ও জন্মনিবন্ধনের ফটোকপি </span>
-<span style="margin: 0;"> ২। পিতা-মাতার এন. আই. ডি ও জন্মনিবন্ধনের ফটোকপি </span>
+<span style="margin: 0;"> ২। পিতা-মাতার এন. আই. ডি  ফটোকপি </span>
 <span style="margin: 0;">  ৩। ছাড়পত্রের কপি (প্রযোজ্য ক্ষেত্রে )  </span>
 
     <div class="section-title">অফিস কর্তৃক পূরণীয়</div>
@@ -309,6 +326,49 @@ qrElements.forEach(function(qrElement) {
     };
 });
 
+  
+async function convertUrlToDataURL(url, targetElement) {
+    if (!url || url.includes('null')) {
+        console.warn("Student photo URL is empty. Using default text.");
+        return; 
+    }
+
+    try {
+        const response = await fetch(url, { mode: 'cors' });
+
+        if (!response.ok) {
+            console.error(`Failed to fetch image. Status: ${response.status}. This might be a CORS issue.`);
+            return;
+        }
+
+        const blob = await response.blob();
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            
+            reader.onloadend = () => {
+                
+                targetElement.src = reader.result; 
+              
+                targetElement.textContent = ''; 
+                resolve(true);
+            };
+
+            reader.onerror = () => {
+                console.error("FileReader failed to convert image.");
+                reject(false);
+            };
+
+            reader.readAsDataURL(blob);
+        });
+
+    } catch (error) {
+        console.error("Error during image fetch/conversion. Likely a CORS issue:", error);
+    
+        targetElement.src = ''; 
+        targetElement.textContent = defaultPhotoText;
+        return false;
+    }
+}
 
 
 async function makePDF() {
@@ -365,9 +425,14 @@ async function makePDF() {
             document.body.removeChild(clone);
         }
     }
-            window.onload = function() { 
+
+            window.onload = function() {
+     const studentPhotoUrl = '{{ $admission->student_photo ? env('IMG_URL').$admission->student_photo : '' }}';
+    const photoBoxImage = document.querySelector('#photo_img');
+    const defaultPhotoText = document.querySelector('.photo-box').textContent.trim(); // "ছবি" টেক্সট ধরার জন্য 
+    convertUrlToDataURL(studentPhotoUrl, photoBoxImage)
                  makePDF(); 
-                // স্বয়ংক্রিয়ভাবে পিডিএফ তৈরি করতে চাইলে এই লাইনটি আনকমেন্ট করুন // 
+             
                 window.close(); 
             
             }; 

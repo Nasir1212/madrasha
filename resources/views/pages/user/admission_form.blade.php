@@ -3,9 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admission Form</title>
+    <title> ভর্তি আবেদন | ফকির পাড়া বদর আউলিয়া সুন্নিয়া আলিম মাদরাসা</title>
 <link href="https://fonts.maateen.me/solaiman-lipi/font.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/madrash_logo.png') }}">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{{ asset('assets/img/madrash_logo.png') }}">
+    <meta name="theme-color" content="#ffffff">
 
 <style>
 body {
@@ -42,7 +59,8 @@ label {
 
 <body>
 <div class="container py-4">
-
+<h4 class="text-center ">হযরত ফকির পাড়া বদর আউলিয়া সুন্নিয়া আলিম মাদ্রাসা </h4>
+<h5 class="text-center mb-4">উত্তর খরনা, চক্রশালা, পটিয়া চট্টগ্রাম</h5>
 <h3 class="text-center mb-4">ভর্তি আবেদন</h3>
 
 <form id="admissionForm" action="{{ route('admission.store') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
@@ -335,7 +353,7 @@ label {
 </div>
 <label>অভিভাবকের অঙ্গীকার</label>
 <div class="form-control" readonly>
-* আমি অঙ্গীকার করিতেছি যে, আমার ছেলে/মেয়ে মাদ্রাসার যাবতীয় নিয়ম কানুন মেনে চলবে। ...
+* আমি অভিভাবক  হিসাবে অঙ্গীকার করিতেছি যে, আমার ছেলে/মেয়ে মাদ্রাসার যাবতীয় নিয়ম কানুন মেনে চলবে। অত্র মাদ্রাসার ছাড়পত্র ছাড়া অন্য কোন প্রতিষ্ঠানে ভর্তি করাবো না।
 </div>
 </div>
 </div>
@@ -345,7 +363,7 @@ label {
 <div class="card-body">
 <div class="section-title">৬। সংযুক্তি</div>
 <label>ক. ছাত্র/ছাত্রীর জন্ম নিবন্ধন কপি</label><br>
-<label>খ. পিতা-মাতার জন্ম নিবন্ধন ও NID কপি</label><br>
+<label>খ. পিতা-মাতার  NID কপি (উভয়ের) </label><br>
 <label>গ. পূর্বের বিদ্যালয়ের ছাড়পত্র (যদি থাকে)</label><br>
 <div>* সকল সংযুক্তি অবশ্যই প্রতিষ্ঠানে জমা দিতে হবে।</div>
 </div>

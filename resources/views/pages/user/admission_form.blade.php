@@ -59,7 +59,7 @@ label {
 
 <body>
 <div class="container py-4">
-<h4 class="text-center ">হযরত ফকির পাড়া বদর আউলিয়া সুন্নিয়া আলিম মাদ্রাসা </h4>
+<h4 class="text-center ">ফকির পাড়া বদর আউলিয়া সুন্নিয়া আলিম মাদ্রাসা </h4>
 <h5 class="text-center mb-4">উত্তর খরনা, চক্রশালা, পটিয়া চট্টগ্রাম</h5>
 <h3 class="text-center mb-4">ভর্তি আবেদন</h3>
 

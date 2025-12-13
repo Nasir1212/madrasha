@@ -25,9 +25,14 @@
                                 <a href="#"><img src="{{ asset('assets/img/sl2.jpg') }}"></a>
                                
                             </div>
-                                                    <div class="item">
+                              <div class="item">
 
                                 <a href="#"><img src="{{ asset('assets/img/sl3.jpg') }}"></a>
+                               
+                            </div>
+                              <div class="item">
+
+                                <a href="#"><img src="{{ asset('assets/img/sl4.jpg') }}"></a>
                                
                             </div>
                                                     {{-- <div class="item">

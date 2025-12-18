@@ -26,7 +26,7 @@
 
 
     <!-- Page Title -->
-    <title style="font-family: SolaimanLipi;">ফকির পাড়া বদর আউলিয়া সুন্নিয়া দাখিল মাদ্রাসা</title>
+    <title style="font-family: SolaimanLipi;">ফকির পাড়া বদর আউলিয়া সুন্নিয়া আলিম মাদ্রাসা</title>
     <!-- Favicon and Touch Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('assets/img/madrash_logo.png') }}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('assets/img/madrash_logo.png') }}">

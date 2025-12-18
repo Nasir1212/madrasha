@@ -6,8 +6,10 @@
   </div>
 
   <nav class="nav flex-column no-print">
+
     <a href="{{route('admin.dashboard')}}" class="nav-link active"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
     <div class="nav-item dropdown">
+
   <a class="nav-link dropdown-toggle" href="" data-bs-toggle="dropdown">
     <i class="bi bi-people me-2"></i>Students
   </a>
@@ -16,6 +18,7 @@
     <li><a class="dropdown-item" href="{{route('admin.students.create')}}"><i class="bi bi-plus-circle me-2"></i>Add Student</a></li>
     <li><a class="dropdown-item" href="{{ route('admin.students.print.cards') }}"><i class="bi bi-plus-circle me-2"></i>ID card</a></li>
   </ul>
+
 </div>
 
     <div class="nav-item dropdown">
@@ -27,6 +30,17 @@
     <li><a class="dropdown-item" href="#"><i class="bi bi-plus-circle me-2"></i>Add Teacher</a></li>
   </ul>
 </div>
+
+<a class="nav-link dropdown-toggle" href="" data-bs-toggle="dropdown">
+    <i class="bi bi-person-plus-fill me-2"></i>Admissions
+  </a>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="{{route('admin.admissions.index')}}"><i class="bi bi-eye me-2"></i> All Admissions </a></li>
+    <li><a class="dropdown-item" href="{{route('admin.admissions.index')}}"><i class="bi bi-plus-circle me-2"></i> Pending Approvals  </a></li>
+    <li><a class="dropdown-item" href="{{ route('admin.admissions.index') }}"><i class="bi bi-plus-circle me-2"></i> Approved Admissions </a></li>
+    <li><a class="dropdown-item" href="{{ route('admin.admissions.index') }}"><i class="bi bi-plus-circle me-2"></i> Rejected Admissions </a></li>
+  </ul>
+  
 
     <a href="#" class="nav-link"><i class="bi bi-book me-2"></i>Class Routine</a>
     <a href="#" class="nav-link"><i class="bi bi-calendar-week me-2"></i>Exams</a>

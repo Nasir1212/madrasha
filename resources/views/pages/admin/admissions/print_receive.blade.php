@@ -17,7 +17,7 @@ body{
     margin:auto;
     background:#fff;
     padding:25px;
-    border:2px dashed #000;
+    /* border:2px dashed #000; */
 }
 #receiptArea{
     width: 800px;   /* A5 Landscape friendly */
@@ -146,6 +146,10 @@ async function makeReceiptPDF(){
 
 window.onload = function(){
     makeReceiptPDF();
+    setTimeout(function () {
+        window.close();
+  console.log("This runs after 2 seconds");
+}, 2000); // time in milliseconds
 };
 
 </script>

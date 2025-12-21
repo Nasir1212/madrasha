@@ -18,8 +18,8 @@ public function index()
 // Edit Page
 public function edit($id)
 {
-    $admission = Admission::findOrFail($id);
-    return view('pages.admin.admissions.edit', compact('admission'));
+    $student = Admission::findOrFail($id);
+    return view('pages.admin.admissions.edit', compact('student'));
 }
 
 // Update

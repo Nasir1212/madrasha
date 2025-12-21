@@ -4,10 +4,10 @@
 <thead>
 <tr class="table-primary">
     <th>Form No</th>
-    <th>নাম</th>
-    <th>শ্রেণী</th>
-    <th>অভিভাবক</th>
-    <th>মোবাইল</th>
+    <th> Name </th>
+    <th>Class </th>
+    <th>Guardian</th>
+    <th>Phone </th>
     <th>Status</th>
     <th>Action</th>
 </tr>
@@ -33,23 +33,23 @@
     </td>
 
     <td>
-        <a href="{{ route('admin.admissions.edit',$a->id) }}">✏ Edit</a>
+        <a href="{{ route('admin.admissions.edit',$a->id) }}" class="btn btn-primary" title="Edit" >✏ </a>
 
         <form action="{{ route('admin.admissions.delete',$a->id) }}" method="POST" style="display:inline">
             @csrf @method('DELETE')
-            <button onclick="return confirm('ডিলিট করবেন?')">🗑</button>
+            <button onclick="return confirm('ডিলিট করবেন?')" title="Delete" class="btn btn-danger">🗑</button>
         </form>
 
         @if($a->status=='0')
-        <form action="{{ route('admin.admissions.approve',$a->id) }}" method="POST" style="display:inline">
+        <form action="{{ route('admin.admissions.approve',$a->id) }}" method="POST"  style="display:inline">
             @csrf
-            <button>✔ Approve</button>
+            <button title="Approve" class="btn btn-success">✔ </button>
         </form>
         @endif
 
         @if($a->status=='0')
-        <a target="_blank" href="{{ route('admin.admissions.print_receive',['form_no'=>$a->form_no]) }}">
-            🖨 Print
+        <a target="_blank" title="Print" class="btn btn-secondary" href="{{ route('admin.admissions.print_receive',['form_no'=>$a->form_no]) }}">
+            🖨 
         </a>
         @endif
     </td>

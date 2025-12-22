@@ -9,3 +9,23 @@
       <a class="btn btn-primary btn-sm" href="{{route('home')}}"><i class="bi bi-globe"></i></a>
     </div>
   </div>
+
+  @if(session('success'))
+    <div class="alert alert-success" style="background: green;
+    color: white;
+    font-weight: bold;
+    font-family: monospace;">
+        {{ session('success') }}
+    </div>
+@endif
+
+
+@if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif

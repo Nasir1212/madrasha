@@ -78,6 +78,9 @@ hr{
     <div class="info">
         <p><b>ফরম নং:</b> {{ $admission->form_no }}</p>
         <p><b>ছাত্র/ছাত্রীর নাম:</b> {{ $admission->name_bn_first }} {{ $admission->name_bn_last }}</p>
+        @php
+        $classNames = ['শিশু','প্রথম','দ্বিতীয়','তৃতীয়','চতুর্থ','পঞ্চম','ষষ্ঠ','সপ্তম','অষ্টম','নবম'];
+        @endphp
         <p><b>শ্রেণী:</b> {{ $classNames[$admission->admit_class] ?? '' }}</p>
         <p><b>অভিভাবকের নাম:</b> {{ $admission->guardian_name }}</p>
         <p><b>মোবাইল:</b> {{ $admission->guardian_phone }}</p>
@@ -147,7 +150,7 @@ async function makeReceiptPDF(){
 window.onload = function(){
     makeReceiptPDF();
     setTimeout(function () {
-        window.close();
+    window.close();
   console.log("This runs after 2 seconds");
 }, 2000); // time in milliseconds
 };

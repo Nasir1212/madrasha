@@ -36,23 +36,14 @@ label {
 <body>
 <div class="container py-4">
 
-<form id="admissionForm" action="
-{{-- {{ route('admission.update', $student->id) }} --}}
+<form id="admissionForm" action="{{ route('admin.admissions.update', $student->id) }}
  " method="POST" enctype="multipart/form-data" autocomplete="off">
 @csrf
 @method('PUT')
 
 <div class="card-layout">
 
-@if ($errors->any())
-<div class="alert alert-danger">
-    <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
-@endif
+
 
 <!-- ১. ছাত্র/ছাত্রীর তথ্য -->
 <div class="card">
@@ -237,7 +228,7 @@ $classes = ['শিশু','প্রথম','দ্বিতীয়','তৃত�
 <select name="previous_class" class="form-select">
 <option value="">নির্বাচন করুন</option>
 @for($i=0;$i<=9;$i++)
-<option value="{{ $i }}" {{ old('previous_class', $student->previous_class)==$i?'selected':'' }}>{{ $classes[$i] }}</option>
+<option value="{{ $i }}" {{ old('previous_class', $student->previous_class) === $i?'selected':'' }}>{{ $classes[$i] }}</option>
 @endfor
 </select>
 </div>

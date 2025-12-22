@@ -23,14 +23,94 @@ public function edit($id)
 }
 
 // Update
+// public function update(Request $request, $id)
+// {
+//     $admission = Admission::findOrFail($id);
+//     $admission->update($request->all());
+
+//     return redirect()->route('admin.admissions.index')
+//         ->with('success', 'ডাটা আপডেট হয়েছে');
+// }
+
+
 public function update(Request $request, $id)
 {
     $admission = Admission::findOrFail($id);
-    $admission->update($request->all());
 
-    return redirect()->route('admin.admissions.index')
-        ->with('success', 'ডাটা আপডেট হয়েছে');
+    $validated = $request->validate([
+        'name_bn_first' => 'nullable|string',
+        'name_bn_last'  => 'nullable|string',
+        'name_en_first' => 'nullable|string',
+        'name_en_last'  => 'nullable|string',
+        'birth_date'    => 'nullable|date',
+        'birth_reg_no'  => 'nullable|string',
+        'gender'        => 'nullable|string',
+        'nationality'   => 'nullable|string',
+        'religion'      => 'nullable|string',
+        'blood_group'   => 'nullable|string',
+        'student_photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+
+        'father_bn' => 'nullable|string',
+        'father_en' => 'nullable|string',
+        'father_nid' => 'nullable|string',
+        'father_birth_reg' => 'nullable|string',
+        'father_birth_date' => 'nullable|date',
+
+        'mother_bn' => 'nullable|string',
+        'mother_en' => 'nullable|string',
+        'mother_nid' => 'nullable|string',
+        'mother_birth_reg' => 'nullable|string',
+        'mother_birth_date' => 'nullable|date',
+
+        'guardian_name'  => 'nullable|string',
+        'guardian_occupation'  => 'nullable|string',
+        'guardian_phone' => 'nullable|string',
+
+        'perm_village' => 'nullable|string',
+        'perm_post'    => 'nullable|string',
+        'perm_union'   => 'nullable|string',
+        'perm_upazila' => 'nullable|string',
+        'perm_district'=> 'nullable|string',
+
+        'curr_village' => 'nullable|string',
+        'curr_post'    => 'nullable|string',
+        'curr_union'   => 'nullable|string',
+        'curr_upazila' => 'nullable|string',
+        'curr_district'=> 'nullable|string',
+
+        'admit_class'         => 'nullable|string',
+        'previous_class'      => 'nullable|string',
+        'previous_institute'  => 'nullable|string',
+        'leave_certificate_no'=> 'nullable|string',
+        'leave_certificate_date' => 'nullable|date',
+    ]);
+
+    // Photo update
+    if ($request->hasFile('student_photo')) {
+
+        // Old photo delete (optional)
+        if ($admission->student_photo) {
+            Storage::disk('img_disk')->delete($admission->student_photo);
+        }
+
+        $image_obj = $request->file('student_photo');
+        $filename = Str::random(40) . '.' . $image_obj->getClientOriginalExtension();
+        $relative_path = 'uploads/students/' . $filename;
+
+        Storage::disk('img_disk')->putFileAs('uploads/students', $image_obj, $filename);
+
+        $validated['student_photo'] = $relative_path;
+    }
+
+    // Update record
+    $admission->update($validated);
+
+    return redirect()
+        ->route('admin.admissions.index')
+        ->with('success', 'Admission form updated successfully!');
 }
+
+
 
 // Delete
 public function destroy($id)

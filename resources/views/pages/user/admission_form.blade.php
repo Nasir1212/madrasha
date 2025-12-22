@@ -6,6 +6,7 @@
     <title> ভর্তি আবেদন | ফকির পাড়া বদর আউলিয়া সুন্নিয়া আলিম মাদরাসা</title>
 <link href="https://fonts.maateen.me/solaiman-lipi/font.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('assets/img/madrash_logo.png') }}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('assets/img/madrash_logo.png') }}">
     <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('assets/img/madrash_logo.png') }}">
@@ -45,6 +46,13 @@ label {
     font-weight: 600;
     margin-bottom: 4px;
 }
+input[readonly] {
+    background-color: #f5f5f5; /* light gray */
+    border: 1px solid #ccc;
+    color: #555;
+    cursor: not-allowed;       /* shows “disabled” cursor */
+}
+
 #previewImage {
     width: 120px;
     height: 120px;
@@ -253,7 +261,13 @@ label {
 <div class="col-md-6"><label>উপজেলা</label><input type="text" name="perm_upazila" class="form-control" value="{{ old('perm_upazila') }}"></div>
 <div class="col-md-6"><label>জেলা</label><input type="text" name="perm_district" class="form-control" value="{{ old('perm_district') }}"></div>
 </div>
-<h6 class="fw-bold text-primary">বর্তমান ঠিকানা</h6>
+
+<h6 class="fw-bold text-primary">বর্তমান ঠিকানা
+     <label class="form-check-label ms-2 text-dark">
+        <input type="checkbox" name="same_as_perm" class="form-check-input">
+        স্থায়ী ঠিকানার সাথে মিল ?
+    </label>
+</h6>
 <div class="row g-3 mb-3">
 <div class="col-md-6"><label>গ্রাম/ওয়ার্ড</label><input type="text" name="curr_village" class="form-control" value="{{ old('curr_village') }}"></div>
 <div class="col-md-6"><label>পোস্ট অফিস</label><input type="text" name="curr_post" class="form-control" value="{{ old('curr_post') }}"></div>
@@ -394,6 +408,59 @@ document.getElementById("imageInput").addEventListener("change", function (event
     }
 });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('input[type="date"]').forEach(function(el) {
+        el.type = "text";
+        el.classList.add("datepicker");
+    });
+
+    flatpickr(".datepicker", {
+        dateFormat: "Y-m-d",
+        altInput: true,
+        altFormat: "d-m-Y",
+        allowInput: true,
+        maxDate: "today",
+        yearSelectorType: "dropdown"
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const checkbox = document.querySelector('input[name="same_as_perm"]');
+
+    checkbox.addEventListener('change', function() {
+        const checked = this.checked;
+
+        // Fields
+        const permFields = ['village', 'post', 'union', 'upazila', 'district'];
+
+        permFields.forEach(function(field) {
+            // Get elements by name
+            const permInput = document.querySelector('input[name="perm_' + field + '"]');
+            const currInput = document.querySelector('input[name="curr_' + field + '"]');
+
+            if (checked) {
+                currInput.value = permInput.value;
+                currInput.readOnly = true;
+            } else {
+                // currInput.value = ''; // optional clear
+                currInput.readOnly = false;
+            }
+
+            // Auto update if perm changes while checked
+            permInput.addEventListener('input', function() {
+                if (checkbox.checked) {
+                    currInput.value = this.value;
+                }
+            });
+        });
+    });
+});
+
+</script>
+
 
 </body>
 </html>

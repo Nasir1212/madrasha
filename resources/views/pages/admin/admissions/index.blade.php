@@ -47,11 +47,11 @@
         </form>
         @endif
 
-        @if($a->status=='0')
+       
         <a target="_blank" title="Print" class="btn btn-secondary" href="{{ route('admin.admissions.print_receive',['form_no'=>$a->form_no]) }}">
             🖨 
         </a>
-        @endif
+   
     </td>
 </tr>
 @endforeach

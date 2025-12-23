@@ -109,7 +109,7 @@ label {
 <input type="file" id="imageInput" name="student_photo" class="form-control" accept="image/*">
 </div>
 <div class="col-md-6">
-<img id="previewImage" src="{{ $student->student_photo_url }}" alt="Preview Image">
+<img id="previewImage" src="https://img.fbasm.edu.bd/{{ $student->student_photo }}" alt="Preview Image">
 </div>
 </div>
 </div>

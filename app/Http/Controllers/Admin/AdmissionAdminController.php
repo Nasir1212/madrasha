@@ -5,7 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admission;
-
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str; 
 class AdmissionAdminController extends Controller
 {
         // List
@@ -123,7 +124,7 @@ public function destroy($id)
 public function approve($id)
 {
     $admission = Admission::findOrFail($id);
-    $admission->status = 'approved';
+    $admission->status = '1';
     $admission->save();
 
     return back()->with('success', 'ভর্তি অনুমোদিত');
@@ -133,7 +134,7 @@ public function approve($id)
 public function reject($id)
 {
     $admission = Admission::findOrFail($id);
-    $admission->status = 'rejected';
+    $admission->status = '2';
     $admission->save();
 
     return back()->with('success', 'ভর্তি বাতিল');

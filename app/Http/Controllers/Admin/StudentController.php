@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\StudentAcademic;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str; 
+
 class StudentController extends Controller
 {
     /**
@@ -32,41 +35,79 @@ class StudentController extends Controller
     public function store(Request $request)
 {
     $validated = $request->validate([
-        // Personal Info
-        'first_name_bn' => 'nullable|string|max:255',
-        'last_name_bn' => 'nullable|string|max:255',
-        'first_name_en' => 'nullable|string|max:255',
-        'last_name_en' => 'nullable|string|max:255',
-        'blood_type' => 'nullable|string|max:10',
-        'gender' => 'nullable|string|max:10',
-        'religion' => 'nullable|string|max:50',
-        'birth_date' => 'nullable|date',
-        'birth_reg_no' => 'nullable|string|max:50',
-        'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+       // Student
+            'name_bn_first'   => 'required|string|max:100',
+            'name_bn_last'    => 'required|string|max:100',
+            'name_en_first'   => 'nullable|string|max:100',
+            'name_en_last'    => 'nullable|string|max:100',
+            'birth_date'      => 'required|date',
+            'birth_reg_no'    => 'nullable|string|max:20',
+            'gender'          => 'required|in:male,female,others',
+            'nationality'     => 'nullable|string|max:50',
+            'blood_group'     => 'nullable|string|max:5',
+            'religion'        => 'nullable|string|max:20',
+            'student_photo'   => 'nullable|image|max:2048',
 
-        // Parents Info
-        'father_name_bn' => 'nullable|string|max:255',
-        'mother_name_bn' => 'nullable|string|max:255',
-        'father_name_en' => 'nullable|string|max:255',
-        'mother_name_en' => 'nullable|string|max:255',
-        'parents_contact' => 'nullable|string|max:20',
+            // Father
+            'father_bn'            => 'nullable|string|max:150',
+            'father_en'            => 'nullable|string|max:150',
+            'father_nid'           => 'nullable|string|max:30',
+            'father_birth_reg'     => 'nullable|string|max:30',
+            'father_birth_date'    => 'nullable|date',
 
-        // Address Info
-        'full_address' => 'nullable|string',
-        'zip_code' => 'nullable|string|max:10',
-        'police_station' => 'nullable|string|max:100',
-        'nationality' => 'nullable|string|max:50',
+            // Mother
+            'mother_bn'            => 'nullable|string|max:150',
+            'mother_en'            => 'nullable|string|max:150',
+            'mother_nid'           => 'nullable|string|max:30',
+            'mother_birth_reg'     => 'nullable|string|max:30',
+            'mother_birth_date'    => 'nullable|date',
 
-        // Academic Info
-        'class' => 'nullable|string|max:50',
-        'roll' => 'nullable|integer',
-        'session' => 'nullable|string|max:20',
-    ]);
+            // Guardian
+            'guardian_name'        => 'nullable|string|max:150',
+            'guardian_occupation' => 'nullable|string|max:100',
+            'guardian_phone'      => 'nullable|string|max:20',
 
-    // Handle photo upload
-    if($request->hasFile('photo')){
-        $validated['photo'] = $request->file('photo')->store('students', 'public');
-    }
+            // Address
+            'perm_village'  => 'nullable|string|max:150',
+            'perm_post'     => 'nullable|string|max:150',
+            'perm_union'    => 'nullable|string|max:150',
+            'perm_upazila'  => 'nullable|string|max:150',
+            'perm_district' => 'nullable|string|max:150',
+
+            'curr_village'  => 'nullable|string|max:150',
+            'curr_post'     => 'nullable|string|max:150',
+            'curr_union'    => 'nullable|string|max:150',
+            'curr_upazila'  => 'nullable|string|max:150',
+            'curr_district' => 'nullable|string|max:150',
+
+            // Academic
+            'class'   => 'required|integer|min:0|max:10',
+            'roll'    => 'nullable|string|max:20',
+            'session' => 'required|string|max:10',
+        ]);
+
+        do {
+            // First digit: 1–9 (never 0)
+            $uid = rand(1, 9);
+
+            // Remaining 5 digits: 0–9
+            for ($i = 0; $i < 5; $i++) {
+                $uid .= rand(0, 9);
+            }
+        } while (\App\Models\Student::where('uid', $uid)->exists());
+        $validated['uid'] = $uid;
+
+        // ✅ Image upload
+        if ($request->hasFile('student_photo')) {
+            $image_obj = $request->file('student_photo');
+            $filename = Str::random(40) . '.' . $image_obj->getClientOriginalExtension();
+            $relative_path = 'uploads/students/' . $filename;
+            Storage::disk('img_disk')->putFileAs('uploads/students', $image_obj, $filename);
+            $validated['student_photo'] =  $relative_path;
+
+            
+        }
+
 
     // Save student personal info
     $student = Student::create($validated);
@@ -82,7 +123,11 @@ class StudentController extends Controller
         ]);
     }
 
-    return redirect()->route('admin.students.index')->with('success','Student added successfully!');
+     return redirect()
+            ->back()
+            ->with('success', 'শিক্ষার্থীর তথ্য সফলভাবে সংরক্ষণ করা হয়েছে');
+
+    // return redirect()->route('admin.students.index')->with('success','Student added successfully!');
 }
 
     /**
@@ -112,59 +157,97 @@ class StudentController extends Controller
      */
   public function update(Request $request, Student $student)
 {
+    // Validation
     $validated = $request->validate([
-        'first_name_bn' => 'nullable|string',
-        'last_name_bn' => 'nullable|string',
-        'first_name_en' => 'nullable|string',
-        'last_name_en' => 'nullable|string',
-        'blood_type' => 'nullable|string',
-        'gender' => 'nullable|string',
-        'religion' => 'nullable|string',
-        'birth_date' => 'nullable|date',
-        'birth_reg_no' => 'nullable|string',
-        'father_name_bn' => 'nullable|string',
-        'mother_name_bn' => 'nullable|string',
-        'father_name_en' => 'nullable|string',
-        'mother_name_en' => 'nullable|string',
-        'parents_contact' => 'nullable|string',
-        'full_address' => 'nullable|string',
-        'zip_code' => 'nullable|string',
-        'police_station' => 'nullable|string',
-        'nationality' => 'nullable|string',
-        'class' => 'nullable|string',
-        'roll' => 'nullable|integer',
-        'session' => 'nullable|string',
-        'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        // Student
+        'name_bn_first'   => 'required|string|max:100',
+        'name_bn_last'    => 'required|string|max:100',
+        'name_en_first'   => 'nullable|string|max:100',
+        'name_en_last'    => 'nullable|string|max:100',
+        'birth_date'      => 'required|date',
+        'birth_reg_no'    => 'nullable|string|max:20',
+        'gender'          => 'required|in:male,female,others',
+        'nationality'     => 'nullable|string|max:50',
+        'blood_group'     => 'nullable|string|max:5',
+        'religion'        => 'nullable|string|max:20',
+        'student_photo'   => 'nullable|image|max:2048',
+
+        // Father
+        'father_bn'            => 'nullable|string|max:150',
+        'father_en'            => 'nullable|string|max:150',
+        'father_nid'           => 'nullable|string|max:30',
+        'father_birth_reg'     => 'nullable|string|max:30',
+        'father_birth_date'    => 'nullable|date',
+
+        // Mother
+        'mother_bn'            => 'nullable|string|max:150',
+        'mother_en'            => 'nullable|string|max:150',
+        'mother_nid'           => 'nullable|string|max:30',
+        'mother_birth_reg'     => 'nullable|string|max:30',
+        'mother_birth_date'    => 'nullable|date',
+
+        // Guardian
+        'guardian_name'        => 'nullable|string|max:150',
+        'guardian_occupation'  => 'nullable|string|max:100',
+        'guardian_phone'       => 'nullable|string|max:20',
+
+        // Address
+        'perm_village'  => 'nullable|string|max:150',
+        'perm_post'     => 'nullable|string|max:150',
+        'perm_union'    => 'nullable|string|max:150',
+        'perm_upazila'  => 'nullable|string|max:150',
+        'perm_district' => 'nullable|string|max:150',
+
+        'curr_village'  => 'nullable|string|max:150',
+        'curr_post'     => 'nullable|string|max:150',
+        'curr_union'    => 'nullable|string|max:150',
+        'curr_upazila'  => 'nullable|string|max:150',
+        'curr_district' => 'nullable|string|max:150',
+
+        // Academic
+        'class'   => 'required|integer|min:0|max:10',
+        'roll'    => 'nullable|string|max:20',
+        'session' => 'required|string|max:10',
     ]);
 
-    // Photo upload
-    if($request->hasFile('photo')){
-        if($student->photo && file_exists(storage_path('app/public/'.$student->photo))){
-            unlink(storage_path('app/public/'.$student->photo));
+    // ✅ Photo update
+    if ($request->hasFile('student_photo')) {
+        // Delete old photo if exists
+        if ($student->student_photo && Storage::disk('img_disk')->exists($student->student_photo)) {
+            Storage::disk('img_disk')->delete($student->student_photo);
         }
-        $validated['photo'] = $request->file('photo')->store('students', 'public');
+
+        $image_obj = $request->file('student_photo');
+        $filename = Str::random(40) . '.' . $image_obj->getClientOriginalExtension();
+        $relative_path = 'uploads/students/' . $filename;
+        Storage::disk('img_disk')->putFileAs('uploads/students', $image_obj, $filename);
+        $validated['student_photo'] = $relative_path;
     }
 
-    // Update personal info
+    // Update Student personal info
     $student->update($validated);
 
-    // Update academic info
+    // Update or create academic info
     if($student->currentAcademic){
         $student->currentAcademic->update([
             'class' => $validated['class'] ?? $student->currentAcademic->class,
-            'roll' => $validated['roll'] ?? $student->currentAcademic->roll,
+            'roll'  => $validated['roll'] ?? $student->currentAcademic->roll,
             'session' => $validated['session'] ?? $student->currentAcademic->session,
+           
         ]);
     } else {
-        $student->academics()->create([
+        StudentAcademic::create([
+            'student_id' => $student->id,
             'class' => $validated['class'] ?? null,
-            'roll' => $validated['roll'] ?? null,
+            'roll'  => $validated['roll'] ?? null,
             'session' => $validated['session'] ?? null,
             'status' => 'active',
         ]);
     }
 
-    return redirect()->route('admin.students.index')->with('success','Student updated successfully!');
+    return redirect()
+        ->back()
+        ->with('success', 'শিক্ষার্থীর তথ্য সফলভাবে আপডেট করা হয়েছে');
 }
 
 

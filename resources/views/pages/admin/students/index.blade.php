@@ -25,15 +25,15 @@
                 @forelse($students as $key => $student)
                 <tr>
                     <td>{{ $students->firstItem() + $key }}</td>
-                    <td>{{ $student->first_name_bn }} {{ $student->last_name_bn }}</td>
-                    <td>{{ $student->first_name_en }} {{ $student->last_name_en }}</td>
+                    <td>{{ $student->name_bn_first }} {{ $student->name_bn_last }}</td>
+                    <td>{{ $student->name_en_first }} {{ $student->name_en_last }}</td>
                     <td>{{ $student->gender }}</td>
                     <td>{{ $student->currentAcademic->class ?? 'N/A' }}</td>
                     <td>{{ $student->currentAcademic->roll ?? 'N/A' }}</td>
                     <td>{{ $student->currentAcademic->session ?? 'N/A' }}</td>
                     <td>
-                        @if($student->photo)
-                        <img src="{{ asset('storage/'.$student->photo) }}" alt="Photo" style="max-width:50px; border-radius:5px;">
+                        @if($student->student_photo)
+                        <img src="https://img.fbasm.edu.bd/{{ $student->student_photo }}" alt="Photo" style="max-width:50px; border-radius:5px;">
                         @endif
                     </td>
                     <td>

@@ -7,18 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     protected $fillable = [
-// Personal Info
-'first_name_bn', 'last_name_bn', 'first_name_en', 'last_name_en', 'blood_type', 'gender', 'religion', 'birth_date', 'birth_reg_no', 'photo',
+    'uid','status',
+    'name_bn_first','name_bn_last','name_en_first','name_en_last',
+    'birth_date','birth_reg_no','gender','nationality','blood_group','religion',
+    'student_photo',
 
+    'father_bn','father_en','father_nid','father_birth_reg','father_birth_date',
+    'mother_bn','mother_en','mother_nid','mother_birth_reg','mother_birth_date',
 
-// Parents Info
-'father_name_bn', 'mother_name_bn', 'father_name_en', 'mother_name_en', 'parents_contact',
+    'guardian_name','guardian_occupation','guardian_phone',
 
-
-// Address Info
-'full_address', 'zip_code', 'police_station', 'nationality',
-
-
+    'perm_village','perm_post','perm_union','perm_upazila','perm_district',
+    'curr_village','curr_post','curr_union','curr_upazila','curr_district',
+    
 
 ];
 

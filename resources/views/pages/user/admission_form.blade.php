@@ -6,7 +6,6 @@
     <title> ভর্তি আবেদন | ফকির পাড়া বদর আউলিয়া সুন্নিয়া আলিম মাদরাসা</title>
 <link href="https://fonts.maateen.me/solaiman-lipi/font.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('assets/img/madrash_logo.png') }}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('assets/img/madrash_logo.png') }}">
     <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('assets/img/madrash_logo.png') }}">
@@ -46,13 +45,6 @@ label {
     font-weight: 600;
     margin-bottom: 4px;
 }
-input[readonly] {
-    background-color: #f5f5f5; /* light gray */
-    border: 1px solid #ccc;
-    color: #555;
-    cursor: not-allowed;       /* shows “disabled” cursor */
-}
-
 #previewImage {
     width: 120px;
     height: 120px;
@@ -107,9 +99,38 @@ input[readonly] {
     <label>নামের শেষ অংশ (English)</label>
     <input type="text" name="name_en_last" class="form-control" value="{{ old('name_en_last') }}" placeholder="e.g. Hossain / Akter">
 </div>
-<div class="col-md-6">
+
+<div class="col-md-6 mb-3">
     <label>জন্ম তারিখ</label>
-    <input type="date" name="birth_date" class="form-control" value="{{ old('birth_date') }}">
+    <div class="d-flex gap-2">
+        <!-- Day -->
+        <select id="birth_day" class="form-select" onchange="update_date(this);">
+            <option value=""> দিন </option>
+            @for ($i = 1; $i <= 31; $i++)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
+
+        
+        <!-- Month -->
+        <select id="birth_month" class="form-select" onchange="update_date(this);">
+            <option value="">মাস </option>
+            @for ($i = 1; $i <= 12; $i++)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
+
+        <!-- Year -->
+        <select id="birth_year" class="form-select" onchange="update_date(this);">
+            <option value="">বছর</option>
+            @for ($i = date('Y'); $i >= date('Y') - 26; $i--)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
+    </div>
+
+    <!-- Hidden input for Laravel -->
+    <input type="hidden" name="birth_date" id="birth_date_hidden" value="{{ old('birth_date') }}">
 </div>
 
 <div class="col-md-6">
@@ -186,7 +207,34 @@ input[readonly] {
 </div>
 <div class="col-md-6">
     <label>পিতার জন্ম তারিখ</label>
-    <input type="date" name="father_birth_date" class="form-control" value="{{ old('father_birth_date') }}">
+     <div class="d-flex gap-2">
+        <!-- Day -->
+        <select id="birth_day" class="form-select" onchange="update_date(this);">
+            <option value=""> দিন </option>
+            @for ($i = 1; $i <= 31; $i++)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
+
+        
+        <!-- Month -->
+        <select id="birth_month" class="form-select" onchange="update_date(this);">
+            <option value="">মাস </option>
+            @for ($i = 1; $i <= 12; $i++)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
+
+        <!-- Year -->
+        <select id="birth_year" class="form-select" onchange="update_date(this);">
+            <option value="">বছর</option>
+            @for ($i = date('Y'); $i >= date('Y') - 100; $i--)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
+    </div>
+
+    <input type="hidden" name="father_birth_date" class="form-control" value="{{ old('father_birth_date') }}">
 </div>
 <hr>
 <div class="col-md-6">
@@ -207,7 +255,34 @@ input[readonly] {
 </div>
 <div class="col-md-6">
     <label>মাতার জন্ম তারিখ</label>
-    <input type="date" name="mother_birth_date" class="form-control" value="{{ old('mother_birth_date') }}">
+     <div class="d-flex gap-2">
+        <!-- Day -->
+        <select id="birth_day" class="form-select" onchange="update_date(this);">
+            <option value=""> দিন </option>
+            @for ($i = 1; $i <= 31; $i++)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
+
+        
+        <!-- Month -->
+        <select id="birth_month" class="form-select" onchange="update_date(this);">
+            <option value="">মাস </option>
+            @for ($i = 1; $i <= 12; $i++)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
+
+        <!-- Year -->
+        <select id="birth_year" class="form-select" onchange="update_date(this);">
+            <option value="">বছর</option>
+            @for ($i = date('Y'); $i >= date('Y') - 100; $i--)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
+    </div>
+    <!-- Hidden input for Laravel -->
+    <input type="hidden" name="mother_birth_date" class="form-control" value="{{ old('mother_birth_date') }}">
 </div>
 <hr>
 <div class="col-md-6">
@@ -261,13 +336,7 @@ input[readonly] {
 <div class="col-md-6"><label>উপজেলা</label><input type="text" name="perm_upazila" class="form-control" value="{{ old('perm_upazila') }}"></div>
 <div class="col-md-6"><label>জেলা</label><input type="text" name="perm_district" class="form-control" value="{{ old('perm_district') }}"></div>
 </div>
-
-<h6 class="fw-bold text-primary">বর্তমান ঠিকানা
-     <label class="form-check-label ms-2 text-dark">
-        <input type="checkbox" name="same_as_perm" class="form-check-input">
-        স্থায়ী ঠিকানার সাথে মিল ?
-    </label>
-</h6>
+<h6 class="fw-bold text-primary">বর্তমান ঠিকানা</h6>
 <div class="row g-3 mb-3">
 <div class="col-md-6"><label>গ্রাম/ওয়ার্ড</label><input type="text" name="curr_village" class="form-control" value="{{ old('curr_village') }}"></div>
 <div class="col-md-6"><label>পোস্ট অফিস</label><input type="text" name="curr_post" class="form-control" value="{{ old('curr_post') }}"></div>
@@ -351,7 +420,34 @@ input[readonly] {
 </div>
 <div class="col-md-6">
 <label>ছাড়পত্রের তারিখ</label>
-<input type="date" name="leave_certificate_date" class="form-control" value="{{ old('leave_certificate_date') }}">
+    <div class="d-flex gap-2">
+        <!-- Day -->
+        <select id="birth_day" class="form-select" onchange="update_date(this);">
+            <option value=""> দিন </option>
+            @for ($i = 1; $i <= 31; $i++)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
+
+        
+        <!-- Month -->
+        <select id="birth_month" class="form-select" onchange="update_date(this);">
+            <option value="">মাস </option>
+            @for ($i = 1; $i <= 12; $i++)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
+
+        <!-- Year -->
+        <select id="birth_year" class="form-select" onchange="update_date(this);">
+            <option value="">বছর</option>
+            @for ($i = date('Y'); $i >= date('Y') - 3; $i--)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
+    </div>
+
+<input type="hidden" name="leave_certificate_date" class="form-control" value="{{ old('leave_certificate_date') }}">
 </div>
 </div>
 </div>
@@ -395,6 +491,7 @@ input[readonly] {
 </div>
 
 <script>
+
 document.getElementById("imageInput").addEventListener("change", function (event) {
     const file = event.target.files[0];
     if (file) {
@@ -407,60 +504,74 @@ document.getElementById("imageInput").addEventListener("change", function (event
         reader.readAsDataURL(file);
     }
 });
+
+function update_date(evt) {
+
+
+    const wrapper = evt.parentElement.parentElement;
+    const selects = wrapper.getElementsByTagName('select');
+var day, month, year;
+    for (const key in selects) {
+        if (!Object.hasOwn(selects, key)) continue;
+
+        const element = selects[key];
+
+        if (element.id === 'birth_day') {
+             day = element.value;
+        }
+        if (element.id === 'birth_month') {
+             month = element.value;
+        }
+        if (element.id === 'birth_year') {
+             year = element.value;
+        }
+
+    
+    }
+
+     if (day && month && year) {
+        wrapper.getElementsByTagName('input')[0].value =
+            `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    } else {
+        wrapper.getElementsByTagName('input')[0].value = '';
+    }
+
+    // console.log('Date update function called', wrapper.getElementsByTagName('input')[0].value);
+    // console.log('Date update function called id is ', evt.id);
+}
+
+
+
+
 </script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll('input[type="date"]').forEach(function(el) {
-        el.type = "text";
-        el.classList.add("datepicker");
-    });
+// function update_date(el) {
 
-    flatpickr(".datepicker", {
-        dateFormat: "Y-m-d",
-        altInput: true,
-        altFormat: "d-m-Y",
-        allowInput: true,
-        maxDate: "today",
-        yearSelectorType: "dropdown"
-    });
-});
+//     // পুরো wrapper ধরছি
+//     const wrapper = el.closest('.col-md-6');
+//  const day   = wrapper.querySelector('.birth-day')?.value;
+//     console.log('Wrapper:', day);
+//     return 0;
 
-document.addEventListener('DOMContentLoaded', function () {
-    const checkbox = document.querySelector('input[name="same_as_perm"]');
+//     // const day   = wrapper.querySelector('.birth-day')?.value;
+//     // const month = wrapper.querySelector('.birth-month')?.value;
+//     // const year  = wrapper.querySelector('.birth-year')?.value;
 
-    checkbox.addEventListener('change', function() {
-        const checked = this.checked;
+//     const hiddenInput = wrapper.querySelector('.birth-date-hidden');
 
-        // Fields
-        const permFields = ['village', 'post', 'union', 'upazila', 'district'];
+//     if (day && month && year) {
+//         const formattedDate =
+//             `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
 
-        permFields.forEach(function(field) {
-            // Get elements by name
-            const permInput = document.querySelector('input[name="perm_' + field + '"]');
-            const currInput = document.querySelector('input[name="curr_' + field + '"]');
+//         hiddenInput.value = formattedDate;
+//     } else {
+//         hiddenInput.value = '';
+//     }
 
-            if (checked) {
-                currInput.value = permInput.value;
-                currInput.readOnly = true;
-            } else {
-                // currInput.value = ''; // optional clear
-                currInput.readOnly = false;
-            }
-
-            // Auto update if perm changes while checked
-            permInput.addEventListener('input', function() {
-                if (checkbox.checked) {
-                    currInput.value = this.value;
-                }
-            });
-        });
-    });
-});
-
+//     console.log('Birth Date:', hiddenInput.value);
+// }
 </script>
-
 
 </body>
 </html>

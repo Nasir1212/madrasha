@@ -12,6 +12,7 @@ class AdmissionController extends Controller
 {
     public function store(Request $request)
     {
+       
         $validated = $request->validate([
             'name_bn_first' => 'nullable|string',
             'name_bn_last'  => 'nullable|string',

@@ -195,7 +195,13 @@ label {
 <div class="col-md-6"><label>উপজেলা</label><input type="text" name="perm_upazila" class="form-control" value="{{ old('perm_upazila', $student->perm_upazila) }}"></div>
 <div class="col-md-6"><label>জেলা</label><input type="text" name="perm_district" class="form-control" value="{{ old('perm_district', $student->perm_district) }}"></div>
 </div>
-<h6 class="fw-bold text-primary">বর্তমান ঠিকানা</h6>
+<h6 class="fw-bold text-primary">বর্তমান ঠিকানা
+ <label class="form-check-label ms-2 text-dark">
+        <input type="checkbox" name="same_as_perm" class="form-check-input">
+        স্থায়ী ঠিকানার সাথে মিল ?
+    </label>
+
+</h6>
 <div class="row g-3 mb-3">
 <div class="col-md-6"><label>গ্রাম/ওয়ার্ড</label><input type="text" name="curr_village" class="form-control" value="{{ old('curr_village', $student->curr_village) }}"></div>
 <div class="col-md-6"><label>পোস্ট অফিস</label><input type="text" name="curr_post" class="form-control" value="{{ old('curr_post', $student->curr_post) }}"></div>
@@ -272,5 +278,38 @@ document.getElementById("imageInput").addEventListener("change", function (event
         reader.readAsDataURL(file);
     }
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const checkbox = document.querySelector('input[name="same_as_perm"]');
+
+    checkbox.addEventListener('change', function() {
+        const checked = this.checked;
+
+        // Fields
+        const permFields = ['village', 'post', 'union', 'upazila', 'district'];
+
+        permFields.forEach(function(field) {
+            // Get elements by name
+            const permInput = document.querySelector('input[name="perm_' + field + '"]');
+            const currInput = document.querySelector('input[name="curr_' + field + '"]');
+
+            if (checked) {
+                currInput.value = permInput.value;
+                currInput.readOnly = true;
+            } else {
+                // currInput.value = ''; // optional clear
+                currInput.readOnly = false;
+            }
+
+            // Auto update if perm changes while checked
+            permInput.addEventListener('input', function() {
+                if (checkbox.checked) {
+                    currInput.value = this.value;
+                }
+            });
+        });
+    });
+});
+
 </script>
 @endsection

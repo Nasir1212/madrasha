@@ -7,12 +7,15 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
+<link href="https://fonts.maateen.me/solaiman-lipi/font.css" rel="stylesheet">
   <style>
     :root{
       --sidebar-width: 250px;
     }
-    body{background:#f4f6fa;min-height:100vh;}
+    body{
+      background:#f4f6fa;min-height:100vh;
+       font-family: 'SolaimanLipi', sans-serif;
+    }
 
     /* SIDEBAR */
     .sidebar{

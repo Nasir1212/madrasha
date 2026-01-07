@@ -148,7 +148,7 @@ label {
 </div>
 <div class="col-md-6">
     <label>জাতীয়তা</label>
-    <input type="text" name="nationality" class="form-control" value="{{ old('nationality') }}" placeholder="বাংলাদেশী">
+    <input type="text" name="nationality" class="form-control" value="বাংলাদেশী" placeholder="বাংলাদেশী">
 </div>
 <div class="col-md-6">
     <label>ব্লাড গ্রুপ</label>
@@ -336,7 +336,12 @@ label {
 <div class="col-md-6"><label>উপজেলা</label><input type="text" name="perm_upazila" class="form-control" value="{{ old('perm_upazila') }}"></div>
 <div class="col-md-6"><label>জেলা</label><input type="text" name="perm_district" class="form-control" value="{{ old('perm_district') }}"></div>
 </div>
-<h6 class="fw-bold text-primary">বর্তমান ঠিকানা</h6>
+<h6 class="fw-bold text-primary">বর্তমান ঠিকানা
+     <label class="form-check-label ms-2 text-dark">
+        <input type="checkbox" name="same_as_perm" class="form-check-input">
+        স্থায়ী ঠিকানার সাথে মিল ?
+    </label>
+</h6>
 <div class="row g-3 mb-3">
 <div class="col-md-6"><label>গ্রাম/ওয়ার্ড</label><input type="text" name="curr_village" class="form-control" value="{{ old('curr_village') }}"></div>
 <div class="col-md-6"><label>পোস্ট অফিস</label><input type="text" name="curr_post" class="form-control" value="{{ old('curr_post') }}"></div>
@@ -541,37 +546,43 @@ var day, month, year;
 }
 
 
+document.addEventListener('DOMContentLoaded', function () {
+    const checkbox = document.querySelector('input[name="same_as_perm"]');
+
+    checkbox.addEventListener('change', function() {
+        const checked = this.checked;
+
+        // Fields
+        const permFields = ['village', 'post', 'union', 'upazila', 'district'];
+
+        permFields.forEach(function(field) {
+            // Get elements by name
+            const permInput = document.querySelector('input[name="perm_' + field + '"]');
+            const currInput = document.querySelector('input[name="curr_' + field + '"]');
+
+            if (checked) {
+                currInput.value = permInput.value;
+                currInput.readOnly = true;
+            } else {
+                // currInput.value = ''; // optional clear
+                currInput.readOnly = false;
+            }
+
+            // Auto update if perm changes while checked
+            permInput.addEventListener('input', function() {
+                if (checkbox.checked) {
+                    currInput.value = this.value;
+                }
+            });
+        });
+    });
+});
+
+
 
 
 </script>
 
-<script>
-// function update_date(el) {
-
-//     // পুরো wrapper ধরছি
-//     const wrapper = el.closest('.col-md-6');
-//  const day   = wrapper.querySelector('.birth-day')?.value;
-//     console.log('Wrapper:', day);
-//     return 0;
-
-//     // const day   = wrapper.querySelector('.birth-day')?.value;
-//     // const month = wrapper.querySelector('.birth-month')?.value;
-//     // const year  = wrapper.querySelector('.birth-year')?.value;
-
-//     const hiddenInput = wrapper.querySelector('.birth-date-hidden');
-
-//     if (day && month && year) {
-//         const formattedDate =
-//             `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
-
-//         hiddenInput.value = formattedDate;
-//     } else {
-//         hiddenInput.value = '';
-//     }
-
-//     console.log('Birth Date:', hiddenInput.value);
-// }
-</script>
 
 </body>
 </html>

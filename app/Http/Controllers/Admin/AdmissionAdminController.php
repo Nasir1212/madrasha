@@ -10,9 +10,36 @@ use Illuminate\Support\Str;
 class AdmissionAdminController extends Controller
 {
         // List
-public function index()
+public function index(Request $request )
 {
-    $admissions = Admission::latest()->paginate(20);
+    $query = Admission::query();
+
+    // নাম দিয়ে সার্চ (First Name অথবা Last Name)
+    if ($request->filled('name')) {
+        $query->where(function($q) use ($request) {
+            $q->where('name_bn_first', 'like', '%' . $request->name . '%')
+              ->orWhere('name_bn_last', 'like', '%' . $request->name . '%')
+              ->orWhere('name_en_first', 'like', '%' . $request->name . '%')
+              ->orWhere('name_en_last', 'like', '%' . $request->name . '%');
+        });
+    }
+     
+    // শ্রেণি দিয়ে ফিল্টার
+    if ($request->filled('class')) {
+        $query->where('admit_class', $request->class);
+    }
+
+    // মোবাইল নম্বর দিয়ে সার্চ
+    if ($request->filled('phone')) {
+        $query->where('guardian_phone', 'like', '%' . $request->phone . '%');
+    }
+
+    // ফর্ম নম্বর দিয়ে সার্চ
+    if ($request->filled('form_no')) {
+        $query->where('form_no', $request->form_no);
+    }
+
+    $admissions = $query->latest()->paginate(20)->withQueryString();
     return view('pages.admin.admissions.index', compact('admissions'));
 }
 

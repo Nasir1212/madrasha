@@ -222,9 +222,9 @@ label {
 <select name="admit_class" class="form-select">
 <option value="">নির্বাচন করুন</option>
 @php
-$classes = ['শিশু','প্রথম','দ্বিতীয়','তৃতীয়','চতুর্থ','পঞ্চম','ষষ্ঠ','সপ্তম','অষ্টম','নবম'];
+$classes = ['শিশু','প্রথম','দ্বিতীয়','তৃতীয়','চতুর্থ','পঞ্চম','ষষ্ঠ','সপ্তম','অষ্টম','নবম','দশম'];
 @endphp
-@for($i=0;$i<=9;$i++)
+@for($i=0;$i<=10;$i++)
 <option value="{{ $i }}" {{ old('admit_class', $student->admit_class)==$i?'selected':'' }}>{{ $classes[$i] }}</option>
 @endfor
 </select>
@@ -233,8 +233,8 @@ $classes = ['শিশু','প্রথম','দ্বিতীয়','তৃত�
 <label>পূর্বে যে শ্রেণীতে ছিল</label>
 <select name="previous_class" class="form-select">
 <option value="">নির্বাচন করুন</option>
-@for($i=0;$i<=9;$i++)
-<option value="{{ $i }}" {{ old('previous_class', $student->previous_class) === $i?'selected':'' }}>{{ $classes[$i] }}</option>
+@for($i=0;$i<=10;$i++)
+<option value="{{ $i }}" {{ old('previous_class', $student->previous_class) == $i?'selected':'' }}>{{ $classes[$i] }}</option>
 @endfor
 </select>
 </div>

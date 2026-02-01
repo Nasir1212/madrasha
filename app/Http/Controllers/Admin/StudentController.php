@@ -8,7 +8,7 @@ use App\Models\Student;
 use App\Models\StudentAcademic;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str; 
-
+use App\Models\Admission;
 class StudentController extends Controller
 {
     /**
@@ -85,6 +85,16 @@ class StudentController extends Controller
             'roll'    => 'nullable|string|max:20',
             'session' => 'required|string|max:10',
         ]);
+
+        
+    $isDuplicate = StudentAcademic::where('class', $request->class)
+        ->where('roll', $request->roll)
+        ->where('session', $request->session)
+        ->exists();
+
+    if ($isDuplicate) {
+        return redirect()->back()->with('error', 'এই সেশনে এবং এই ক্লাসে এই রোল নম্বরটি ইতিমধ্যে বরাদ্দ করা হয়েছে।');
+    }
 
         do {
             // First digit: 1–9 (never 0)
@@ -210,6 +220,18 @@ class StudentController extends Controller
         'session' => 'required|string|max:10',
     ]);
 
+    
+$isDuplicate = StudentAcademic::where('class', $request->class)
+    ->where('roll', $request->roll)
+    ->where('session', $request->session)
+    ->where('student_id', '!=', $student->id) 
+    ->exists();
+
+if ($isDuplicate) {
+    return redirect()->back()->with('error', 'এই সেশনে এবং এই ক্লাসে এই রোল নম্বরটি ইতিমধ্যে অন্য একজন শিক্ষার্থীর জন্য বরাদ্দ করা হয়েছে।');
+}
+    
+
     // ✅ Photo update
     if ($request->hasFile('student_photo')) {
         // Delete old photo if exists
@@ -254,9 +276,90 @@ class StudentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
+ public function destroy(string $id)
+{
+    // ১. শিক্ষার্থী খুঁজে বের করা
+    $student = Student::findOrFail($id);
+
+    try {
+        // ২. শিক্ষার্থীর ছবি থাকলে সার্ভার থেকে ডিলিট করা
+        if ($student->student_photo && Storage::disk('img_disk')->exists($student->student_photo)) {
+            Storage::disk('img_disk')->delete($student->student_photo);
+        }
+
+        // ৩. শিক্ষার্থীর একাডেমিক রেকর্ড ডিলিট করা (যদি Database এ cascade delete না থাকে)
+        $student->academics()->delete(); 
+
+        // ৪. শিক্ষার্থী ডিলিট করা
+        $student->delete();
+
+        return redirect()->route('admin.students.index')
+                         ->with('success', 'শিক্ষার্থীর সকল তথ্য সফলভাবে মুছে ফেলা হয়েছে।');
+
+    } catch (\Exception $e) {
+        return redirect()->back()
+                         ->with('error', 'মুছে ফেলতে সমস্যা হয়েছে: ' . $e->getMessage());
     }
+}
+
+   public function add_student(Request $request, $id)
+{
+   
+    $admission = Admission::findOrFail($id);
+    $request->validate([
+        'class'   => 'required',
+        'roll'    => 'required',
+        'session' => 'required',
+    ]);
+
+    
+    $isDuplicate = StudentAcademic::where('class', $request->class)
+        ->where('roll', $request->roll)
+        ->where('session', $request->session)
+        ->exists();
+
+    if ($isDuplicate) {
+        return redirect()->back()->with('error', 'এই সেশনে এবং এই ক্লাসে এই রোল নম্বরটি ইতিমধ্যে বরাদ্দ করা হয়েছে।');
+    }
+
+    \Illuminate\Support\Facades\DB::beginTransaction();
+
+    try {
+        
+        do {
+            $uid = rand(1, 9);
+            for ($i = 0; $i < 5; $i++) {
+                $uid .= rand(0, 9);
+            }
+        } while (Student::where('uid', $uid)->exists());
+
+      
+        $studentData = $admission->toArray();
+        unset($studentData['id'], $studentData['status'], $studentData['created_at'], $studentData['updated_at']);
+        
+        $studentData['uid'] = $uid; 
+        $studentData['status'] = 'active'; 
+      
+        $student = Student::create($studentData);
+        StudentAcademic::create([
+            'student_id' => $student->id,
+            'class'      => $request->class,
+            'roll'       => $request->roll,
+            'session'    => $request->session,
+            'status'     => 'active',
+        ]);
+
+        // ৭. অ্যাডমিশন স্ট্যাটাস আপডেট করা (Approved)
+        $admission->update(['status' => '3']);
+
+        \Illuminate\Support\Facades\DB::commit();
+        
+        return redirect()->back()->with('success', 'শিক্ষার্থীর তথ্য সফলভাবে Student তালিকায় যুক্ত করা হয়েছে। UID: ' . $uid);
+
+    } catch (\Exception $e) {
+        \Illuminate\Support\Facades\DB::rollBack();
+        return redirect()->back()->with('error', 'কিছু ভুল হয়েছে: ' . $e->getMessage());
+    }
+}
 
 }

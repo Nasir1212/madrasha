@@ -22,6 +22,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard');
     Route::get('students/print-cards', [dashboardController::class, 'printCards'])->name('students.print.cards');
     Route::resource('students', StudentController::class);
+    Route::post('students/add-student/{id}', [StudentController::class, 'add_student'])->name('students.add_student');
 
     Route::get('/print-receive/{form_no}', [AdmissionAdminController::class, 'print_receive'])
         ->name('admissions.print_receive');

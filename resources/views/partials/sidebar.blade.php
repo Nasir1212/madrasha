@@ -36,9 +36,9 @@
   </a>
   <ul class="dropdown-menu">
     <li><a class="dropdown-item" href="{{route('admin.admissions.index')}}"><i class="bi bi-eye me-2"></i> All Admissions </a></li>
-    <li><a class="dropdown-item" href="{{route('admin.admissions.index')}}"><i class="bi bi-plus-circle me-2"></i> Pending Approvals  </a></li>
-    <li><a class="dropdown-item" href="{{ route('admin.admissions.index') }}"><i class="bi bi-plus-circle me-2"></i> Approved Admissions </a></li>
-    <li><a class="dropdown-item" href="{{ route('admin.admissions.index') }}"><i class="bi bi-plus-circle me-2"></i> Rejected Admissions </a></li>
+    <li><a class="dropdown-item" href="{{route('admin.admissions.index')}}?status=0"><i class="bi bi-plus-circle me-2"></i> Pending Approvals  </a></li>
+    <li><a class="dropdown-item" href="{{ route('admin.admissions.index') }}?status=1"><i class="bi bi-plus-circle me-2"></i> Approved Admissions </a></li>
+    <li><a class="dropdown-item" href="{{ route('admin.admissions.index') }}?status=2"><i class="bi bi-plus-circle me-2"></i> Rejected Admissions </a></li>
   </ul>
   
 

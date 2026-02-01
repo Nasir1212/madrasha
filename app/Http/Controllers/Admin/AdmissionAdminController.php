@@ -24,6 +24,9 @@ public function index(Request $request )
         });
     }
      
+       if ($request->filled('status')) {
+       $query->where('status', $request->status);
+    }
     // শ্রেণি দিয়ে ফিল্টার
     if ($request->filled('class')) {
         $query->where('admit_class', $request->class);

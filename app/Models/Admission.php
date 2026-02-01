@@ -52,6 +52,8 @@ class Admission extends Model
         'previous_class',
         'previous_institute',
         'leave_certificate_no',
-        'leave_certificate_date'
+        'leave_certificate_date',
+        'status'
+
     ];
 }

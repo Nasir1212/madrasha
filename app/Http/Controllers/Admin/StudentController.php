@@ -14,12 +14,50 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-       $students = Student::with('currentAcademic')->paginate(10);
+   public function index(Request $request)
+{
+    $query = Student::with('currentAcademic');
+
+    // সার্চ ফিল্টারসমূহ
+    if ($request->filled('uid')) {
+        $query->where('uid', $request->uid);
+    }
+
+     if ($request->filled('gender')) {
+        $query->where('gender', $request->gender);
+    }
+
+    if ($request->filled('name')) {
+        $name = $request->name;
+        $query->where(function($q) use ($name) {
+            $q->where('name_bn_first', 'LIKE', "%{$name}%")
+              ->orWhere('name_bn_last', 'LIKE', "%{$name}%")
+              ->orWhere('name_en_first', 'LIKE', "%{$name}%")
+              ->orWhere('name_en_last', 'LIKE', "%{$name}%");
+        });
+    }
+    if ($request->filled('class') || $request->filled('roll')  || $request->filled('session')) {
+        $query->whereHas('currentAcademic', function ($q) use ($request) {
+            if ($request->filled('class')) $q->where('class', $request->class);
+            if ($request->filled('roll')) $q->where('roll', $request->roll);
+            if ($request->filled('session')) $q->where('session', $request->session);
+        });
+    }
+
+    // যদি কোনো সার্চ ইনপুট থাকে, তবে সব ডাটা একসাথে দেখাবে (No Pagination)
+    if ($request->anyFilled(['uid', 'name', 'class', 'roll'])) {
+       $students = $query->join('student_academics', 'students.id', '=', 'student_academics.student_id')
+                          ->orderBy('student_academics.class', 'asc')
+                          ->orderBy('student_academics.roll', 'asc')
+                          ->select('students.*')
+                          ->get();
+    } else {
+        // নরমাল অবস্থায় আপনি চাইলে ৫০টা করে দেখাতে পারেন অথবা এখানেও get() দিতে পারেন
+        $students = $query->latest()->paginate(50); 
+    }
 
     return view('pages.admin.students.index', compact('students'));
-    }
+}
 
     /**
      * Show the form for creating a new resource.
@@ -360,6 +398,50 @@ if ($isDuplicate) {
         \Illuminate\Support\Facades\DB::rollBack();
         return redirect()->back()->with('error', 'কিছু ভুল হয়েছে: ' . $e->getMessage());
     }
+}
+
+public function bulkSerialPhotoUpload(Request $request)
+{
+    $request->validate([
+        'student_ids' => 'required|array',
+        'photos'      => 'required|array',
+        'photos.*'    => 'image|mimes:jpg,jpeg,png|max:2048'
+    ]);
+
+    $studentIds = $request->student_ids; // সিলেক্ট করা আইডিগুলো
+    $photos = $request->file('photos');    // আপলোড করা ছবিগুলো
+
+    // চেক করা হচ্ছে আইডি এবং ছবির সংখ্যা সমান কিনা
+    if (count($studentIds) !== count($photos)) {
+        return redirect()->back()->with('error', 'সিলেক্ট করা ছাত্রের সংখ্যা (' . count($studentIds) . ') এবং ছবির সংখ্যা (' . count($photos) . ') সমান নয়!');
+    }
+
+    $successCount = 0;
+
+    foreach ($studentIds as $index => $id) {
+        $student = Student::find($id);
+        
+        if ($student && isset($photos[$index])) {
+            $image_obj = $photos[$index];
+
+            // পুরাতন ছবি ডিলিট করা
+            if ($student->student_photo && Storage::disk('img_disk')->exists($student->student_photo)) {
+                Storage::disk('img_disk')->delete($student->student_photo);
+            }
+
+            // নতুন নাম জেনারেট করে সেভ করা
+            $filename = Str::random(40) . '.' . $image_obj->getClientOriginalExtension();
+            $relative_path = 'uploads/students/' . $filename;
+            
+            Storage::disk('img_disk')->putFileAs('uploads/students', $image_obj, $filename);
+
+            // ডাটাবেস আপডেট
+            $student->update(['student_photo' => $relative_path]);
+            $successCount++;
+        }
+    }
+
+    return redirect()->back()->with('success', "$successCount জন শিক্ষার্থীর ছবি সিরিয়াল অনুযায়ী আপডেট করা হয়েছে।");
 }
 
 }

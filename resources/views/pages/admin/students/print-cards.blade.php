@@ -70,11 +70,11 @@
 
     table {
         width: 100%;
-        font-size: 7pt;
-        line-height: 1.25;
+        font-size: 8pt;
+        line-height: 1;
         table-layout: fixed;
     }
-
+    
     td:first-child {
         width: 40%;
         font-weight: bold;
@@ -98,8 +98,31 @@
 </head>
 
 <body>
-
 @php
+    $bn_classes = [
+        '0' => 'শিশু',
+        '1' => 'প্রথম',
+        '2' => 'দ্বিতীয়',
+        '3' => 'তৃতীয়',
+        '4' => 'চতুর্থ',
+        '5' => 'পঞ্চম',
+        '6' => 'ষষ্ঠ',
+        '7' => 'সপ্তম',
+        '8' => 'অষ্টম',
+        '9' => 'নবম',
+        '10' => 'দশম'
+    ];
+
+    // সংখ্যাকে বাংলায় রূপান্তর করার ফাংশন
+    function enToBn($number) {
+        $en = ['0','1','2','3','4','5','6','7','8','9'];
+        $bn = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+        return str_replace($en, $bn, $number);
+    }
+@endphp
+@php
+
+
     $chunkedStudents = $students->chunk(4);  // প্রতি পেজে ৪টি সেট
 @endphp
 
@@ -113,15 +136,23 @@
             <!-- 🔵 FRONT PART -->
             <div class="id-card">
                 <div style="margin-top: 45mm;">
-                    <table>
-                        <tr><td>শিক্ষার্থীর নাম</td><td>:</td><td>{{ $student->first_name_bn }} {{ $student->last_name_bn }}</td></tr>
-                        <tr><td>পিতার নাম</td><td>:</td><td>{{ $student->father_name_bn }}</td></tr>
-                        <tr><td>মাতার নাম</td><td>:</td><td>{{ $student->mother_name_bn }}</td></tr>
-                        <tr><td>শ্রেণি</td><td>:</td><td>{{ $student->currentAcademic->class ?? 'N/A' }}</td></tr>
-                        <tr><td>রোল</td><td>:</td><td>{{ $student->currentAcademic->roll ?? 'N/A' }}</td></tr>
-                        <tr><td>শিক্ষাবর্ষ</td><td>:</td><td>{{ $student->currentAcademic->session ?? 'N/A' }}</td></tr>
-                        <tr><td>মোবাইল নং</td><td>:</td><td>{{ $student->parents_contact ?? 'N/A' }}</td></tr>
-                    </table>
+                  <table>
+    <tr><td>শিক্ষার্থীর নাম</td><td>:</td><td>{{ $student->name_bn_first }} {{ $student->name_bn_last }}</td></tr>
+    <tr><td>পিতার নাম</td><td>:</td><td>{{ $student->father_bn }}</td></tr>
+    <tr><td>মাতার নাম</td><td>:</td><td>{{ $student->mother_bn }}</td></tr>
+    
+    {{-- শ্রেণি বাংলায় --}}
+    <tr><td>শ্রেণি</td><td>:</td><td>{{ $bn_classes[$student->currentAcademic->class] ?? 'N/A' }}</td></tr>
+    
+    {{-- রোল বাংলায় --}}
+    <tr><td>রোল</td><td>:</td><td>{{ $student->currentAcademic->roll ? enToBn($student->currentAcademic->roll) : 'N/A' }}</td></tr>
+    
+    {{-- শিক্ষাবর্ষ বাংলায় --}}
+    <tr><td>শিক্ষাবর্ষ</td><td>:</td><td>{{ $student->currentAcademic->session ? enToBn($student->currentAcademic->session) : 'N/A' }}</td></tr>
+    
+    {{-- মোবাইল নং বাংলায় --}}
+    <tr><td>মোবাইল নং</td><td>:</td><td>{{ $student->guardian_phone ?? 'N/A' }}</td></tr>
+</table>
                 </div>
             </div>
 

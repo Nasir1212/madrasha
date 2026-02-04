@@ -81,7 +81,7 @@
             </div>
             </div>
 
-              <div class="col-md-2">
+              <div class="col-md-3">
             <div class="mb-2 text-start">
                      <form action="{{ route('admin.students.index') }}" method="GET">
                          <input type="hidden" name="uid"  value="{{ request('uid') }}">

@@ -103,7 +103,7 @@ class StudentController extends Controller
             // Guardian
             'guardian_name'        => 'nullable|string|max:150',
             'guardian_occupation' => 'nullable|string|max:100',
-            'guardian_phone'      => 'nullable|string|max:20',
+            'guardian_phone'      => 'nullable|string|max:255',
 
             // Address
             'perm_village'  => 'nullable|string|max:150',
@@ -237,7 +237,7 @@ class StudentController extends Controller
         // Guardian
         'guardian_name'        => 'nullable|string|max:150',
         'guardian_occupation'  => 'nullable|string|max:100',
-        'guardian_phone'       => 'nullable|string|max:20',
+        'guardian_phone'       => 'nullable|string|max:255',
 
         // Address
         'perm_village'  => 'nullable|string|max:150',

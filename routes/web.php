@@ -12,7 +12,11 @@ use App\Http\Controllers\HomeController;
 //     return view('pages.admin.dashboard');
 // });
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', function () {
+    return phpinfo();
+});
+
+// Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/print-form/{form_no}', [HomeController::class, 'print_form'])->name('print_form');
 Route::post('/admission-store', [AdmissionController::class, 'store'])->name('admission.store');
 Route::get('/admission', [HomeController::class, 'admission_form'])->name('admission_form');

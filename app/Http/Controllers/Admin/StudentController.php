@@ -410,7 +410,10 @@ public function bulkSerialPhotoUpload(Request $request)
 
     $studentIds = $request->student_ids; // সিলেক্ট করা আইডিগুলো
     $photos = $request->file('photos');    // আপলোড করা ছবিগুলো
-
+ usort($photos, function($a, $b) {
+        return strnatcasecmp($a->getClientOriginalName(), $b->getClientOriginalName());
+    });
+    
     // চেক করা হচ্ছে আইডি এবং ছবির সংখ্যা সমান কিনা
     if (count($studentIds) !== count($photos)) {
         return redirect()->back()->with('error', 'সিলেক্ট করা ছাত্রের সংখ্যা (' . count($studentIds) . ') এবং ছবির সংখ্যা (' . count($photos) . ') সমান নয়!');

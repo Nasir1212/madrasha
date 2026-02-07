@@ -78,7 +78,7 @@ class StudentController extends Controller
             'name_bn_last'    => 'required|string|max:100',
             'name_en_first'   => 'nullable|string|max:100',
             'name_en_last'    => 'nullable|string|max:100',
-            'birth_date'      => 'required|date',
+            'birth_date'      => 'nullable|date',
             'birth_reg_no'    => 'nullable|string|max:20',
             'gender'          => 'required|in:male,female,others',
             'nationality'     => 'nullable|string|max:50',

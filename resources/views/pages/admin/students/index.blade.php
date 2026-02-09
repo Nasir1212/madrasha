@@ -29,7 +29,7 @@
                 <div class="col-md-2">
                     <select name="class" class="form-select form-select-sm">
                         <option value="">Class </option>
-                        @foreach(range(1, 10) as $class)
+                        @foreach(range(0, 10) as $class)
                             <option value="{{ $class }}" {{ request('class') == $class ? 'selected' : '' }}>Class {{ $class }}</option>
                         @endforeach
                     </select>

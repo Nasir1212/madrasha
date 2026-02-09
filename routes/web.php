@@ -8,9 +8,6 @@ use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\AdmissionAdminController;
 use App\Http\Controllers\HomeController;
 
-// Route::get('/', function () {
-//     return view('pages.admin.dashboard');
-// });
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

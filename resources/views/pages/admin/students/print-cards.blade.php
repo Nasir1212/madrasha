@@ -94,6 +94,34 @@
     .page{
         margin-bottom: 5rem
     }
+   .std-img {
+    width: 100%;
+    height: 100%;
+    /* transform: translate(44px, 10px); */
+}
+
+.std-img-wrapper {
+    width: 108px;
+    height: 114px;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f0f0;
+    transform: translate(41px, 10px);
+}
+.no-photo {
+    color: #666;
+    font-size: 14px;
+    font-weight: bold;
+}
+.uid_no {
+    transform: translate(5px, 61px);
+    z-index: 12000;
+    color: white;
+    font-weight: bold;
+    font-size: 13px;
+}
 </style>
 </head>
 
@@ -132,11 +160,14 @@
 
         @foreach($chunk as $student)
         <div class="card-set">
-
+            <div class="uid_no" >
+               ID: {{ $student->uid }}
+            </div>
             <!-- 🔵 FRONT PART -->
             <div class="id-card">
                 <div style="margin-top: 45mm;">
                   <table>
+                   
     <tr><td>শিক্ষার্থীর নাম</td><td>:</td><td>{{ $student->name_bn_first }} {{ $student->name_bn_last }}</td></tr>
     <tr><td>পিতার নাম</td><td>:</td><td>{{ $student->father_bn }}</td></tr>
     <tr><td>মাতার নাম</td><td>:</td><td>{{ $student->mother_bn }}</td></tr>
@@ -151,7 +182,30 @@
     <tr><td>শিক্ষাবর্ষ</td><td>:</td><td>{{ $student->currentAcademic->session ? enToBn($student->currentAcademic->session) : 'N/A' }}</td></tr>
     
     {{-- মোবাইল নং বাংলায় --}}
-    <tr><td>মোবাইল নং</td><td>:</td><td>{{ $student->guardian_phone ?? 'N/A' }}</td></tr>
+    <tr><td>মোবাইল নং</td><td>:</td><td>
+        
+        {{-- {{ $student->guardian_phone ?? 'N/A' }} --}}
+
+        @php
+            // কমা দিয়ে নম্বরগুলোকে আলাদা করা হচ্ছে
+            $phones = !empty($student->guardian_phone) ? explode(',', $student->guardian_phone) : [];
+        @endphp
+
+        @forelse($phones as $index => $phone)
+            @if(!empty(trim($phone)))
+                {{-- এখানে $index + 1 ব্যবহার করে ১মো, ২মো ইত্যাদি দেখানো হচ্ছে --}}
+                {{ trim($phone) }}
+                
+                {{-- যদি এটি শেষ নম্বর না হয়, তবেই কেবল পরের লাইনে যাবে --}}
+                @if(!$loop->last)
+                    <br>
+                @endif
+            @endif
+        @empty
+            N/A
+        @endforelse
+    
+    </td></tr>
 </table>
                 </div>
             </div>
@@ -160,6 +214,12 @@
             <div class="back-part">
                 <div style="margin-top: 38mm;">
                     {{-- ব্যাক সাইড কনটেন্ট প্রয়োজন হলে এখানে দিন --}}
+                   <div class="std-img-wrapper">
+    <img src="https://img.fbasm.edu.bd/{{ $student->student_photo }}" 
+         alt="ছবি" 
+         class="std-img" 
+         onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'no-photo\'>ছবি</span>';">
+</div>
                 </div>
             </div>
 

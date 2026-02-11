@@ -58,6 +58,13 @@ label {
 </head>
 
 <body>
+       @php
+        $months = [
+            1 => 'জানুয়ারী', 2 => 'ফেব্রুয়ারি', 3 => 'মার্চ', 4 => 'এপ্রিল', 
+            5 => 'মে', 6 => 'জুন', 7 => 'জুলাই', 8 => 'আগস্ট', 
+            9 => 'সেপ্টেম্বর', 10 => 'অক্টোবর', 11 => 'নভেম্বর', 12 => 'ডিসেম্বর'
+        ];
+    @endphp
 <div class="container py-4">
 <h4 class="text-center ">ফকির পাড়া বদর আউলিয়া সুন্নিয়া আলিম মাদ্রাসা </h4>
 <h5 class="text-center mb-4">উত্তর খরনা, চক্রশালা, পটিয়া চট্টগ্রাম</h5>
@@ -115,9 +122,9 @@ label {
         <!-- Month -->
         <select id="birth_month" class="form-select" onchange="update_date(this);">
             <option value="">মাস </option>
-            @for ($i = 1; $i <= 12; $i++)
-                <option value="{{ $i }}">{{ $i }}</option>
-            @endfor
+            @foreach ($months as $key => $monthName)
+        <option value="{{ $key }}">{{ $key }} {{ $monthName }}</option>
+    @endforeach
         </select>
 
         <!-- Year -->
@@ -220,9 +227,9 @@ label {
         <!-- Month -->
         <select id="birth_month" class="form-select" onchange="update_date(this);">
             <option value="">মাস </option>
-            @for ($i = 1; $i <= 12; $i++)
-                <option value="{{ $i }}">{{ $i }}</option>
-            @endfor
+           @foreach ($months as $key => $monthName)
+        <option value="{{ $key }}">{{ $key }} {{ $monthName }}</option>
+    @endforeach
         </select>
 
         <!-- Year -->
@@ -268,9 +275,9 @@ label {
         <!-- Month -->
         <select id="birth_month" class="form-select" onchange="update_date(this);">
             <option value="">মাস </option>
-            @for ($i = 1; $i <= 12; $i++)
-                <option value="{{ $i }}">{{ $i }}</option>
-            @endfor
+             @foreach ($months as $key => $monthName)
+        <option value="{{ $key }}">{{ $key }} {{ $monthName }}</option>
+    @endforeach
         </select>
 
         <!-- Year -->

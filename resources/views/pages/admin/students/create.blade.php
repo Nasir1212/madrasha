@@ -44,6 +44,13 @@ input[readonly] {
 </head>
 
 <body>
+   @php
+        $months = [
+            1 => 'জানুয়ারী', 2 => 'ফেব্রুয়ারি', 3 => 'মার্চ', 4 => 'এপ্রিল', 
+            5 => 'মে', 6 => 'জুন', 7 => 'জুলাই', 8 => 'আগস্ট', 
+            9 => 'সেপ্টেম্বর', 10 => 'অক্টোবর', 11 => 'নভেম্বর', 12 => 'ডিসেম্বর'
+        ];
+    @endphp
 
 <h3 class="text-center mb-4"> শিক্ষর্থী তথ্য যোগ করুন </h3>
 
@@ -83,9 +90,43 @@ input[readonly] {
     <label>নামের শেষ অংশ (English)</label>
     <input type="text" name="name_en_last" class="form-control" value="{{ old('name_en_last') }}" placeholder="e.g. Hossain / Akter">
 </div>
-<div class="col-md-6">
+{{-- <div class="col-md-6">
     <label>জন্ম তারিখ</label>
     <input type="date" name="birth_date" class="form-control" value="{{ old('birth_date') }}">
+</div> --}}
+
+<div class="col-md-6 mb-3">
+    <label>জন্ম তারিখ</label>
+    <div class="d-flex gap-2">
+        <!-- Day -->
+        <select id="birth_day" class="form-select" onchange="update_date(this);">
+            <option value=""> দিন </option>
+            @for ($i = 1; $i <= 31; $i++)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
+
+        
+        <!-- Month -->
+        <select id="birth_month" class="form-select" onchange="update_date(this);">
+            <option value="">মাস </option>
+        
+    @foreach ($months as $key => $monthName)
+        <option value="{{ $key }}">{{ $key }} {{ $monthName }}</option>
+    @endforeach
+        </select>
+
+        <!-- Year -->
+        <select id="birth_year" class="form-select" onchange="update_date(this);">
+            <option value="">বছর</option>
+            @for ($i = date('Y'); $i >= date('Y') - 26; $i--)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
+    </div>
+
+    <!-- Hidden input for Laravel -->
+    <input type="hidden" name="birth_date" id="birth_date_hidden" value="{{ old('birth_date') }}">
 </div>
 
 <div class="col-md-6">
@@ -102,8 +143,8 @@ input[readonly] {
     </select>
 </div>
 <div class="col-md-6">
-    <label>জাতীয়তা</label>
-    <input type="text" name="nationality" class="form-control" value="{{ old('nationality') }}" placeholder="বাংলাদেশী">
+    <label>জাতীয়তা</label>
+    <input type="text" name="nationality" class="form-control" value="বাংলাদেশী" placeholder="বাংলাদেশী">
 </div>
 <div class="col-md-6">
     <label>ব্লাড গ্রুপ</label>
@@ -160,10 +201,45 @@ input[readonly] {
     <label>পিতার জন্ম নিবন্ধন নং</label>
     <input type="text" name="father_birth_reg" class="form-control" value="{{ old('father_birth_reg') }}">
 </div>
-<div class="col-md-6">
+{{-- <div class="col-md-6">
     <label>পিতার জন্ম তারিখ</label>
     <input type="date" name="father_birth_date" class="form-control" value="{{ old('father_birth_date') }}">
+</div> --}}
+<div class="col-md-6 mb-3">
+    <label>পিতার জন্ম তারিখ</label>
+    <div class="d-flex gap-2">
+        <!-- Day -->
+        <select id="birth_day" class="form-select" onchange="update_date(this);">
+            <option value=""> দিন </option>
+            @for ($i = 1; $i <= 31; $i++)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
+
+        
+        <!-- Month -->
+        <select id="birth_month" class="form-select" onchange="update_date(this);">
+            <option value="">মাস </option>
+
+    @foreach ($months as $key => $monthName)
+        <option value="{{ $key }}">{{ $key }} {{ $monthName }}</option>
+    @endforeach
+
+        </select>
+
+        <!-- Year -->
+        <select id="birth_year" class="form-select" onchange="update_date(this);">
+            <option value="">বছর</option>
+            @for ($i = date('Y'); $i >= date('Y') - 26; $i--)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
+    </div>
+
+    <!-- Hidden input for Laravel -->
+    <input type="hidden" name="father_birth_date" id="father_birth_date_hidden" value="{{ old('father_birth_date') }}">
 </div>
+
 <hr>
 <div class="col-md-6">
     <label>মাতার নাম (বাংলা)</label>
@@ -181,10 +257,44 @@ input[readonly] {
     <label>মাতার জন্ম নিবন্ধন নং</label>
     <input type="text" name="mother_birth_reg" class="form-control" value="{{ old('mother_birth_reg') }}">
 </div>
-<div class="col-md-6">
+{{-- <div class="col-md-6">
     <label>মাতার জন্ম তারিখ</label>
     <input type="date" name="mother_birth_date" class="form-control" value="{{ old('mother_birth_date') }}">
+</div> --}}
+
+<div class="col-md-6 mb-3">
+    <label> মাতার জন্ম তারিখ</label>
+    <div class="d-flex gap-2">
+        <!-- Day -->
+        <select id="birth_day" class="form-select" onchange="update_date(this);">
+            <option value=""> দিন </option>
+            @for ($i = 1; $i <= 31; $i++)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
+
+        
+        <!-- Month -->
+        <select id="birth_month" class="form-select" onchange="update_date(this);">
+            <option value="">মাস </option>
+    @foreach ($months as $key => $monthName)
+        <option value="{{ $key }}">{{ $key }} {{ $monthName }}</option>
+    @endforeach
+        </select>
+
+        <!-- Year -->
+        <select id="birth_year" class="form-select" onchange="update_date(this);">
+            <option value="">বছর</option>
+            @for ($i = date('Y'); $i >= date('Y') - 26; $i--)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
+    </div>
+
+    <!-- Hidden input for Laravel -->
+    <input type="hidden" name="mother_birth_date" id="mother_birth_date_hidden" value="{{ old('mother_birth_date') }}">
 </div>
+
 <hr>
 <div class="col-md-6">
     <label>অভিভাবকের নাম</label>
@@ -331,21 +441,21 @@ document.getElementById("imageInput").addEventListener("change", function (event
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll('input[type="date"]').forEach(function(el) {
-        el.type = "text";
-        el.classList.add("datepicker");
-    });
+// document.addEventListener("DOMContentLoaded", function () {
+//     document.querySelectorAll('input[type="date"]').forEach(function(el) {
+//         el.type = "text";
+//         el.classList.add("datepicker");
+//     });
 
-    flatpickr(".datepicker", {
-        dateFormat: "Y-m-d",
-        altInput: true,
-        altFormat: "d-m-Y",
-        allowInput: true,
-        maxDate: "today",
-        yearSelectorType: "dropdown"
-    });
-});
+//     flatpickr(".datepicker", {
+//         dateFormat: "Y-m-d",
+//         altInput: true,
+//         altFormat: "d-m-Y",
+//         allowInput: true,
+//         maxDate: "today",
+//         yearSelectorType: "dropdown"
+//     });
+// });
 
 document.addEventListener('DOMContentLoaded', function () {
     const checkbox = document.querySelector('input[name="same_as_perm"]');
@@ -379,6 +489,41 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+
+function update_date(evt) {
+
+
+    const wrapper = evt.parentElement.parentElement;
+    const selects = wrapper.getElementsByTagName('select');
+var day, month, year;
+    for (const key in selects) {
+        if (!Object.hasOwn(selects, key)) continue;
+
+        const element = selects[key];
+
+        if (element.id === 'birth_day') {
+             day = element.value;
+        }
+        if (element.id === 'birth_month') {
+             month = element.value;
+        }
+        if (element.id === 'birth_year') {
+             year = element.value;
+        }
+
+    
+    }
+
+     if (day && month && year) {
+        wrapper.getElementsByTagName('input')[0].value =
+            `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    } else {
+        wrapper.getElementsByTagName('input')[0].value = '';
+    }
+
+    // console.log('Date update function called', wrapper.getElementsByTagName('input')[0].value);
+    // console.log('Date update function called id is ', evt.id);
+}
 </script>
 
 @endsection

@@ -119,7 +119,7 @@ input[readonly] {
         <!-- Year -->
         <select id="birth_year" class="form-select" onchange="update_date(this);">
             <option value="">বছর</option>
-            @for ($i = date('Y'); $i >= date('Y') - 26; $i--)
+            @for ($i = date('Y'); $i >= date('Y') - 20; $i--)
                 <option value="{{ $i }}">{{ $i }}</option>
             @endfor
         </select>
@@ -230,7 +230,7 @@ input[readonly] {
         <!-- Year -->
         <select id="birth_year" class="form-select" onchange="update_date(this);">
             <option value="">বছর</option>
-            @for ($i = date('Y'); $i >= date('Y') - 26; $i--)
+            @for ($i = date('Y'); $i >= date('Y') - 100; $i--)
                 <option value="{{ $i }}">{{ $i }}</option>
             @endfor
         </select>
@@ -285,7 +285,7 @@ input[readonly] {
         <!-- Year -->
         <select id="birth_year" class="form-select" onchange="update_date(this);">
             <option value="">বছর</option>
-            @for ($i = date('Y'); $i >= date('Y') - 26; $i--)
+            @for ($i = date('Y'); $i >= date('Y') - 100; $i--)
                 <option value="{{ $i }}">{{ $i }}</option>
             @endfor
         </select>

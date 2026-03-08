@@ -9,6 +9,8 @@ use App\Models\StudentAcademic;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str; 
 use App\Models\Admission;
+use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\IOFactory;
 class StudentController extends Controller
 {
     /**
@@ -445,6 +447,103 @@ public function bulkSerialPhotoUpload(Request $request)
     }
 
     return redirect()->back()->with('success', "$successCount জন শিক্ষার্থীর ছবি সিরিয়াল অনুযায়ী আপডেট করা হয়েছে।");
+}
+
+
+
+public function downloadDoc(Request $request)
+{
+    $selectedColumns = $request->input('selected_columns');
+
+    if (empty($selectedColumns)) {
+        return back()->with('error', 'অনুগ্রহ করে অন্তত একটি কলাম সিলেক্ট করুন।');
+    }
+
+    // ১. আপনার দেওয়া অরিজিনাল ডাটাবেজ কলাম লিস্ট
+    $realDbColumns = [
+        'id', 'uid', 'name_bn_first', 'name_bn_last', 'name_en_first', 'name_en_last',
+        'birth_date', 'birth_reg_no', 'gender', 'nationality', 'blood_group', 'religion',
+        'student_photo', 'father_bn', 'father_en', 'father_nid', 'father_birth_reg',
+        'father_birth_date', 'mother_bn', 'mother_en', 'mother_nid', 'mother_birth_reg',
+        'mother_birth_date', 'guardian_name', 'guardian_occupation', 'guardian_phone',
+        'perm_village', 'perm_post', 'perm_union', 'perm_upazila', 'perm_district',
+        'curr_village', 'curr_post', 'curr_union', 'curr_upazila', 'curr_district', 'status'
+    ];
+
+    // ২. সিলেক্ট করা ডাটা অনুযায়ী কুয়েরি তৈরি
+    $columnsToFetch = array_intersect($selectedColumns, $realDbColumns);
+    
+    // ফুল নেম সিলেক্ট করলে অরিজিনাল কলামগুলো ইনক্লুড করা
+    if (in_array('full_name_bn', $selectedColumns)) {
+        $columnsToFetch[] = 'name_bn_first';
+        $columnsToFetch[] = 'name_bn_last';
+    }
+    if (in_array('full_name_en', $selectedColumns)) {
+        $columnsToFetch[] = 'name_en_first';
+        $columnsToFetch[] = 'name_en_last';
+    }
+
+    $students = Student::select(array_unique($columnsToFetch))->get();
+
+    // ৩. Word ফাইল কনফিগারেশন
+    $phpWord = new PhpWord();
+    $section = $phpWord->addSection([
+        'orientation' => 'landscape',
+        'marginTop' => 600,
+        'marginBottom' => 600,
+        'marginLeft' => 600,
+        'marginRight' => 600,
+    ]);
+
+    $table = $section->addTable([
+        'borderSize' => 6, 
+        'borderColor' => '000000', 
+        'cellMargin' => 50
+    ]);
+
+    // ৪. টেবিল হেডার
+    $table->addRow();
+    foreach ($selectedColumns as $column) {
+        $header = str_replace(['_', 'bn', 'en'], [' ', '(বাংলা)', '(EN)'], $column);
+        $table->addCell(2000)->addText(ucwords($header), ['bold' => true, 'size' => 10]);
+    }
+
+    // ৫. ডাটা লুপ
+    foreach ($students as $student) {
+        $table->addRow();
+        foreach ($selectedColumns as $column) {
+            $cell = $table->addCell(2000);
+            
+            // কাস্টম লজিক: ফুল নেম
+            if ($column == 'full_name_bn') {
+                $cell->addText($student->name_bn_first . ' ' . $student->name_bn_last);
+            } 
+            elseif ($column == 'full_name_en') {
+                $cell->addText($student->name_en_first . ' ' . $student->name_en_last);
+            } 
+            // কাস্টম লজিক: ছবি (যদি সিলেক্ট করা থাকে)
+            elseif ($column == 'student_photo' && !empty($student->student_photo)) {
+                $imagePath = public_path('storage/' . $student->student_photo);
+                if (file_exists($imagePath)) {
+                    $cell->addImage($imagePath, ['width' => 40, 'height' => 40]);
+                } else {
+                    $cell->addText('No Image');
+                }
+            }
+            // সাধারণ কলাম
+            else {
+                $cell->addText($student->$column);
+            }
+        }
+    }
+
+    // ৬. ফাইল ডাউনলোড
+    $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
+    $fileName = 'Student_List_' . time() . '.docx';
+    $tempFile = tempnam(sys_get_temp_dir(), $fileName);
+    $objWriter->save($tempFile);
+
+    return response()->download($tempFile, $fileName)->deleteFileAfterSend(true);
 }
 
 }

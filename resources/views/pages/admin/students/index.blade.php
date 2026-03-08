@@ -56,6 +56,24 @@
     </div>
 </div>
 <div class="card mb-3">
+    <div class="card-body">
+<form action="{{ route('admin.download.doc') }}" method="POST">
+    @csrf
+    <div class="row mb-3">
+       <input type="checkbox" name="selected_columns[]" value="full_name_bn"> নাম (বাংলা)
+<input type="checkbox" name="selected_columns[]" value="full_name_en"> Name (EN)
+
+<input type="checkbox" name="selected_columns[]" value="uid"> UID
+<input type="checkbox" name="selected_columns[]" value="blood_group"> Blood Group
+<input type="checkbox" name="selected_columns[]" value="father_bn"> পিতার নাম (বাংলা)
+<input type="checkbox" name="selected_columns[]" value="guardian_phone"> অভিভাবকের ফোন
+    </div>
+
+    <button type="submit" class="btn btn-success">Download Selected Data (Word)</button>
+</form>
+    </div>
+</div>
+<div class="card mb-3">
     <div class="card-body bg-light">
 
             <div class="row g-2">

@@ -57,20 +57,49 @@
 </div>
 <div class="card mb-3">
     <div class="card-body">
-<form action="{{ route('admin.download.doc') }}" method="POST">
-    @csrf
-    <div class="row mb-3">
-       <input type="checkbox" name="selected_columns[]" value="full_name_bn"> নাম (বাংলা)
-<input type="checkbox" name="selected_columns[]" value="full_name_en"> Name (EN)
 
-<input type="checkbox" name="selected_columns[]" value="uid"> UID
-<input type="checkbox" name="selected_columns[]" value="blood_group"> Blood Group
-<input type="checkbox" name="selected_columns[]" value="father_bn"> পিতার নাম (বাংলা)
-<input type="checkbox" name="selected_columns[]" value="guardian_phone"> অভিভাবকের ফোন
+        <form action="{{ route('admin.download.doc') }}" method="POST">
+    @csrf
+    <input type="hidden" name="uid" value="{{ request('uid') }}">
+    <input type="hidden" name="name" value="{{ request('name') }}">
+    <input type="hidden" name="class" value="{{ request('class') }}">
+    <input type="hidden" name="roll" value="{{ request('roll') }}">
+    <input type="hidden" name="session" value="{{ request('session') }}">
+    <input type="hidden" name="gender" value="{{ request('gender') }}">
+
+    <div class="row mb-3 card p-3 bg-light">
+        <h6>ডাউনলোডের জন্য কলাম সিলেক্ট করুন:</h6>
+        <div class="row">
+        <div class="col-md-3">
+            <input type="checkbox" name="selected_columns[]" value="full_name_bn" > নাম (বাংলা) <br>
+            <input type="checkbox" name="selected_columns[]" value="full_name_en" > Name (EN) <br>
+            <input type="checkbox" name="selected_columns[]" value="uid" > UID <br>
+            <input type="checkbox" name="selected_columns[]" value="birth_date"> জন্ম তারিখ
+        </div>
+        <div class="col-md-3">
+            <input type="checkbox" name="selected_columns[]" value="father_bn"> পিতার নাম (বাংলা) <br>
+            <input type="checkbox" name="selected_columns[]" value="mother_bn"> মাতার নাম (বাংলা) <br>
+            <input type="checkbox" name="selected_columns[]" value="blood_group"> Blood Group <br>
+            <input type="checkbox" name="selected_columns[]" value="gender"> লিঙ্গ
+        </div>
+        <div class="col-md-3">
+            <input type="checkbox" name="selected_columns[]" value="guardian_phone"> অভিভাবকের ফোন <br>
+            <input type="checkbox" name="selected_columns[]" value="perm_village"> স্থায়ী ঠিকানা <br>
+            <input type="checkbox" name="selected_columns[]" value="birth_reg_no"> জন্ম নিবন্ধন নং <br>
+            <input type="checkbox" name="selected_columns[]" value="religion"> ধর্ম
+        </div>
+        <div class="col-md-3">
+            <input type="checkbox" name="selected_columns[]" value="student_photo"> ছবি <br>
+            <input type="checkbox" name="selected_columns[]" value="class"> শ্রেণি <br>
+            <input type="checkbox" name="selected_columns[]" value="roll"> রোল <br>
+            <input type="checkbox" name="selected_columns[]" value="session"> বর্ষ <br>
+        </div>
+        </div>
     </div>
 
     <button type="submit" class="btn btn-success">Download Selected Data (Word)</button>
 </form>
+
     </div>
 </div>
 <div class="card mb-3">

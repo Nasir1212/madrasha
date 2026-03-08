@@ -452,98 +452,133 @@ public function bulkSerialPhotoUpload(Request $request)
 
 
 public function downloadDoc(Request $request)
-{
-    $selectedColumns = $request->input('selected_columns');
+    {
+       
+        $selectedColumns = $request->input('selected_columns');
+        if (empty($selectedColumns)) {
+            return back()->with('error', 'অনুগ্রহ করে অন্তত একটি কলাম সিলেক্ট করুন।');
+        }
 
-    if (empty($selectedColumns)) {
-        return back()->with('error', 'অনুগ্রহ করে অন্তত একটি কলাম সিলেক্ট করুন।');
+        // ১. ফিল্টার অনুযায়ী ডাটা কোয়েরি করা (আপনার ইনডেক্স পেজের ফিল্টার লজিক)
+        $query = Student::query();
+
+        if ($request->uid) {
+            $query->where('uid', 'like', '%' . $request->uid . '%');
+        }
+        if ($request->name) {
+            $query->where(function($q) use ($request) {
+                $q->where('name_bn_first', 'like', '%' . $request->name . '%')
+                  ->orWhere('name_en_first', 'like', '%' . $request->name . '%');
+            });
+        }
+        if ($request->gender) {
+            $query->where('gender', $request->gender);
+        }
+
+        if ($request->filled('class') || $request->filled('roll') || $request->filled('session')) {
+        $query->whereHas('currentAcademic', function($q) use ($request) {
+            if ($request->filled('class')) {
+                $q->where('class', $request->class);
+            }
+            if ($request->filled('roll')) {
+                $q->where('roll', $request->roll);
+            }
+            if ($request->filled('session')) {
+                $q->where('session', $request->session);
+            }
+        });
+    }
+        
+
+  $students = $query->with('currentAcademic')->get()->sort(function($a, $b) {
+    // প্রথমে ক্লাস তুলনা করা হচ্ছে
+    $classA = $a->currentAcademic->class ?? 0;
+    $classB = $b->currentAcademic->class ?? 0;
+
+    if ($classA != $classB) {
+        return $classA <=> $classB; // ক্লাস ছোট থেকে বড়
     }
 
-    // ১. আপনার দেওয়া অরিজিনাল ডাটাবেজ কলাম লিস্ট
-    $realDbColumns = [
-        'id', 'uid', 'name_bn_first', 'name_bn_last', 'name_en_first', 'name_en_last',
-        'birth_date', 'birth_reg_no', 'gender', 'nationality', 'blood_group', 'religion',
-        'student_photo', 'father_bn', 'father_en', 'father_nid', 'father_birth_reg',
-        'father_birth_date', 'mother_bn', 'mother_en', 'mother_nid', 'mother_birth_reg',
-        'mother_birth_date', 'guardian_name', 'guardian_occupation', 'guardian_phone',
-        'perm_village', 'perm_post', 'perm_union', 'perm_upazila', 'perm_district',
-        'curr_village', 'curr_post', 'curr_union', 'curr_upazila', 'curr_district', 'status'
-    ];
+    // ক্লাস যদি একই হয়, তবে রোল তুলনা করা হচ্ছে
+    $rollA = (int)($a->currentAcademic->roll ?? 999999);
+    $rollB = (int)($b->currentAcademic->roll ?? 999999);
 
-    // ২. সিলেক্ট করা ডাটা অনুযায়ী কুয়েরি তৈরি
-    $columnsToFetch = array_intersect($selectedColumns, $realDbColumns);
-    
-    // ফুল নেম সিলেক্ট করলে অরিজিনাল কলামগুলো ইনক্লুড করা
-    if (in_array('full_name_bn', $selectedColumns)) {
-        $columnsToFetch[] = 'name_bn_first';
-        $columnsToFetch[] = 'name_bn_last';
-    }
-    if (in_array('full_name_en', $selectedColumns)) {
-        $columnsToFetch[] = 'name_en_first';
-        $columnsToFetch[] = 'name_en_last';
-    }
+    return $rollA <=> $rollB; // রোল ছোট থেকে বড়
+});
+        
 
-    $students = Student::select(array_unique($columnsToFetch))->get();
+        // ২. Word ফাইল কনফিগারেশন
+        $phpWord = new PhpWord();
+        $section = $phpWord->addSection([
+            'orientation' => 'portrait', // কলাম বেশি হলে ল্যান্ডস্কেপ মোড ভালো
+            'marginTop' => 600, 'marginBottom' => 600, 'marginLeft' => 600, 'marginRight' => 600,
+        ]);
 
-    // ৩. Word ফাইল কনফিগারেশন
-    $phpWord = new PhpWord();
-    $section = $phpWord->addSection([
-        'orientation' => 'landscape',
-        'marginTop' => 600,
-        'marginBottom' => 600,
-        'marginLeft' => 600,
-        'marginRight' => 600,
-    ]);
+        $table = $section->addTable([
+            'borderSize' => 6, 
+            'borderColor' => '000000', 
+            'cellMargin' => 50
+        ]);
 
-    $table = $section->addTable([
-        'borderSize' => 6, 
-        'borderColor' => '000000', 
-        'cellMargin' => 50
-    ]);
-
-    // ৪. টেবিল হেডার
-    $table->addRow();
-    foreach ($selectedColumns as $column) {
-        $header = str_replace(['_', 'bn', 'en'], [' ', '(বাংলা)', '(EN)'], $column);
-        $table->addCell(2000)->addText(ucwords($header), ['bold' => true, 'size' => 10]);
-    }
-
-    // ৫. ডাটা লুপ
-    foreach ($students as $student) {
+        // ৩. ডাইনামিক টেবিল হেডার তৈরি
         $table->addRow();
         foreach ($selectedColumns as $column) {
-            $cell = $table->addCell(2000);
-            
-            // কাস্টম লজিক: ফুল নেম
-            if ($column == 'full_name_bn') {
-                $cell->addText($student->name_bn_first . ' ' . $student->name_bn_last);
-            } 
-            elseif ($column == 'full_name_en') {
-                $cell->addText($student->name_en_first . ' ' . $student->name_en_last);
-            } 
-            // কাস্টম লজিক: ছবি (যদি সিলেক্ট করা থাকে)
-            elseif ($column == 'student_photo' && !empty($student->student_photo)) {
-                $imagePath = public_path('storage/' . $student->student_photo);
-                if (file_exists($imagePath)) {
-                    $cell->addImage($imagePath, ['width' => 40, 'height' => 40]);
-                } else {
-                    $cell->addText('No Image');
+            // হেডারের নাম সুন্দর করার জন্য আন্ডারস্কোর সরানো
+            $headerName = str_replace(['_', 'bn', 'en'], [' ', '(বাংলা)', '(EN)'], $column);
+            $table->addCell(2000)->addText(ucwords($headerName), ['bold' => true, 'size' => 10]);
+        }
+
+        // ৪. ডাটা লুপ করে টেবিলে বসানো
+        foreach ($students as $student) {
+            $table->addRow();
+            foreach ($selectedColumns as $column) {
+                $cell = $table->addCell(2000);
+
+                if ($column == 'full_name_bn') {
+                    $cell->addText($student->name_bn_first . ' ' . $student->name_bn_last);
+                } 
+                elseif ($column == 'full_name_en') {
+                    $cell->addText($student->name_en_first . ' ' . $student->name_en_last);
+                    }
+                    elseif($column == 'class'){
+                        $cell->addText($student->currentAcademic->class);
+                        
+                }elseif($column == 'roll'){
+                        $cell->addText($student->currentAcademic->roll);
+                        
+                } 
+                elseif($column == 'session'){
+                        $cell->addText($student->currentAcademic->session);
+                        
+                } 
+                elseif ($column == 'student_photo') {
+                    if ($student->student_photo) {
+                        // আপনার ইমেজ হোস্ট ইউআরএল
+                        $imageUrl = "https://img.fbasm.edu.bd/" . $student->student_photo;
+                        try {
+                            $cell->addImage($imageUrl, ['width' => 35, 'height' => 35]);
+                        } catch (\Exception $e) {
+                            $cell->addText('No Photo');
+                        }
+                    } else {
+                        $cell->addText('N/A');
+                    }
+                } 
+                else {
+                    // ডাটাবেজের সরাসরি কলামের ভ্যালু
+                    $cell->addText($student->$column ?? 'N/A');
                 }
             }
-            // সাধারণ কলাম
-            else {
-                $cell->addText($student->$column);
-            }
         }
+
+        // ৫. ফাইল জেনারেট এবং ডাউনলোড
+        $fileName = 'Student_Report_' . date('d_m_Y_Hi') . '.docx';
+        $tempFile = tempnam(sys_get_temp_dir(), $fileName);
+        
+        $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
+        $objWriter->save($tempFile);
+
+        return response()->download($tempFile, $fileName)->deleteFileAfterSend(true);
     }
-
-    // ৬. ফাইল ডাউনলোড
-    $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
-    $fileName = 'Student_List_' . time() . '.docx';
-    $tempFile = tempnam(sys_get_temp_dir(), $fileName);
-    $objWriter->save($tempFile);
-
-    return response()->download($tempFile, $fileName)->deleteFileAfterSend(true);
-}
 
 }

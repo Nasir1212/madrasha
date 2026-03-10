@@ -12,13 +12,13 @@
                         <p>ফকির পাড়া, চক্রশালা, পটিয়া চট্টগ্রাম। </p>
                         <ul class="list-inline mt-5 footer-mt-5">
                             <li class="m-0 pl-10 pr-10"> <i class="fa fa-phone text-theme-color-2 mr-5"></i> 
-                                <a class="text-white" href="#">০১৮২২৩১২৭৩৮ (সভাপতি) ০১৮১৭৭৬৮০৩২ (সুপার)</a> 
+                                <a class="text-white" href="#">০১৮২২৩১২৭৩৮ (সভাপতি) ০১৮১৭৭৬৮০৩২ (অধ্যক্ষ)</a> 
                             </li>
                             <br> 
                           
 
                             <li class="m-0 pl-10 pr-10"> <i class="fa fa-phone text-theme-color-2 mr-5"></i> 
-                            <a class="text-white" href="#" >০১৮২৭৩৩৫০৮২(সহ-সুপার)</a> 
+                            <a class="text-white" href="#" >০১৮২৭৩৩৫০৮২(উপাধ্যক্ষ)</a> 
                             </li><br> 
 
                             <li class="m-0 pl-10 pr-10"> <i class="fa fa-phone text-theme-color-2 mr-5"></i> 

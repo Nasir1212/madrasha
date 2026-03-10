@@ -454,10 +454,14 @@ public function bulkSerialPhotoUpload(Request $request)
 public function downloadDoc(Request $request)
     {
        
-        $selectedColumns = $request->input('selected_columns');
-        if (empty($selectedColumns)) {
-            return back()->with('error', 'অনুগ্রহ করে অন্তত একটি কলাম সিলেক্ট করুন।');
-        }
+       // ইউজারের সিলেক্ট করা সিরিয়াল অনুযায়ী কলামগুলো পাওয়া যাবে
+    $columnString = $request->input('ordered_columns');
+    
+    if (empty($columnString)) {
+        return back()->with('error', 'অনুগ্রহ করে অন্তত একটি কলাম সিলেক্ট করুন।');
+    }
+
+    $selectedColumns = explode(',', $columnString);
 
         // ১. ফিল্টার অনুযায়ী ডাটা কোয়েরি করা (আপনার ইনডেক্স পেজের ফিল্টার লজিক)
         $query = Student::query();
@@ -580,5 +584,61 @@ public function downloadDoc(Request $request)
 
         return response()->download($tempFile, $fileName)->deleteFileAfterSend(true);
     }
+
+    public function downloadDoc2(Request $request)
+{
+    // selected_data তে ইউজারের সিলেক্ট করা তথ্যগুলো আছে
+    $selectedData = $request->input('columns'); 
+    $headers = $request->input('headers');
+
+    if (!$selectedData) {
+        return back()->with('error', 'অনুগ্রহ করে অন্তত একটি কলাম এবং তথ্য সিলেক্ট করুন।');
+    }
+
+    $students = Student::with('currentAcademic')->get(); // আপনার ফিল্টার অনুযায়ী
+
+    $phpWord = new \PhpOffice\PhpWord\PhpWord();
+    $section = $phpWord->addSection(['orientation' => 'landscape']); // কলাম বেশি হলে ল্যান্ডস্কেপ ভালো
+    $table = $section->addTable(['borderSize' => 6, 'cellMargin' => 50]);
+
+    // ১. হেডার তৈরি (ইউজারের দেওয়া নাম অনুযায়ী)
+    $table->addRow();
+    foreach ($headers as $headerText) {
+        $table->addCell(3000)->addText($headerText, ['bold' => true, 'alignment' => 'center']);
+    }
+
+    // ২. স্টুডেন্ট ডাটা বসানো
+    foreach ($students as $student) {
+        $table->addRow();
+        
+        // প্রতিটি কলামের জন্য লুপ
+        foreach ($selectedData as $fields) {
+            $cell = $table->addCell(3000);
+            
+            // একই সেলের ভেতর একাধিক ডাটা লুপ
+            foreach ($fields as $field) {
+                $text = match($field) {
+                    'full_name_bn' => ($student->name_bn_first ?? '') . ' ' . ($student->name_bn_last ?? ''),
+                    'roll'         => "রোল: " . ($student->currentAcademic->roll ?? 'N/A'),
+                    'class'        => "শ্রেণি: " . ($student->currentAcademic->class ?? 'N/A'),
+                    'father_bn'    => "পিতা: " . ($student->father_bn ?? 'N/A'),
+                    'mother_bn'    => "মাতা: " . ($student->mother_bn ?? 'N/A'),
+                    'guardian_phone' => "মোবাইল: " . ($student->guardian_phone ?? 'N/A'),
+                    default        => $student->$field ?? 'N/A',
+                };
+                
+                $cell->addText($text, ['size' => 10]);
+            }
+        }
+    }
+
+    // ফাইল জেনারেট এবং ডাউনলোড
+    $fileName = 'Custom_Student_List_' . time() . '.docx';
+    $tempFile = tempnam(sys_get_temp_dir(), $fileName);
+    $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+    $objWriter->save($tempFile);
+
+    return response()->download($tempFile, $fileName)->deleteFileAfterSend(true);
+}
 
 }

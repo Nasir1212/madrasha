@@ -30,7 +30,10 @@
                     <select name="class" class="form-select form-select-sm">
                         <option value="">Class </option>
                         @foreach(range(0, 10) as $class)
-                            <option value="{{ $class }}" {{ request('class') == $class ? 'selected' : '' }}>Class {{ $class }}</option>
+                            <option value="{{ $class }}" 
+                            {{ request()->filled('class') && request('class') == $class ? 'selected' : '' }}>
+                            Class {{ $class }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
@@ -66,33 +69,36 @@
     <input type="hidden" name="roll" value="{{ request('roll') }}">
     <input type="hidden" name="session" value="{{ request('session') }}">
     <input type="hidden" name="gender" value="{{ request('gender') }}">
-
+<input type="hidden" name="ordered_columns" id="ordered_columns">
     <div class="row mb-3 card p-3 bg-light">
         <h6>ডাউনলোডের জন্য কলাম সিলেক্ট করুন:</h6>
         <div class="row">
         <div class="col-md-3">
-            <input type="checkbox" name="selected_columns[]" value="full_name_bn" > নাম (বাংলা) <br>
-            <input type="checkbox" name="selected_columns[]" value="full_name_en" > Name (EN) <br>
-            <input type="checkbox" name="selected_columns[]" value="uid" > UID <br>
-            <input type="checkbox" name="selected_columns[]" value="birth_date"> জন্ম তারিখ
+            <input type="checkbox" class="column-check" name="selected_columns[]" value="uid" > UID <br>
+            <input type="checkbox" class="column-check" name="selected_columns[]" value="full_name_bn" > নাম (বাংলা) <br>
+            <input type="checkbox" class="column-check" name="selected_columns[]" value="full_name_en" > Name (EN) <br>
+            <input type="checkbox" class="column-check" name="selected_columns[]" value="birth_date"> জন্ম তারিখ <br>
+             <input type="checkbox" class="column-check" name="selected_columns[]" value="blood_group"> Blood Group <br>
+            <input type="checkbox" class="column-check" name="selected_columns[]" value="gender"> লিঙ্গ
         </div>
         <div class="col-md-3">
-            <input type="checkbox" name="selected_columns[]" value="father_bn"> পিতার নাম (বাংলা) <br>
-            <input type="checkbox" name="selected_columns[]" value="mother_bn"> মাতার নাম (বাংলা) <br>
-            <input type="checkbox" name="selected_columns[]" value="blood_group"> Blood Group <br>
-            <input type="checkbox" name="selected_columns[]" value="gender"> লিঙ্গ
+            <input type="checkbox" class="column-check" name="selected_columns[]" value="father_bn"> পিতার নাম (বাংলা) <br>
+            <input type="checkbox" class="column-check" name="selected_columns[]" value="father_en"> পিতার নাম (ইংরেজী) <br>
+            <input type="checkbox" class="column-check" name="selected_columns[]" value="mother_bn"> মাতার নাম (বাংলা) <br>
+            <input type="checkbox" class="column-check" name="selected_columns[]" value="mother_en"> মাতার নাম (ইংরেজী) <br>
+           
         </div>
         <div class="col-md-3">
-            <input type="checkbox" name="selected_columns[]" value="guardian_phone"> অভিভাবকের ফোন <br>
-            <input type="checkbox" name="selected_columns[]" value="perm_village"> স্থায়ী ঠিকানা <br>
-            <input type="checkbox" name="selected_columns[]" value="birth_reg_no"> জন্ম নিবন্ধন নং <br>
-            <input type="checkbox" name="selected_columns[]" value="religion"> ধর্ম
+            <input type="checkbox" class="column-check" name="selected_columns[]" value="guardian_phone"> অভিভাবকের ফোন <br>
+            <input type="checkbox" class="column-check" name="selected_columns[]" value="perm_village"> স্থায়ী ঠিকানা <br>
+            <input type="checkbox" class="column-check" name="selected_columns[]" value="birth_reg_no"> জন্ম নিবন্ধন নং <br>
+            <input type="checkbox" class="column-check" name="selected_columns[]" value="religion"> ধর্ম
         </div>
         <div class="col-md-3">
-            <input type="checkbox" name="selected_columns[]" value="student_photo"> ছবি <br>
-            <input type="checkbox" name="selected_columns[]" value="class"> শ্রেণি <br>
-            <input type="checkbox" name="selected_columns[]" value="roll"> রোল <br>
-            <input type="checkbox" name="selected_columns[]" value="session"> বর্ষ <br>
+            <input type="checkbox" class="column-check" name="selected_columns[]" value="student_photo"> ছবি <br>
+            <input type="checkbox" class="column-check" name="selected_columns[]" value="class"> শ্রেণি <br>
+            <input type="checkbox" class="column-check" name="selected_columns[]" value="roll"> রোল <br>
+            <input type="checkbox" class="column-check" name="selected_columns[]" value="session"> বর্ষ <br>
         </div>
         </div>
     </div>
@@ -102,6 +108,69 @@
 
     </div>
 </div>
+
+{{-- <div class="card mb-3">
+    <div class="card-body bg-light">
+   <div id="column-container">
+      <form action="{{ route('admin.download.doc2') }}" method="POST">
+        @csrf
+    <div class="row g-2 mb-3 border p-2 bg-white column-item">
+        <div class="col-md-4">
+            <label>তথ্য সিলেক্ট করুন (একাধিক সম্ভব)</label>
+            <select name="columns[0][]" class="form-select form-select-sm" multiple style="height: 100px;">
+                <option value="full_name_bn">নাম (বাংলা)</option>
+                <option value="father_bn">পিতার নাম</option>
+                <option value="mother_bn"> মাতার নাম</option>
+                <option value="roll">রোল নম্বর</option>
+                <option value="class">শ্রেণি</option>
+                <option value="guardian_phone">মোবাইল</option>
+            </select>
+            <small class="text-muted">Ctrl চেপে একাধিক সিলেক্ট করুন</small>
+        </div>
+        <div class="col-md-4">
+            <label>কলামের শিরোনাম</label>
+            <input type="text" name="headers[]" class="form-control form-control-sm" placeholder="যেমন: শিক্ষার্থীর তথ্য">
+        </div>
+        <div class="col-md-2 align-self-center">
+            <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.column-item').remove()">মুছুন</button>
+        </div>
+    </div>
+</div>
+<button type="button" class="btn btn-secondary btn-sm" onclick="addColumn()">+ নতুন কলাম</button>
+<button type="submit" class="btn btn-secondary btn-sm">Download</button>
+</form>
+<script>
+   let colIndex = 1;
+function addColumn() {
+    let container = document.getElementById('column-container');
+    let div = document.createElement('div');
+    div.className = 'row g-2 mb-3 border p-2 bg-white column-item';
+    div.innerHTML = `
+        <div class="col-md-4">
+            <select name="columns[${colIndex}][]" class="form-select form-select-sm" multiple style="height: 100px;">
+                <option value="full_name_bn">নাম (বাংলা)</option>
+                <option value="father_bn">পিতার নাম</option>
+                <option value="mother_bn"> মাতার নাম</option>
+                <option value="roll">রোল নম্বর</option>
+                <option value="class">শ্রেণি</option>
+                <option value="guardian_phone">মোবাইল</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <input type="text" name="headers[]" class="form-control form-control-sm" placeholder="কলামের নাম">
+        </div>
+        <div class="col-md-2 align-self-center">
+            <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.column-item').remove()">মুছুন</button>
+        </div>
+    `;
+    container.appendChild(div);
+    colIndex++;
+}
+</script>
+    </div>
+</div> --}}
+
+
 <div class="card mb-3">
     <div class="card-body bg-light">
 
@@ -293,4 +362,29 @@
     </div>
 </div>
 
+<script>
+    let selectedOrder = [];
+
+    document.querySelectorAll('.column-check').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                // মার্ক করলে লিস্টের শেষে পুশ হবে
+                selectedOrder.push(this.value);
+            } else {
+                // আনমার্ক করলে লিস্ট থেকে রিমুভ হবে
+                selectedOrder = selectedOrder.filter(item => item !== this.value);
+            }
+            // হিডেন ফিল্ডে কমা দিয়ে স্টোর করা (যেমন: uid,full_name_bn,roll)
+            document.getElementById('ordered_columns').value = selectedOrder.join(',');
+        });
+    });
+
+    // ফর্ম সাবমিট করার সময় চেক করা
+    document.getElementById('downloadForm').addEventListener('submit', function(e) {
+        if (selectedOrder.length === 0) {
+            e.preventDefault();
+            alert('অনুগ্রহ করে অন্তত একটি কলাম সিলেক্ট করুন।');
+        }
+    });
+</script>
 @endsection

@@ -23,6 +23,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('students/add-student/{id}', [StudentController::class, 'add_student'])->name('students.add_student');
     Route::post('/students/bulk-serial-photo', [StudentController::class, 'bulkSerialPhotoUpload'])->name('students.bulk-serial-photo');
     Route::post('/download-doc', [StudentController::class, 'downloadDoc'])->name('download.doc');
+    Route::post('/download-doc2', [StudentController::class, 'downloadDoc2'])->name('download.doc2');
     Route::get('/print-receive/{form_no}', [AdmissionAdminController::class, 'print_receive'])
         ->name('admissions.print_receive');
     Route::get('/admissions', [AdmissionAdminController::class, 'index'])

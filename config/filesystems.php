@@ -32,7 +32,7 @@ return [
 
         'img_disk' => [
         'driver' => 'local',
-        'root' => '/home/nasheedhub/img.fbasm.edu.bd',  // এখানে আপনার ইমেজ সার্ভারের public path
+        'root' => '/home2/nasheedhub/img.fbasm.edu.bd',  // এখানে আপনার ইমেজ সার্ভারের public path
         'url' => env('IMG_URL', 'https://img.fbasm.edu.bd'),
         'visibility' => 'public',
         ],

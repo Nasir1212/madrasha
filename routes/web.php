@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\dashboardController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\AdmissionAdminController;
 use App\Http\Controllers\HomeController;
-
+ use App\Http\Controllers\Admin\StaffController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -43,8 +43,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::post('/admissions/{id}/reject', [AdmissionAdminController::class, 'reject'])
         ->name('admissions.reject');
-
- 
+    Route::get('/staff', [StaffController::class, 'index'])->name('staff.index');
+    Route::get('/staff/create', [StaffController::class, 'create'])->name('staff.create');
+    Route::post('/staff/store', [StaffController::class, 'store'])->name('staff.store');
 });
 
 Route::get('/storage-link', function () {

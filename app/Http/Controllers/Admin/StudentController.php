@@ -271,8 +271,6 @@ if ($isDuplicate) {
     return redirect()->back()->with('error', 'এই সেশনে এবং এই ক্লাসে এই রোল নম্বরটি ইতিমধ্যে অন্য একজন শিক্ষার্থীর জন্য বরাদ্দ করা হয়েছে।');
 }
     
-
-    // ✅ Photo update
     if ($request->hasFile('student_photo')) {
         // Delete old photo if exists
         if ($student->student_photo && Storage::disk('img_disk')->exists($student->student_photo)) {

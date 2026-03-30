@@ -27,6 +27,8 @@ return new class extends Migration
             $table->date('joining_date')->nullable();
             $table->string('mpo_type')->nullable();
             $table->string('photo')->nullable();
+            $table->text('address')->nullable();
+            $table->string('indexing')->nullable();
             $table->timestamps();
         });
     }

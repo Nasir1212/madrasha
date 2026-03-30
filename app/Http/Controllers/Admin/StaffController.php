@@ -79,4 +79,62 @@ class StaffController extends Controller
         $allStaff = Staff::latest()->get();
         return view('pages.admin.staffs.index', compact('allStaff'));
     }
+
+    public function edit($id)
+    {
+        $staff = Staff::findOrFail($id);
+        return view('pages.admin.staffs.edit', compact('staff'));
+    }
+
+  
+    public function update(Request $request, $id)
+    {
+        $staff = Staff::findOrFail($id);
+
+        $validated = $request->validate([
+            'name_bn' => 'required',
+            'name_en' => 'required',
+            'designation' => 'required',
+            'photo' => 'nullable|image|mimes:jpg,png,jpeg',
+        ]);
+
+        $data = $request->all();
+
+        if ($request->hasFile('photo')) {
+           
+            if ($staff->photo && Storage::disk('img_disk')->exists($staff->photo)) {
+                Storage::disk('img_disk')->delete($staff->photo);
+            }
+
+        
+            $image_obj = $request->file('photo');
+            $filename = Str::random(40) . '.' . $image_obj->getClientOriginalExtension();
+            $relative_path = 'uploads/staff/' . $filename;
+            
+            Storage::disk('img_disk')->putFileAs('uploads/staff', $image_obj, $filename);
+            $data['photo'] = $relative_path;
+        }
+
+        $staff->update($data);
+        return redirect()->route('admin.staff.index')->with('success', 'তথ্য সফলভাবে আপডেট করা হয়েছে!');
+    }
+
+    public function show($id)
+{
+    $staff = Staff::findOrFail($id);
+    return view('pages.admin.staffs.show', compact('staff'));
+}
+   
+    public function destroy($id)
+    {
+        $staff = Staff::findOrFail($id);
+        
+       
+        if ($staff->photo && Storage::disk('img_disk')->exists($staff->photo)) {
+            Storage::disk('img_disk')->delete($staff->photo);
+        }
+
+        $staff->delete();
+        return back()->with('success', 'তথ্যটি সফলভাবে মুছে ফেলা হয়েছে!');
+    }
 }

@@ -33,7 +33,8 @@
                             <option value="Non-MPO">Non-MPO</option>
                         </select>
                     </div>
-                    <div class="col-md-8"><label>ছবি</label><input type="file" name="photo" class="form-control"></div>
+                    <div class="col-md-4"><label> ঠিকানা </label><input type="text" name="address" class="form-control"></div>
+                    <div class="col-md-4"><label>ছবি</label><input type="file" name="photo" class="form-control"></div>
                 </div>
                 <div class="text-center mt-4">
                     <button type="submit" class="btn btn-success px-5">সংরক্ষণ করুন</button>

@@ -159,17 +159,14 @@
                         @if(request('is_multiple_img') == '1')
                             <input type="checkbox" class="form-check-input border-primary" name="staff_ids[]" value="{{ $staff->id }}">
                         @else
-                            <a href="
-                            {{-- {{ route('admin.staff.show', $staff->id) }} --}}
-                             " class="btn btn-xs btn-info"><i class="bi bi-eye"></i></a>
-                            <a href="
-                            {{-- {{ route('admin.staff.edit', $staff->id) }} --}}
-                             " class="btn btn-xs btn-warning"><i class="bi bi-pencil-square"></i></a>
-                            <form action="
-                            {{-- {{ route('admin.staff.destroy', $staff->id) }} --}}
-                             " method="POST" class="d-inline" onsubmit="return confirm('নিশ্চিত তো?');">
-                                @csrf @method('DELETE')
-                                <button class="btn btn-xs btn-danger"><i class="bi bi-trash"></i></button>
+                            <a href="{{ route('admin.staff.show', $staff->id) }}" class="btn btn-xs btn-info"><i class="bi bi-eye"></i></a>
+                            <a href="{{ route('admin.staff.edit', $staff->id) }}" class="btn btn-xs btn-warning"><i class="bi bi-pencil-square"></i></a>
+                            <form action="{{ route('admin.staff.destroy', $staff->id) }}" method="POST" class="d-inline" onsubmit="return confirmDelete(event, this);">
+                                @csrf 
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-xs btn-danger">
+                                    <i class="bi bi-trash"></i>
+                                </button>
                             </form>
                         @endif
                     </td>
@@ -218,6 +215,18 @@
             alert('অনুগ্রহ করে অন্তত একটি কলাম সিলেক্ট করুন।');
         }
     });
-</script>
 
+    
+
+    function confirmDelete(event, form) {
+        event.preventDefault(); 
+        
+       
+        var result = confirm("আপনি কি নিশ্চিতভাবে এই তথ্যটি মুছে ফেলতে চান?");
+        
+        if (result) {
+            form.submit(); // 'Ok' দিলে ফর্ম সাবমিট হবে
+        }
+    }
+</script>
 @endsection

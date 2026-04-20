@@ -11,6 +11,7 @@ use App\Http\Controllers\HomeController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/employees', [HomeController::class, 'employees'])->name('employees');
 Route::get('/print-form/{form_no}', [HomeController::class, 'print_form'])->name('print_form');
 Route::post('/admission-store', [AdmissionController::class, 'store'])->name('admission.store');
 Route::get('/admission', [HomeController::class, 'admission_form'])->name('admission_form');

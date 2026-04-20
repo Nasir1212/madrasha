@@ -15,7 +15,7 @@
                                     <li><a href="#mission-vision">প্রতিষ্ঠার লক্ষ্য</a></li>
                                     <li><a href="#governing-body">গভর্নিং বডি</a></li>
                                     <li><a href="#complex">কমপ্লেক্স</a></li>
-                                    <li><a href="#teachers">শিক্ষকমন্ডলীর তথ্যবলী</a></li>
+                                    <li><a href="{{route('employees')}}">শিক্ষকমন্ডলীর তথ্যবলী</a></li>
                                     <li><a href="#officers-employees">কর্মকর্তা ও কর্মচারী</a></li>
                                     <!--<li><a href="#">বিভাগীয় দায়িত্বশীল</a></li>-->
                                 </ul>

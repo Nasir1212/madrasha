@@ -50,6 +50,7 @@
                     <button type="submit" class="btn btn-primary btn-sm w-100">
                         <i class="bi bi-search"></i> Search
                     </button>
+                    <a href="{{ route('admin.students.index') }}?all=1" class="btn btn-secondary btn-sm"> <i class="bi bi-eye"></i> </a>
                     <a href="{{ route('admin.students.index') }}" class="btn btn-secondary btn-sm">
                         <i class="bi bi-arrow-clockwise"></i>
                     </a>                  
@@ -109,66 +110,6 @@
     </div>
 </div>
 
-{{-- <div class="card mb-3">
-    <div class="card-body bg-light">
-   <div id="column-container">
-      <form action="{{ route('admin.download.doc2') }}" method="POST">
-        @csrf
-    <div class="row g-2 mb-3 border p-2 bg-white column-item">
-        <div class="col-md-4">
-            <label>তথ্য সিলেক্ট করুন (একাধিক সম্ভব)</label>
-            <select name="columns[0][]" class="form-select form-select-sm" multiple style="height: 100px;">
-                <option value="full_name_bn">নাম (বাংলা)</option>
-                <option value="father_bn">পিতার নাম</option>
-                <option value="mother_bn"> মাতার নাম</option>
-                <option value="roll">রোল নম্বর</option>
-                <option value="class">শ্রেণি</option>
-                <option value="guardian_phone">মোবাইল</option>
-            </select>
-            <small class="text-muted">Ctrl চেপে একাধিক সিলেক্ট করুন</small>
-        </div>
-        <div class="col-md-4">
-            <label>কলামের শিরোনাম</label>
-            <input type="text" name="headers[]" class="form-control form-control-sm" placeholder="যেমন: শিক্ষার্থীর তথ্য">
-        </div>
-        <div class="col-md-2 align-self-center">
-            <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.column-item').remove()">মুছুন</button>
-        </div>
-    </div>
-</div>
-<button type="button" class="btn btn-secondary btn-sm" onclick="addColumn()">+ নতুন কলাম</button>
-<button type="submit" class="btn btn-secondary btn-sm">Download</button>
-</form>
-<script>
-   let colIndex = 1;
-function addColumn() {
-    let container = document.getElementById('column-container');
-    let div = document.createElement('div');
-    div.className = 'row g-2 mb-3 border p-2 bg-white column-item';
-    div.innerHTML = `
-        <div class="col-md-4">
-            <select name="columns[${colIndex}][]" class="form-select form-select-sm" multiple style="height: 100px;">
-                <option value="full_name_bn">নাম (বাংলা)</option>
-                <option value="father_bn">পিতার নাম</option>
-                <option value="mother_bn"> মাতার নাম</option>
-                <option value="roll">রোল নম্বর</option>
-                <option value="class">শ্রেণি</option>
-                <option value="guardian_phone">মোবাইল</option>
-            </select>
-        </div>
-        <div class="col-md-4">
-            <input type="text" name="headers[]" class="form-control form-control-sm" placeholder="কলামের নাম">
-        </div>
-        <div class="col-md-2 align-self-center">
-            <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.column-item').remove()">মুছুন</button>
-        </div>
-    `;
-    container.appendChild(div);
-    colIndex++;
-}
-</script>
-    </div>
-</div> --}}
 
 
 <div class="card mb-3">
@@ -177,7 +118,9 @@ function addColumn() {
             <div class="row g-2">
             <div class="col-md-2">
             <div class="mb-2 text-start">
-            <strong> শিক্ষার্থী: {{ count($students) }} জন</strong>
+            <strong> শিক্ষার্থী: 
+                {{ $students instanceof \Illuminate\Pagination\LengthAwarePaginator ? $students->total() : $students->count() }}
+                 জন</strong>
             </div>
             </div>
 

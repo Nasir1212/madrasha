@@ -53,7 +53,27 @@ class StudentController extends Controller
                           ->orderBy('student_academics.roll', 'asc')
                           ->select('students.*')
                           ->get();
-    } else {
+    } 
+    if ($request->input('all') == 1 || $request->anyFilled(['uid', 'name', 'class', 'roll', 'session'])) {
+        
+        $students = $query->get()->sort(function($a, $b) {
+            $classA = $a->currentAcademic->class ?? 0;
+            $classB = $b->currentAcademic->class ?? 0;
+
+            // যদি ক্লাস আলাদা হয়, তবে বড় ক্লাস আগে আসবে (১০ম থেকে শিশু)
+            if ($classA != $classB) {
+                return $classB <=> $classA; // desc order এর জন্য B আগে, A পরে
+            }
+
+            // ক্লাস যদি একই হয়, তবে রোল ছোট থেকে বড় আসবে (১, ২, ৩...)
+            $rollA = (int)($a->currentAcademic->roll ?? 99999);
+            $rollB = (int)($b->currentAcademic->roll ?? 99999);
+
+            return $rollA <=> $rollB; // asc order
+        });
+
+    }
+    else {
         // নরমাল অবস্থায় আপনি চাইলে ৫০টা করে দেখাতে পারেন অথবা এখানেও get() দিতে পারেন
         $students = $query->latest()->paginate(50); 
     }

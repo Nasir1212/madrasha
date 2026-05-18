@@ -1,0 +1,318 @@
+@extends('layouts.admin')
+@section('content')
+
+<div class="card" style="border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-radius: 12px;">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center" style="border-top-left-radius: 12px; border-top-right-radius: 12px; padding: 15px 20px;">
+        <h5 style="margin: 0; font-weight: 600;">Students List</h5>
+        <a href="{{ route('admin.students.create') }}" class="btn btn-light btn-sm" style="font-weight: 500; border-radius: 6px;">Add Student</a>
+    </div>
+    <div class="card-body bg-light" style="padding: 20px;">
+        <form action="{{ route('admin.students.index') }}" method="GET">
+            <div class="row g-2">
+                <div class="col-md-2">
+                    <input type="text" name="uid" class="form-control form-control-sm" placeholder="ID (UID)" value="{{ request('uid') }}">
+                </div>
+                
+                <div class="col-md-2">
+                    <input type="text" name="name" class="form-control form-control-sm" placeholder="Student Name" value="{{ request('name') }}">
+                </div>
+                <div class="col-md-1">
+                    <select name="gender" class="form-select form-select-sm">
+                        <option value="">Gender</option>
+                        <option value="male" {{ request('gender') == 'male' ? 'selected' : '' }}>Male</option>
+                        <option value="female" {{ request('gender') == 'female' ? 'selected' : '' }}>Female</option>
+                        <option value="others" {{ request('gender') == 'others' ? 'selected' : '' }}>Others</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <select name="class" class="form-select form-select-sm">
+                        <option value="">Class </option>
+                        @foreach(range(0, 10) as $class)
+                            <option value="{{ $class }}" 
+                            {{ request()->filled('class') && request('class') == $class ? 'selected' : '' }}>
+                            Class {{ $class }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-md-1">
+                    <input type="text" name="roll" class="form-control form-control-sm" placeholder="Roll" value="{{ request('roll') }}">
+                </div>
+
+                <div class="col-md-2">
+                    <input type="text" name="session" class="form-control form-control-sm" placeholder="Session" value="{{ request('session') }}">
+                </div>
+
+                <div class="col-md-2 d-flex gap-1">
+                    <button type="submit" class="btn btn-primary btn-sm w-100">
+                        <i class="bi bi-search"></i> Search
+                    </button>
+                    <a href="{{ route('admin.students.index') }}?all=1" class="btn btn-secondary btn-sm"> <i class="bi bi-eye"></i> </a>
+                    <a href="{{ route('admin.students.index') }}" class="btn btn-secondary btn-sm">
+                        <i class="bi bi-arrow-clockwise"></i>
+                    </a>                  
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card mb-3 mt-3" style="border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-radius: 12px;">
+    <div class="card-body">
+        <form action="{{ route('admin.download.doc') }}" method="POST" id="downloadForm">
+            @csrf
+            <input type="hidden" name="uid" value="{{ request('uid') }}">
+            <input type="hidden" name="name" value="{{ request('name') }}">
+            <input type="hidden" name="class" value="{{ request('class') }}">
+            <input type="hidden" name="roll" value="{{ request('roll') }}">
+            <input type="hidden" name="session" value="{{ request('session') }}">
+            <input type="hidden" name="gender" value="{{ request('gender') }}">
+            <input type="hidden" name="std_ids" value="{{ request('std_ids') }}">
+            <input type="hidden" name="ordered_columns" id="ordered_columns">
+            <div class="row mb-3 card p-3 bg-light" style="margin-left: 0; margin-right: 0; border: 1px solid #e2e8f0; border-radius: 8px;">
+                <h6 style="font-weight: 600; color: #4a5568;">ডাউনলোডের জন্য কলাম সিলেক্ট করুন:</h6>
+                <div class="row pt-2">
+                    <div class="col-md-3">
+                        <input type="checkbox" class="column-check" name="selected_columns[]" value="uid" > UID <br>
+                        <input type="checkbox" class="column-check" name="selected_columns[]" value="full_name_bn" > নাম (বাংলা) <br>
+                        <input type="checkbox" class="column-check" name="selected_columns[]" value="full_name_en" > Name (EN) <br>
+                        <input type="checkbox" class="column-check" name="selected_columns[]" value="birth_date"> জন্ম তারিখ <br>
+                        <input type="checkbox" class="column-check" name="selected_columns[]" value="blood_group"> Blood Group <br>
+                        <input type="checkbox" class="column-check" name="selected_columns[]" value="gender"> লিঙ্গ
+                    </div>
+                    <div class="col-md-3">
+                        <input type="checkbox" class="column-check" name="selected_columns[]" value="father_bn"> পিতার নাম (বাংলা) <br>
+                        <input type="checkbox" class="column-check" name="selected_columns[]" value="father_en"> পিতার নাম (ইংরেজী) <br>
+                        <input type="checkbox" class="column-check" name="selected_columns[]" value="mother_bn"> মাতার নাম (বাংলা) <br>
+                        <input type="checkbox" class="column-check" name="selected_columns[]" value="mother_en"> মাতার নাম (ইংরেজী) <br>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="checkbox" class="column-check" name="selected_columns[]" value="guardian_phone"> অভিভাবকের ফোন <br>
+                        <input type="checkbox" class="column-check" name="selected_columns[]" value="perm_village"> স্থায়ী ঠিকানা <br>
+                        <input type="checkbox" class="column-check" name="selected_columns[]" value="birth_reg_no"> জন্ম নিবন্ধন নং <br>
+                        <input type="checkbox" class="column-check" name="selected_columns[]" value="religion"> ধর্ম
+                    </div>
+                    <div class="col-md-3">
+                        <input type="checkbox" class="column-check" name="selected_columns[]" value="student_photo"> ছবি <br>
+                        <input type="checkbox" class="column-check" name="selected_columns[]" value="class"> শ্রেণি <br>
+                        <input type="checkbox" class="column-check" name="selected_columns[]" value="roll"> রোল <br>
+                        <input type="checkbox" class="column-check" name="selected_columns[]" value="session"> বর্ষ <br>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Download Selected Data (Word)</button>
+        </form>
+    </div>
+</div>
+
+<div class="card mb-4" style="border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-radius: 12px;">
+    <div class="card-body bg-light" style="border-radius: 12px; padding: 15px 20px;">
+        <div class="row g-2 align-items-center">
+            <div class="col-md-2">
+                <div class="text-start">
+                    <strong style="color: #2d3748; font-size: 15px;"> শিক্ষার্থী: 
+                        {{ $students instanceof \Illuminate\Pagination\LengthAwarePaginator ? $students->total() : $students->count() }}
+                         জন</strong>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="text-start">
+                     <form action="{{ route('admin.students.print.cards') }}" method="GET">
+                        <input type="hidden" name="uid"  value="{{ request('uid') }}">
+                        <input type="hidden" name="name"  value="{{ request('name') }}">  
+                        <input type="hidden" name="class"  value="{{ request('class') }}">
+                        <input type="hidden" name="roll"  value="{{ request('roll') }}">
+                        <input type="hidden" name="session" value="{{ request('session') }}">
+                        <input type="hidden" name="gender" value="{{ request('gender') }}">
+                        <input type="hidden" name="std_ids" value="{{ request('std_ids') }}">
+                        <button type="submit" class="btn btn-success btn-sm w-100">
+                            <i class="bi bi-printer"></i> Print ID Cards
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="text-start">
+                     <form action="{{ route('admin.students.index') }}" method="GET">
+                        <input type="hidden" name="uid"  value="{{ request('uid') }}">
+                        <input type="hidden" name="name"  value="{{ request('name') }}">  
+                        <input type="hidden" name="class"  value="{{ request('class') }}">
+                        <input type="hidden" name="roll"  value="{{ request('roll') }}">
+                        <input type="hidden" name="session" value="{{ request('session') }}">
+                        <input type="hidden" name="gender" value="{{ request('gender') }}">
+                        <input type="hidden" name="is_multiple_img"  value="{{ 1 }}">
+                        
+                        <button type="submit" class="btn btn-success btn-sm w-100">
+                            <i class="bi bi-printer"></i> Upload Multiple Image 
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if(request()->has('is_multiple_img') && request('is_multiple_img') == '1')
+<form action="{{ route('admin.students.bulk-serial-photo') }}" method="POST" enctype="multipart/form-data">
+@csrf
+@endif
+
+<div class="card mb-4" style="border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-radius: 14px; overflow: hidden; font-family: 'Segoe UI', Arial, sans-serif;">
+    <div class="card-body" style="padding: 0 25px;">
+        
+        @forelse($students as $key => $student)
+            <div class="row align-items-stretch" style="padding: 25px 0; {{ !$loop->last ? 'border-bottom: 1px solid #f1f5f9;' : '' }}">
+                
+                <div class="col-xl-3 col-lg-4 col-md-12 d-flex gap-3 align-items-start mb-3 mb-lg-0" style="border-right: 1px solid #f1f5f9;">
+                    <div style="font-weight: 700; color: #94a3b8; font-size: 14px; min-width: 25px; padding-top: 2px;">
+                        @if($students instanceof \Illuminate\Pagination\LengthAwarePaginator){{ $students->firstItem() + $key }}@else{{ $key + 1 }}@endif
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        @if($student->student_photo)
+                            <img src="https://img.fbasm.edu.bd/{{ $student->student_photo }}" alt="Photo" style="width: 75px; height: 95px; object-fit: cover; border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                        @else
+                            <div style="width: 75px; height: 95px; background: #f1f5f9; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #94a3b8; font-weight: bold; border: 1px solid #e2e8f0;">No Photo</div>
+                        @endif
+                    </div>
+                    
+                    <div style="line-height: 1.5; font-size: 13px; flex: 1;">
+                        <span style="font-size: 11px; font-weight: 700; color: #2563eb; background: #eff6ff; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 6px; border: 1px solid #bfdbfe;">UID: {{ $student->uid }}</span>
+                        <h6 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 600; color: #0f172a;">{{ $student->name_en_first }} {{ $student->name_en_last }}</h6>
+                        <div style="color: #475569; font-size: 12px;">
+                            <span style="display:inline-block; margin-right:8px;">শ্রেণি: <strong style="color:#0f172a;">{{ $student->currentAcademic->class ?? 'N/A' }}</strong></span>
+                            <span>রোল: <strong style="color:#0f172a;">{{ $student->currentAcademic->roll ?? 'N/A' }}</strong></span><br>
+                            <span>বর্ষ: <strong style="color:#475569;">{{ $student->currentAcademic->session ?? 'N/A' }}</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-8 col-lg-7 col-md-12 ps-xl-4">
+                    <div class="row g-3" style="font-size: 13px; color: #334155;">
+                        
+                        <div class="col-lg-4 col-md-6">
+                            <div style="font-weight: 600; color: #1e293b; margin-bottom: 8px; font-size: 12px; display: flex; align-items: center; gap: 5px;">
+                                <i class="bi bi-person-circle text-primary"></i> শিক্ষার্থী ও অভিভাবক
+                            </div>
+                            <div style="display: flex; margin-bottom: 4px;"><span style="color: #94a3b8; min-width: 60px;">নাম:</span> <span style="font-weight: 500;">{{ $student->name_bn_first }} {{ $student->name_bn_last }}</span></div>
+                            <div style="display: flex; margin-bottom: 4px;"><span style="color: #94a3b8; min-width: 60px;">জন্ম তারিখ:</span> <span>{{ $student->birth_date }}</span></div>
+                            <div style="display: flex; margin-bottom: 4px;"><span style="color: #94a3b8; min-width: 60px;">নিবন্ধন নং:</span> <span style="font-family: monospace;">{{ $student->birth_reg_no }}</span></div>
+                            <div style="display: flex; margin-bottom: 6px;"><span style="color: #94a3b8; min-width: 60px;">লিঙ্গ:</span> <span class="badge bg-light text-dark border">{{ $student->gender }}</span></div>
+                            
+                            <div style="border-top: 1px dashed #e2e8f0; padding-top: 6px; margin-top: 6px;">
+                                <div style="display: flex; margin-bottom: 4px;"><span style="color: #94a3b8; min-width: 60px;">অভিভাবক:</span> <span style="font-weight: 500;">{{ $student->guardian_name }}</span></div>
+                                @if($student->guardian_occupation)
+                                <div style="display: flex; margin-bottom: 4px;"><span style="color: #94a3b8; min-width: 60px;">পেশা:</span> <span>{{ $student->guardian_occupation }}</span></div>
+                                @endif
+                                <div style="display: flex;"><span style="color: #94a3b8; min-width: 60px;">মোবাইল:</span> <span style="color: #2563eb; font-weight: 600;">{{ $student->guardian_phone }}</span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-4 col-md-6" style="border-left: 1px dashed #f1f5f9; padding-left: 15px;">
+                            <div style="font-weight: 600; color: #2b6cb0; margin-bottom: 8px; font-size: 12px; display: flex; align-items: center; gap: 5px;">
+                                <i class="bi bi-people-fill text-info"></i> পিতা ও মাতার তথ্য
+                            </div>
+                            <div style="background: #f8fafc; padding: 6px 10px; border-radius: 6px; margin-bottom: 6px;">
+                                <div style="font-weight: 600; font-size: 11px; color: #475569; margin-bottom: 2px;">পিতার বিবরণ</div>
+                                <div style="margin-bottom: 2px;">{{ $student->father_bn }} ({{ $student->father_en }})</div>
+                                <div style="font-size: 11px; color: #64748b;">NID: {{ $student->father_nid ?? 'N/A' }}</div>
+                            </div>
+                            <div style="background: #f8fafc; padding: 6px 10px; border-radius: 6px;">
+                                <div style="font-weight: 600; font-size: 11px; color: #475569; margin-bottom: 2px;">মাতার বিবরণ</div>
+                                <div style="margin-bottom: 2px;">{{ $student->mother_bn }} ({{ $student->mother_en }})</div>
+                                <div style="font-size: 11px; color: #64748b;">NID: {{ $student->mother_nid ?? 'N/A' }}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-4 col-md-12" style="border-left: 1px dashed #f1f5f9; padding-left: 15px;">
+                            <div style="font-weight: 600; color: #10b981; margin-bottom: 8px; font-size: 12px; display: flex; align-items: center; gap: 5px;">
+                                <i class="bi bi-geo-alt-fill text-success"></i> যোগাযোগের ঠিকানা
+                            </div>
+                            
+                            <div style="margin-bottom: 8px; line-height: 1.4;">
+                                <span style="font-weight: 700; color: #059669; font-size: 11px; background: #e6f4ea; padding: 1px 6px; border-radius: 4px; display: inline-block; margin-bottom: 3px;">বর্তমান ঠিকানা</span><br>
+                                <span>গ্রাম: {{ $student->curr_village ?? '-' }}, ডাক: {{ $student->curr_post ?? '-' }}</span><br>
+                                <span style="font-size: 12px; color: #64748b;">ইউনিয়ন: {{ $student->curr_union ?? '-' }}, উপজেলা: {{ $student->curr_upazila ?? '-' }}, জেলা: {{ $student->curr_district ?? '-' }}</span>
+                            </div>
+                            
+                            <div style="line-height: 1.4;">
+                                <span style="font-weight: 700; color: #4b5563; font-size: 11px; background: #f3f4f6; padding: 1px 6px; border-radius: 4px; display: inline-block; margin-bottom: 3px;">স্থায়ী ঠিকানা</span><br>
+                                <span>গ্রাম: {{ $student->perm_village ?? '-' }}, ডাক: {{ $student->perm_post ?? '-' }}</span><br>
+                                <span style="font-size: 12px; color: #64748b;">ইউনিয়ন: {{ $student->perm_union ?? '-' }}, উপজেলা: {{ $student->perm_upazila ?? '-' }}, জেলা: {{ $student->perm_district ?? '-' }}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-xl-1 col-lg-1 col-md-12 text-md-end pt-3 pt-xl-0 d-flex flex-row flex-xl-column justify-content-end align-items-center gap-1" style="border-left: 1px solid #f1f5f9;">
+                    @if(request()->has('is_multiple_img') && request('is_multiple_img') == '1')
+                        <div style="padding: 10px 0;">
+                            <input type="checkbox" class="form-check-input" name="student_ids[]" value="{{ $student->id }}" style="transform: scale(1.3); cursor: pointer;">
+                        </div>
+                    @else
+                        <a href="{{ route('admin.students.show', $student->id) }}" class="btn btn-sm btn-info text-white d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; border-radius: 6px;" title="View"><i class="bi bi-eye"></i></a>
+                        <a href="{{ route('admin.students.edit', $student->id) }}" class="btn btn-sm btn-warning d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; border-radius: 6px;" title="Edit"><i class="bi bi-pencil-square"></i></a>
+                        <form action="{{ route('admin.students.destroy', $student->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; border-radius: 6px;" title="Delete"><i class="bi bi-trash"></i></button>
+                        </form>
+                    @endif
+                </div>
+
+            </div>
+        @empty
+            <div style="padding: 50px; text-align: center; color: #94a3b8; font-size: 15px;">
+                <i class="bi bi-exclamation-circle" style="font-size: 26px; display: block; margin-bottom: 8px;"></i>
+                No students found matching the criteria.
+            </div>
+        @endforelse
+
+    </div>
+</div>
+
+@if(request()->has('is_multiple_img') && request('is_multiple_img') == '1')
+<div class="card mb-4" style="border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-radius: 12px; overflow: hidden;">
+    <div class="card-body" style="padding: 20px;">
+        <h5>সিরিয়াল অনুযায়ী ছবি আপলোড দিন</h5>
+        <p class="text-danger" style="font-size: 13px;">* আপনি যতজন ছাত্র সিলেক্ট করেছেন, ঠিক ততগুলো ছবিই সিলেক্ট করুন। ১ম ছবি ১ম সিলেক্টেড ছাত্রের জন্য প্রযোজ্য হবে।</p>
+        <input type="file" name="photos[]" class="form-control" multiple required>
+        <button type="submit" class="btn btn-success mt-3">সিরিয়ালি আপলোড করুন</button>
+    </div>
+</div>
+</form>
+@endif
+
+@if($students instanceof \Illuminate\Pagination\LengthAwarePaginator)
+    <div class="d-flex justify-content-center mt-4 mb-4">
+        {{ $students->links() }}
+    </div>
+@endif
+
+<script>
+    let selectedOrder = [];
+
+    document.querySelectorAll('.column-check').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                selectedOrder.push(this.value);
+            } else {
+                selectedOrder = selectedOrder.filter(item => item !== this.value);
+            }
+            document.getElementById('ordered_columns').value = selectedOrder.join(',');
+        });
+    });
+
+    document.getElementById('downloadForm').addEventListener('submit', function(e) {
+        if (selectedOrder.length === 0) {
+            e.preventDefault();
+            alert('অনুগ্রহ করে অন্তত একটি কলাম সিলেক্ট করুন।');
+        }
+    });
+</script>
+@endsection

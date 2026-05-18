@@ -70,6 +70,8 @@
     <input type="hidden" name="roll" value="{{ request('roll') }}">
     <input type="hidden" name="session" value="{{ request('session') }}">
     <input type="hidden" name="gender" value="{{ request('gender') }}">
+    <input type="hidden" name="std_ids" value="{{ request('std_ids') }}">
+
 <input type="hidden" name="ordered_columns" id="ordered_columns">
     <div class="row mb-3 card p-3 bg-light">
         <h6>ডাউনলোডের জন্য কলাম সিলেক্ট করুন:</h6>
@@ -133,6 +135,8 @@
                         <input type="hidden" name="roll"  value="{{ request('roll') }}">
                         <input type="hidden" name="session" value="{{ request('session') }}">
                         <input type="hidden" name="gender" value="{{ request('gender') }}">
+                         <input type="hidden" name="std_ids" value="{{ request('std_ids') }}">
+
                         <button type="submit" class="btn btn-success btn-sm w-100">
                         <i class="bi bi-printer"></i> Print ID Cards
                         </button>
@@ -188,11 +192,12 @@
                 @forelse($students as $key => $student)
                 <tr>
                 <td>
-                @if($students instanceof \Illuminate\Pagination\LengthAwarePaginator)
-                {{ $students->firstItem() + $key }}
-                @else
-                {{ $key + 1 }}
-                @endif
+                    <input type="checkbox" onchange="handle_selected_id('{{$student->id}}')">
+              @if($students instanceof \Illuminate\Pagination\LengthAwarePaginator)
+        {{ $students->firstItem() + $key }}
+    @else
+        {{ $loop->iteration }}
+    @endif
                 </td>
                     <td>
                           ID : {{ $student->uid }}
@@ -329,5 +334,9 @@
             alert('অনুগ্রহ করে অন্তত একটি কলাম সিলেক্ট করুন।');
         }
     });
+
+    function handle_selected_id(id){
+        alert(id)
+    }
 </script>
 @endsection

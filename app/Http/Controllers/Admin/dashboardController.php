@@ -19,6 +19,13 @@ class dashboardController extends Controller
      $query = Student::with('currentAcademic');
 
     // সার্চ ফিল্টারসমূহ
+    if ($request->filled('std_ids')) {
+        $stdIds = is_array($request->std_ids) 
+            ? $request->std_ids 
+            : explode(',', $request->std_ids);
+            
+        $query->whereIn('id', $stdIds);
+    }
     if ($request->filled('uid')) {
         $query->where('uid', $request->uid);
     }

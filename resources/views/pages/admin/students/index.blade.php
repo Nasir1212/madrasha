@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 @section('content')
+    @php
+    // ইউআরএল (URL) থেকে সিলেক্টেড আইডিগুলো অ্যারেতে নেওয়া
+    $selectedIds = request('std_ids') ? explode(',', request('std_ids')) : [];
+    @endphp
 
 <div class="card">
     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
@@ -45,6 +49,7 @@
                 <div class="col-md-2">
                     <input type="text" name="session" class="form-control form-control-sm" placeholder="Session" value="{{ request('session') }}">
                 </div>
+            <input type="hidden" name="std_ids" value="{{ request('std_ids') }}">
 
                 <div class="col-md-2 d-flex gap-1">
                     <button type="submit" class="btn btn-primary btn-sm w-100">
@@ -70,7 +75,7 @@
     <input type="hidden" name="roll" value="{{ request('roll') }}">
     <input type="hidden" name="session" value="{{ request('session') }}">
     <input type="hidden" name="gender" value="{{ request('gender') }}">
-    <input type="hidden" name="std_ids" value="{{ request('std_ids') }}">
+    <input type="hidden" name="std_ids" value="{{ request('std_ids') }}" >
 
 <input type="hidden" name="ordered_columns" id="ordered_columns">
     <div class="row mb-3 card p-3 bg-light">
@@ -154,7 +159,8 @@
                         <input type="hidden" name="session" value="{{ request('session') }}">
                         <input type="hidden" name="gender" value="{{ request('gender') }}">
                         <input type="hidden" name="is_multiple_img"  value="{{ 1 }}">
-                        
+                        <input type="hidden" name="std_ids" value="{{ request('std_ids') }}">
+
                         <button type="submit" class="btn btn-success btn-sm w-100">
                         <i class="bi bi-printer"></i> Upload Multiple Image 
                         </button>
@@ -192,12 +198,13 @@
                 @forelse($students as $key => $student)
                 <tr>
                 <td>
-                    <input type="checkbox" onchange="handle_selected_id('{{$student->id}}')">
-              @if($students instanceof \Illuminate\Pagination\LengthAwarePaginator)
-        {{ $students->firstItem() + $key }}
-    @else
-        {{ $loop->iteration }}
-    @endif
+                <input type="checkbox" onchange="handle_selected_id(this,'{{$student->id}}')" {{ in_array($student->id, $selectedIds) ? 'checked' : '' }}
+               style="transform: scale(1.1); cursor: pointer; margin: 0;">
+                @if($students instanceof \Illuminate\Pagination\LengthAwarePaginator)
+                {{ $students->firstItem() + $key }}
+                @else
+                {{ $loop->iteration }}
+                @endif
                 </td>
                     <td>
                           ID : {{ $student->uid }}
@@ -311,8 +318,103 @@
 </div>
 
 <script>
-    let selectedOrder = [];
 
+//     let selectedOrder = [];
+
+//     document.querySelectorAll('.column-check').forEach(checkbox => {
+//         checkbox.addEventListener('change', function() {
+//             if (this.checked) {
+//                 // মার্ক করলে লিস্টের শেষে পুশ হবে
+//                 selectedOrder.push(this.value);
+//             } else {
+//                 // আনমার্ক করলে লিস্ট থেকে রিমুভ হবে
+//                 selectedOrder = selectedOrder.filter(item => item !== this.value);
+//             }
+//             // হিডেন ফিল্ডে কমা দিয়ে স্টোর করা (যেমন: uid,full_name_bn,roll)
+//             document.getElementById('ordered_columns').value = selectedOrder.join(',');
+//         });
+//     });
+
+//     // ফর্ম সাবমিট করার সময় চেক করা
+//     document.getElementById('downloadForm').addEventListener('submit', function(e) {
+//         if (selectedOrder.length === 0) {
+//             e.preventDefault();
+//             alert('অনুগ্রহ করে অন্তত একটি কলাম সিলেক্ট করুন।');
+//         }
+//     });
+
+ 
+
+// let selectedStudentIds = [];
+
+// function handle_selected_id(checkbox, id) {
+//     id = id.toString(); // আইডি স্ট্রিং এ কনভার্ট
+    
+//     if (checkbox.checked) {
+//         // টিক দিলে অ্যারেতে ঢুকবে
+//         if (!selectedStudentIds.includes(id)) {
+//             selectedStudentIds.push(id);
+//         }
+//     } else {
+//         // টিক তুলে নিলে অ্যারে থেকে বাদ যাবে
+//         selectedStudentIds = selectedStudentIds.filter(item => item !== id);
+//     }
+    
+//     // কমা দিয়ে জয়েন করা (যেমন: 72,73)
+//     let finalIdsString = selectedStudentIds.join(',');
+    
+//     // name="std_ids" দিয়ে পেজের দুটি ইনপুট ফিল্ডকেই একসাথে ধরা এবং ভ্যালু সেট করা
+//     let inputFields = document.getElementsByName('std_ids');
+//     inputFields.forEach(field => {
+//         field.value = finalIdsString;
+//     });
+
+//     console.log("Name field values updated to:", finalIdsString);
+// }
+
+// ==========================================
+    // ১. গ্লোবাল ভেরিয়েবল ইনিশিয়ালাইজেশন (সবার উপরে)
+    // ==========================================
+    let selectedOrder = [];
+    let selectedStudentIds = [];
+
+    // পেজ লোড হওয়ার সময় যদি আগে থেকে input ফিল্ডে কোনো আইডি থাকে, তা অ্যারেতে নেওয়া
+    let existingFields = document.getElementsByName('std_ids');
+    if (existingFields.length > 0 && existingFields[0].value) {
+        selectedStudentIds = existingFields[0].value.split(',').filter(Boolean);
+    }
+
+    // ==========================================
+    // ২. স্টুডেন্ট আইডি সিলেকশন ফাংশন (গ্লোবাল স্কোপে)
+    // ==========================================
+    window.handle_selected_id = function(checkbox, id) {
+        id = id.toString(); // আইডি স্ট্রিং এ কনভার্ট
+        
+        if (checkbox.checked) {
+            // টিক দিলে অ্যারেতে ঢুকবে
+            if (!selectedStudentIds.includes(id)) {
+                selectedStudentIds.push(id);
+            }
+        } else {
+            // টিক তুলে নিলে অ্যারে থেকে বাদ যাবে
+            selectedStudentIds = selectedStudentIds.filter(item => item !== id);
+        }
+        
+        // কমা দিয়ে জয়েন করা (যেমন: 72,73)
+        let finalIdsString = selectedStudentIds.join(',');
+        
+        // name="std_ids" দিয়ে পেজের দুটি ইনপুট ফিল্ডকেই একসাথে ধরা এবং ভ্যালু সেট করা
+        let inputFields = document.getElementsByName('std_ids');
+        inputFields.forEach(field => {
+            field.value = finalIdsString;
+        });
+
+        console.log("Name field values updated to:", finalIdsString);
+    }
+
+    // ==========================================
+    // ৩. ডাউনলোডের জন্য কলাম সিলেকশন হ্যান্ডেলার
+    // ==========================================
     document.querySelectorAll('.column-check').forEach(checkbox => {
         checkbox.addEventListener('change', function() {
             if (this.checked) {
@@ -322,21 +424,26 @@
                 // আনমার্ক করলে লিস্ট থেকে রিমুভ হবে
                 selectedOrder = selectedOrder.filter(item => item !== this.value);
             }
-            // হিডেন ফিল্ডে কমা দিয়ে স্টোর করা (যেমন: uid,full_name_bn,roll)
-            document.getElementById('ordered_columns').value = selectedOrder.join(',');
+            // হিডেন ফিল্ডে কমা দিয়ে স্টোর করা (যেমন: uid,full_name_bn,roll)
+            let orderedColumnsInput = document.getElementById('ordered_columns');
+            if (orderedColumnsInput) {
+                orderedColumnsInput.value = selectedOrder.join(',');
+            }
         });
     });
 
-    // ফর্ম সাবমিট করার সময় চেক করা
-    document.getElementById('downloadForm').addEventListener('submit', function(e) {
-        if (selectedOrder.length === 0) {
-            e.preventDefault();
-            alert('অনুগ্রহ করে অন্তত একটি কলাম সিলেক্ট করুন।');
-        }
-    });
-
-    function handle_selected_id(id){
-        alert(id)
+    // ==========================================
+    // ৪. ফর্ম সাবমিট করার সময় নাল-চেক ভ্যালিডেশন
+    // ==========================================
+    let downloadFormElement = document.getElementById('downloadForm');
+    if (downloadFormElement) {
+        downloadFormElement.addEventListener('submit', function(e) {
+            if (selectedOrder.length === 0) {
+                e.preventDefault();
+                alert('অনুগ্রহ করে অন্তত একটি কলাম সিলেক্ট করুন।');
+            }
+        });
     }
+
 </script>
 @endsection

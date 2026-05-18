@@ -20,6 +20,14 @@ class StudentController extends Controller
 {
     $query = Student::with('currentAcademic');
 
+    if ($request->filled('std_ids')) {
+        $stdIds = is_array($request->std_ids) 
+            ? $request->std_ids 
+            : explode(',', $request->std_ids);
+            
+        $query->whereIn('id', $stdIds);
+    }
+
     // সার্চ ফিল্টারসমূহ
     if ($request->filled('uid')) {
         $query->where('uid', $request->uid);
@@ -484,6 +492,13 @@ public function downloadDoc(Request $request)
         // ১. ফিল্টার অনুযায়ী ডাটা কোয়েরি করা (আপনার ইনডেক্স পেজের ফিল্টার লজিক)
         $query = Student::query();
 
+        if ($request->filled('std_ids')) {
+        $stdIds = is_array($request->std_ids) 
+            ? $request->std_ids 
+            : explode(',', $request->std_ids);
+            
+        $query->whereIn('id', $stdIds);
+    }
         if ($request->uid) {
             $query->where('uid', 'like', '%' . $request->uid . '%');
         }

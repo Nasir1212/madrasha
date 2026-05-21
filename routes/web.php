@@ -71,3 +71,8 @@ Route::get('/clear-all', function() {
     echo "clear";
     // return what you want
 });
+
+Route::get('/migration', function() {
+    Artisan::call('migrate', ['--force' => true]);
+    return "Database migrated successfully with force option!";
+});

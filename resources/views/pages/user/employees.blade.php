@@ -13,18 +13,24 @@
                         
                         <!-- শিক্ষক/কর্মচারীর ছবি -->
                         <div class="teacher-image" style="background: #f9f9f9; text-align: center; padding: 15px;">
-                            @if($staff->photo && file_exists(public_path('uploads/staff/' . $staff->photo)))
+                            {{-- @if($staff->photo && file_exists(public_path('uploads/staff/' . $staff->photo)))
                                 <img src="{{ asset('uploads/staff/' . $staff->photo) }}" alt="{{ $staff->bn_name }}" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #DBECFD;">
                             @else
                                 <!-- ছবি না থাকলে একটি ডিফল্ট অবতার বা প্লেসহোল্ডার ইমেজ দেখাবে -->
                                 <img src="{{ asset('assets/img/default-avatar.jpg') }}" alt="{{ $staff->bn_name }}" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #DBECFD;">
-                            @endif
+                            @endif --}}
+                            
+                             @if($staff->photo)
+                        <img src="https://img.fbasm.edu.bd/{{ $staff->photo }}" alt="{{ $staff->name_en }}"style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #DBECFD;">
+                    @else
+                        <img src="https://via.placeholder.com/200x200?text=No+Photo" alt="No Photo" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #DBECFD;">
+                    @endif
                         </div>
 
                         <!-- তথ্যসমূহ -->
                         <div class="teacher-info" style="padding: 15px; text-align: center;">
                             <!-- বাংলা নাম -->
-                            <h5 style="margin: 0; font-weight: bold; color: #2c3e50; font-size: 18px;">{{ $staff->bn_name ?? $staff->name }}</h5>
+                            <h5 style="margin: 0; font-weight: bold; color: #2c3e50; font-size: 17px;">{{ $staff->name_bn ?? $staff->name_en }}</h5>
                             
                             <!-- পদবী (designation) এবং বিষয় (subject) যদি থাকে -->
                             <p style="color: #3498db; font-weight: bold; margin: 5px 0;">
@@ -34,11 +40,11 @@
                             <!-- এমপিও ধরন অনুযায়ী ডাইনামিক কালার ব্যাজ -->
                             @if(trim(strtolower($staff->mpo_type)) == 'mpo' || $staff->mpo_type == 'এমপিওভুক্ত' || $staff->mpo_type == 'MPO')
                                 <div style="background: #f1f8ff; padding: 5px 10px; border-radius: 5px; display: inline-block; margin-bottom: 10px; font-size: 14px; border: 1px solid #d1e7ff;">
-                                    <span style="color: #555;">ধরন: </span> <strong style="color: #0066cc;">এমপিওভুক্ত</strong>
+                                    <span style="color: #555;">ধরন: </span> <strong style="color: #0066cc;"> MPO </strong>
                                 </div>
                             @else
                                 <div style="background: #fff0f0; padding: 5px 10px; border-radius: 5px; display: inline-block; margin-bottom: 10px; font-size: 14px; border: 1px solid #ffd1d1;">
-                                    <span style="color: #555;">ধরন: </span> <strong style="color: #cc0000;">নন-এমপিও</strong>
+                                    <span style="color: #555;">ধরন: </span> <strong style="color: #cc0000;"> Non-MPO </strong>
                                 </div>
                             @endif
 

@@ -25,7 +25,7 @@ class StudentController extends Controller
             ? $request->std_ids 
             : explode(',', $request->std_ids);
             
-        $query->whereIn('id', $stdIds);
+        $query->whereIn('students.id', $stdIds);
     }
 
     // সার্চ ফিল্টারসমূহ
@@ -497,7 +497,7 @@ public function downloadDoc(Request $request)
             ? $request->std_ids 
             : explode(',', $request->std_ids);
             
-        $query->whereIn('id', $stdIds);
+        $query->whereIn('students.id', $stdIds);
     }
         if ($request->uid) {
             $query->where('uid', 'like', '%' . $request->uid . '%');

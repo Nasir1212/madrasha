@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Admission;
+use App\Models\Staff;
 
 class HomeController extends Controller
 {
@@ -20,7 +21,8 @@ class HomeController extends Controller
         return view('pages.user.admission_form');
     }
     public function employees(){
-        return view('pages.user.employees');
+        $staffs = Staff::all();
+        return view('pages.user.employees',compact('staffs'));
     }
 
 

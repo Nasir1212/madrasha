@@ -27,7 +27,7 @@
   </a>
   <ul class="dropdown-menu">
     <li><a class="dropdown-item" href="{{ route('admin.staff.index') }}"><i class="bi bi-eye me-2"></i>View Teachers</a></li>
-    <li><a class="dropdown-item" href="#"><i class="bi bi-plus-circle me-2"></i>Add Teacher</a></li>
+    <li><a class="dropdown-item" href="{{route('admin.staff.create') }}"><i class="bi bi-plus-circle me-2"></i>Add Teacher</a></li>
   </ul>
 </div>
 

@@ -42,6 +42,7 @@
   </ul>
   
 
+    <a href="{{ route('admin.gallery.index') }}" class="nav-link"><i class="bi bi-book me-2"></i> Gallery </a>
     <a href="#" class="nav-link"><i class="bi bi-book me-2"></i>Class Routine</a>
     <a href="#" class="nav-link"><i class="bi bi-calendar-week me-2"></i>Exams</a>
     <a href="#" class="nav-link"><i class="bi bi-journal-text me-2"></i>Results</a>

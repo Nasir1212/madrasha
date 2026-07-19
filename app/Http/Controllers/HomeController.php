@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Admission;
 use App\Models\Staff;
+use App\Models\GalleryImage;
 
 class HomeController extends Controller
 {
@@ -25,5 +26,9 @@ class HomeController extends Controller
         return view('pages.user.employees',compact('staffs'));
     }
 
+    public function gallery(){
+        $images = GalleryImage::latest()->paginate(4);
+        return view('pages.user.gallery',compact('images'));
+    }
 
 }

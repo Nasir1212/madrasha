@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\AdmissionAdminController;
 use App\Http\Controllers\HomeController;
  use App\Http\Controllers\Admin\StaffController;
+ use App\Http\Controllers\Admin\GalleryController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -15,9 +16,17 @@ Route::get('/employees', [HomeController::class, 'employees'])->name('employees'
 Route::get('/print-form/{form_no}', [HomeController::class, 'print_form'])->name('print_form');
 Route::post('/admission-store', [AdmissionController::class, 'store'])->name('admission.store');
 Route::get('/admission', [HomeController::class, 'admission_form'])->name('admission_form');
+Route::get('/gallery', [HomeController::class, 'gallery'])->name('gallery');
+
 
 
 Route::prefix('admin')->name('admin.')->group(function () {
+
+    Route::get('/gallery', [GalleryController::class, 'adminIndex'])->name('gallery.index');
+    Route::post('/gallery', [GalleryController::class, 'store'])->name('gallery.store');
+    Route::put('/gallery/{id}', [GalleryController::class, 'update'])->name('gallery.update'); // নতুন যুক্ত হয়েছে
+    Route::delete('/gallery/{id}', [GalleryController::class, 'destroy'])->name('gallery.destroy');
+
     Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard');
     Route::get('students/print-cards', [dashboardController::class, 'printCards'])->name('students.print.cards');
     Route::resource('students', StudentController::class);

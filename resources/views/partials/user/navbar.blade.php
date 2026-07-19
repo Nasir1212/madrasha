@@ -66,10 +66,10 @@
                                     <li><a href="#"> কিতাব বিভাগ </a></li>
                                 </ul>
                             </li>
-                            <li><a href="#">মিডিয়া</a>
+                            <li><a href="#">গ্যালারী</a>
                                 <ul class="dropdown">
-                                    <li><a href="#photo-gallery">ফটোগ্যালারী</a></li>
-                                    <li><a href="#video-gallery"> ভিডিও গ্যালারি </a></li> 
+                                    <li><a href="{{ route('gallery') }}">ফটোগ্যালারী</a></li>
+                                    {{-- <li><a href="#video-gallery"> ভিডিও গ্যালারি </a></li>  --}}
                                     <!--<li><a href="#">ভিডিও</a></li> -->
                                 </ul>
                             </li>

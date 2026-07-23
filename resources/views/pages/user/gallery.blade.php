@@ -1,7 +1,6 @@
 @extends('layouts.user')
 @section('content')
 
-<div class="main-content" style="background-image: url(https://dskm.ac.bd/assets/images/bg/bg.png)" >
     <!-----------Gallery Start------------>
     <style type="text/css">
       .modal-dialog {width:500px;}
@@ -65,6 +64,5 @@
        </div>
     </div>
    </section>
-</div>
 
 @endsection

@@ -8,8 +8,8 @@
                             <li><a href="#">পরিচিতি</a>
                                 <ul class="dropdown">
                                     <li><a href="#about-us">এক নাজরে মাদরাসা</a></li>
-                                    <li><a href="#principal-statement">অধ্যক্ষের বাণী ও সংক্ষিপ্ত জীবনবৃত্তান্ত</a></li>
-                                    <!--<li><a href="vice-principal-statement">উপাধ্যক্ষের বাণী ও সংক্ষিপ্ত জীবনবৃত্তান্ত</a></li>-->
+                                    <li><a href="{{ route('principals.message') }}">অধ্যক্ষের বাণী </a></li>
+                               <li><a href="vice-principal-statement">উপাধ্যক্ষের বাণী </a></li>
                                     <li><a href="#key-feature">বৈশিষ্ট্য</a></li>
                                     <li><a href="#establishment-planning">প্রতিষ্ঠার পরিকল্পনা</a></li>
                                     <li><a href="#mission-vision">প্রতিষ্ঠার লক্ষ্য</a></li>

@@ -17,6 +17,7 @@ Route::get('/print-form/{form_no}', [HomeController::class, 'print_form'])->name
 Route::post('/admission-store', [AdmissionController::class, 'store'])->name('admission.store');
 Route::get('/admission', [HomeController::class, 'admission_form'])->name('admission_form');
 Route::get('/gallery', [HomeController::class, 'gallery'])->name('gallery');
+Route::get('/principals-message', [HomeController::class, 'principals_message'])->name('principals.message');
 
 
 

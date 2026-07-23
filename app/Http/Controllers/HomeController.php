@@ -9,6 +9,11 @@ use App\Models\GalleryImage;
 
 class HomeController extends Controller
 {
+
+public function principals_message(){
+    return view('pages.user.principals-message');
+}
+
     public function index(){
         return view('pages.user.home');
     }

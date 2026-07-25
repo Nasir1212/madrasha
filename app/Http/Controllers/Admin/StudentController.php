@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use App\Models\Admission;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
+
 class StudentController extends Controller
 {
     /**
@@ -36,6 +37,39 @@ class StudentController extends Controller
      if ($request->filled('gender')) {
         $query->where('gender', $request->gender);
     }
+
+  // বয়স (Age) ফিল্টার লজিক (+, -, Range এবং Single Value সাপোর্ট সহ)
+if ($request->filled('age')) {
+    $ageInput = trim($request->input('age'));
+
+    if (strpos($ageInput, '+') !== false) {
+        // ১. ১১+ (১১ এবং তার বেশি বয়সের শিক্ষার্থী)
+        $minAge = (int) str_replace('+', '', $ageInput);
+        $maxAge = 100; // সর্বোচ্চ ১০০ বছর পর্যন্ত ধরা হয়েছে
+
+    } elseif (str_ends_with($ageInput, '-')) {
+        // ২. ১১- (১১ এবং তার কম বয়সের শিক্ষার্থী)
+        $minAge = 0;
+        $maxAge = (int) str_replace('-', '', $ageInput);
+
+    } elseif (strpos($ageInput, '-') !== false) {
+        // ৩. ১১-১২ (১১ থেকে ১২ বছরের রেঞ্জ)
+        [$minAge, $maxAge] = explode('-', $ageInput);
+        $minAge = (int) trim($minAge);
+        $maxAge = (int) trim($maxAge);
+
+    } else {
+        // ৪. ১১ (শুধু নির্দিষ্ট ১১ বছরের শিক্ষার্থী)
+        $minAge = (int) $ageInput;
+        $maxAge = (int) $ageInput;
+    }
+
+    // জন্মতারিখের সীমা নির্ধারণ
+    $maxBirthDate = \Carbon\Carbon::now()->subYears($minAge)->endOfDay();
+    $minBirthDate = \Carbon\Carbon::now()->subYears($maxAge + 1)->addDay()->startOfDay();
+
+    $query->whereBetween('birth_date', [$minBirthDate, $maxBirthDate]);
+}
 
     if ($request->filled('name')) {
         $name = $request->name;
@@ -512,6 +546,39 @@ public function downloadDoc(Request $request)
             $query->where('gender', $request->gender);
         }
 
+        // বয়স (Age) ফিল্টার লজিক (+, -, Range এবং Single Value সাপোর্ট সহ)
+if ($request->filled('age')) {
+    $ageInput = trim($request->input('age'));
+
+    if (strpos($ageInput, '+') !== false) {
+        // ১. ১১+ (১১ এবং তার বেশি বয়সের শিক্ষার্থী)
+        $minAge = (int) str_replace('+', '', $ageInput);
+        $maxAge = 100; // সর্বোচ্চ ১০০ বছর পর্যন্ত ধরা হয়েছে
+
+    } elseif (str_ends_with($ageInput, '-')) {
+        // ২. ১১- (১১ এবং তার কম বয়সের শিক্ষার্থী)
+        $minAge = 0;
+        $maxAge = (int) str_replace('-', '', $ageInput);
+
+    } elseif (strpos($ageInput, '-') !== false) {
+        // ৩. ১১-১২ (১১ থেকে ১২ বছরের রেঞ্জ)
+        [$minAge, $maxAge] = explode('-', $ageInput);
+        $minAge = (int) trim($minAge);
+        $maxAge = (int) trim($maxAge);
+
+    } else {
+        // ৪. ১১ (শুধু নির্দিষ্ট ১১ বছরের শিক্ষার্থী)
+        $minAge = (int) $ageInput;
+        $maxAge = (int) $ageInput;
+    }
+
+    // জন্মতারিখের সীমা নির্ধারণ
+    $maxBirthDate = \Carbon\Carbon::now()->subYears($minAge)->endOfDay();
+    $minBirthDate = \Carbon\Carbon::now()->subYears($maxAge + 1)->addDay()->startOfDay();
+
+    $query->whereBetween('birth_date', [$minBirthDate, $maxBirthDate]);
+}
+
         if ($request->filled('class') || $request->filled('roll') || $request->filled('session')) {
         $query->whereHas('currentAcademic', function($q) use ($request) {
             if ($request->filled('class')) {
@@ -525,6 +592,7 @@ public function downloadDoc(Request $request)
             }
         });
     }
+
         
 
   $students = $query->with('currentAcademic')->get()->sort(function($a, $b) {

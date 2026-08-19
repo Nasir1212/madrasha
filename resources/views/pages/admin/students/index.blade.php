@@ -17,6 +17,9 @@
                 <div class="col-md-2">
                     <input type="text" name="uid" class="form-control form-control-sm" placeholder="ID (UID)" value="{{ request('uid') }}">
                 </div>
+                <div class="col-md-1">
+                    <input type="text" name="age" class="form-control form-control-sm" placeholder="Age 5-9" value="{{ request('age') }}">
+                </div>
                 
                 <div class="col-md-2">
                     <input type="text" name="name" class="form-control form-control-sm" placeholder="Student Name" value="{{ request('name') }}">
@@ -30,7 +33,7 @@
                     </select>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <select name="class" class="form-select form-select-sm">
                         <option value="">Class </option>
                         @foreach(range(0, 10) as $class)
@@ -49,7 +52,7 @@
                 <div class="col-md-2">
                     <input type="text" name="session" class="form-control form-control-sm" placeholder="Session" value="{{ request('session') }}">
                 </div>
-            <input type="hidden" name="std_ids" value="{{ request('std_ids') }}">
+                <input type="hidden" name="std_ids" value="{{ request('std_ids') }}">
 
                 <div class="col-md-2 d-flex gap-1">
                     <button type="submit" class="btn btn-primary btn-sm w-100">
@@ -70,6 +73,7 @@
         <form action="{{ route('admin.download.doc') }}" method="POST">
     @csrf
     <input type="hidden" name="uid" value="{{ request('uid') }}">
+    <input type="hidden" name="age" value="{{ request('age') }}">
     <input type="hidden" name="name" value="{{ request('name') }}">
     <input type="hidden" name="class" value="{{ request('class') }}">
     <input type="hidden" name="roll" value="{{ request('roll') }}">
@@ -134,7 +138,8 @@
             <div class="col-md-2">
             <div class="mb-2 text-start">
                      <form action="{{ route('admin.students.print.cards') }}" method="GET">
-                        <input type="hidden" name="uid"  value="{{ request('uid') }}">
+                         <input type="hidden" name="uid"  value="{{ request('uid') }}">
+                         <input type="hidden" name="age"  value="{{ request('age') }}">
                         <input type="hidden" name="name"  value="{{ request('name') }}">  
                         <input type="hidden" name="class"  value="{{ request('class') }}">
                         <input type="hidden" name="roll"  value="{{ request('roll') }}">

@@ -21,15 +21,15 @@
                             <h4 class="widget-title title-dots"><span>ফটো গ্যালারি:</span></h4>
                           </div>
                         
-                        <div class="col-xs-12 col-sm-12 col-md-12" >
+                        <div class="col-xs-10 col-sm-10 col-md-10" >
                                     
                          <div class="row" > 
-                            @forelse($images as $image)
-                                <div class="col-lg-6 col-md-6 col-12 mb-30 line-content" style="display: block;" >
+                          @forelse($images as $image)
+                                <div class="col-lg-5 col-md-5 col-sm-12 mb-30 line-content" style="display: block;" >
                                     <div class="single-item" >
                                         <div class="single-item-image overlay-effect single-gallery-img" >
-                                            <a href="{{ asset($image->image_path) }}" data-fancybox="images" >
-                                                <img src="{{ asset($image->image_path) }}" alt="{{ $image->title }}" style="width: 100%; height: 250px; object-fit: cover;">
+                                            <a href="{{ env('IMG_URL')}}/{{$image->image_path}}" data-fancybox="images" >
+                                                <img src="{{ env('IMG_URL')}}/{{$image->image_path}}" alt="{{ $image->title }}" style="width: 100%; height: 250px; object-fit: cover;">
                                             </a>
                                             <div class="courses-hover-info" >
                                                 <div class="courses-hover-action" >

@@ -60,7 +60,7 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>
-                                        <img src="{{ asset($img->image_path) }}" alt="" style="width: 80px; height: 50px; object-fit: cover; border-radius: 4px;">
+                                        <img src="{{ env('IMG_URL')}}/{{$img->image_path}}" alt="" style="width: 80px; height: 50px; object-fit: cover; border-radius: 4px;">
                                     </td>
                                     <td>{{ $img->title }}</td>
                                     <td>
@@ -99,7 +99,7 @@
                                                     <div class="form-group mb-3">
                                                         <label class="form-label">বর্তমান ছবি:</label>
                                                         <div class="mb-2">
-                                                            <img src="{{ asset($img->image_path) }}" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px;">
+                                                            <img src="{{ env('IMG_URL')}}/{{$img->image_path}}" style="width: 120px; height: 80px; object-fit: cover; border-radius: 4px;">
                                                         </div>
                                                         <label class="form-label">নতুন ছবি (পরিবর্তন করতে চাইলে):</label>
                                                         <input type="file" name="image" class="form-control">
